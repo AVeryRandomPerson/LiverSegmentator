@@ -3,15 +3,22 @@ import numpy as np
 import colorsys
 import math
 from ImgProcessor import CTImage
-
+#Colour const
 SAT = 1.0
 VAL = 1.0
 
+#Colour index
+R = 2
+G = 1
+B = 0
+
+#Parameter Indexes
 iNCENTERS = 0
 iERROR = 1
 iMAXITER = 2
 iINIT = 3
 
+#Result Indexes
 iCENTER = 0
 iLABELS = 1
 iINIT_PARTITION = 2
@@ -21,10 +28,8 @@ iITERS_EXEC = 5
 iPART_COEFF = 6
 iCOL_SCHEME = 7
 
-R = 2
-G = 1
-B = 0
 
+# Class handling the fuzzy c-means clustering and visualizing its results
 class FuzzyClusterer():
     width = 0
     height = 0
@@ -45,26 +50,54 @@ class FuzzyClusterer():
 
         return self.results
 
+    #Basic cMeans operations using skfuzzy.
     def cMeans(self,params):
-        cntr, u, u0, d, jm, p, fpc = fuzz.cluster.cmeans(
+        center, fin_partition, init_partition, fin_euclid, obj_hist, iters_exec, part_coeff = fuzz.cluster.cmeans(
             data = self.img_data,
             c=params[iNCENTERS],
-            m=2,
+            m=3,
             error=params[iERROR],
             maxiter=params[iMAXITER],
             init=params[iINIT])
 
         # We use labels instead of the U matrix given by the c-partition.
-        labels = np.argmax(u, axis=0)
+        labels = np.argmax(fin_partition, axis=0)
 
         # Compute the colour scheme for this set of cluster
         color_scheme = self._genColourScheme(params[iNCENTERS])
-        self.results.append((cntr, labels, u0, d, jm, p, fpc, color_scheme))
-        return cntr,labels,u0,d,jm,p,fpc,color_scheme
+        self.results.append((center, labels, init_partition, fin_euclid, obj_hist, iters_exec, part_coeff, color_scheme))
+        return center, labels, init_partition, fin_euclid, obj_hist, iters_exec, part_coeff, color_scheme
 
-    def clearResults(self):
+    # Resets the results which have been computed.
+    def resetResults(self):
         self.results = []
 
+    # Removes the current image which is being referenced.
+    def resetImage(self):
+        self.img_data = np.zeros(0)
+        self.width = 0
+        self.height = 0
+
+    # Changes the image source which is being referenced.
+    def changeImage(self,img_loc):
+        ct_image = CTImage(img_loc)
+        self.img_data = ct_image.getIntensityData()
+        self.width = ct_image.getWidth()
+        self.height = ct_image.getHeight()
+
+    # Resets the whole class as if it is a new object.
+    # If no image is specified when this is called, the old image will stay referenced.
+    def resetClusterer(self,img_loc = None):
+        self.resetResults()
+
+        if(not img_loc):
+            self.resetImage()
+
+        else:
+            self.changeImage(self,img_loc)
+
+    # Processes and acquires the clustered image from results.
+    # Latest result will be used if no reference is made for previous results
     def computeClusteredImage(self,resultIndex=None):
         #Use the latest result appended if no index given
         if(not resultIndex):
@@ -87,7 +120,9 @@ class FuzzyClusterer():
 
         return clustered_image
 
+    #Generates a colour scheme of RGB based on the percentile of RGB values and number of clusters.
     def _genColourScheme(self, ncenters):
+        #Black and white if only 2 cluster.
         rgb_scheme = [[0, 0, 0], [255, 255, 255]]
         if (ncenters > 2):
             colour_distributions = ncenters - 2

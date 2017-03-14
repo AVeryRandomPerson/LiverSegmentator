@@ -25,13 +25,6 @@ class CTImage:
 
     #Processes each pixel of image into a flat array of intensity data.
     def getIntensityData(self):
-        '''
-        xpts = np.zeros(0)
-        for y in range(0, self.height):
-            for x in range(0, self.width):
-                xpts = np.hstack((xpts, self.image[y][x]))
-                print('{0} , {1}'.format(x, y))
-        ypts = xpts'''
         xpts = np.ravel(self.image)
         ypts = xpts
-        return np.vstack((xpts, ypts))
+        return np.vstack((xpts,ypts))
