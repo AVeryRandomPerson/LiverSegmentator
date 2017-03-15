@@ -19,17 +19,6 @@ iERROR = 1
 iMAXITER = 2
 iINIT = 3
 
-#Result Indexes
-iCENTER = 0
-iLABELS = 1
-iINIT_PARTITION = 2
-iFIN_EUCLID = 3
-iOBJ_HIST = 4
-iITERS_EXEC = 5
-iPART_COEFF = 6
-iCOL_SCHEME = 7
-
-
 # Class handling the fuzzy c-means clustering and visualizing its results
 class FuzzyClusterer():
     def __init__(self,path,name,format):
@@ -80,9 +69,9 @@ class FuzzyClusterer():
                                     iters_exec,
                                     part_coeff,
                                     color_scheme),
-                                   self.ct_image.getPath(),
-                                   self.ct_image.getName(),
-                                   self.ct_image.getFormat())
+                                   self.ct_image.path,
+                                   self.ct_image.name,
+                                   self.ct_image.format)
         self.results.append(result)
 
 
@@ -93,23 +82,7 @@ class FuzzyClusterer():
             self.cMeans(paramsList[i])
 
 
-    # Resets the results which have been computed.
-    def resetResults(self):
-        self.results = []
-
-
-    # Removes the current image which is being referenced.
-    def resetImage(self):
-        self.img_data = np.zeros(0)
-
-
-    # Changes the image source which is being referenced.
-    def changeImage(self,img_loc):
-        ct_image = Img.CTImage(img_loc)
-        self.img_data = ct_image.getIntensityData()
-
-
-    # Resets the whole class as if it is a new object.
+# Resets the whole class as if it is a new object.
     # If no image is specified when this is called, the old image will stay referenced.
     def resetClusterer(self,img_loc = None):
         self.resetResults()
@@ -137,18 +110,18 @@ class FuzzyClusterer():
         else:
             index = targetIndex
 
-        clustered_image = np.zeros((self.ct_image.getWidth(), self.ct_image.getHeight(), 3))
+        clustered_image = np.zeros((self.ct_image.width, self.ct_image.height, 3))
         x = 0
         y = 0
 
-        labels = self.results[index][iLABELS]
-        rgb_scheme = self.results[index][iCOL_SCHEME]
+        labels = self.results[index].labels
+        rgb_scheme = self.results[index].col_scheme
         for i in range(0, len(labels)):
             clustered_image[y][x][R] = rgb_scheme[labels[i]][R]
             clustered_image[y][x][G] = rgb_scheme[labels[i]][G]
             clustered_image[y][x][B] = rgb_scheme[labels[i]][B]
             x = x + 1
-            if (x == self.ct_image.getWidth()):
+            if (x == self.ct_image.width):
                 x = 0
                 y = y + 1
 
@@ -156,24 +129,35 @@ class FuzzyClusterer():
 
     # Saves the current result out as an image
     def saveResult(self):
-        out_loc = self.ct_image.getPath()+self.ct_image.getName()+'.png'
+        out_loc = self.ct_image.path+self.ct_image.name+'.png'
         cv2.imwrite(out_loc,self.computeClusteredImage())
 
     # Saves all the results out as images
     def saveAllResults(self):
         for i in range(0,len(self.results)):
-            out_loc = self.ct_image.getPath()+self.ct_image.getName()+'['+str(i)+']'+'.png'
+            out_loc = self.ct_image.path+self.ct_image.name+'['+str(i)+']'+'.png'
             cv2.imwrite(out_loc,self.computeClusteredImage(i))
-
-
-    # Returns all the results
-    def getResults(self):
-        return self.results
-
 
     # Returns the latest results
     def getLatestResult(self):
         return self.results[len(self.results) - 1]
+
+
+    # Resets the results which have been computed.
+    def resetResults(self):
+        self.results = []
+
+
+    # Removes the current image which is being referenced.
+    def resetImage(self):
+        self.img_data = np.zeros(0)
+
+
+    # Changes the image source which is being referenced.
+    def changeImage(self, img_loc):
+        ct_image = Img.CTImage(img_loc)
+        self.img_data = ct_image.IntensityData()
+
 
 
 
