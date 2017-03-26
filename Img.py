@@ -2,24 +2,22 @@ import cv2
 import numpy as np
 
 
-# I plan to use this as the image class that manages the image data.
-# Hence processing related to images should be performed with methods in this class alone.
+# image class storing relevant image information
 class CTImage:
-    def __init__(self,path,name,format):
+    def __init__(self, path, name, extention):
         self.path = path
         self.name = name
-        self.format = format
+        self.extention = extention
 
-        img_loc = path+name+format
-        self.image = cv2.imread(img_loc , 0)
+        img_loc = path+name + extention
+        self.image = cv2.imread(img_loc, 0)
         self.width = len(self.image[0])
         self.height = len(self.image)
 
-    #Processes each pixel of image into a flat array of intensity data.
+    # Processes each pixel of image into a flat array of intensity data.
     def getIntensityData(self):
         xpts = np.ravel(self.image)
-        ypts = xpts
-        return np.vstack((xpts,ypts))
+        return np.vstack((xpts, xpts))
 
 
 # Class storing respective results
@@ -34,7 +32,7 @@ iPART_COEFF = 6
 iCOL_SCHEME = 7
 '''
 class ClusterResult:
-    def __init__(self,results,path,name,format):
+    def __init__(self, results, path, name, extention):
         self.center = results[0]
         self.labels = results[1]
         self.init_partition = results[2]
@@ -45,7 +43,4 @@ class ClusterResult:
         self.col_scheme = results[7]
         self.src_path = path
         self.src_name = name
-        self.src_format = format
-
-
-
+        self.src_extention = extention
