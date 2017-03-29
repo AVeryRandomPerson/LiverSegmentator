@@ -3,17 +3,17 @@ import numpy as np
 from matplotlib import pyplot as plt
 import cv2
 
-TEMPPATH = "C:/Users/acer/Desktop/TestSamples/LBP-Non-Liver/Mixed/"
-TEMPPATH2 = "C:/Users/acer/Desktop/TestSamples/Mixed/"
+CROP_SOURCE = "C:/Users/acer/Desktop/TestSamples/BodyOnly/Mixed/"
+CROP_SAVE = "C:/Users/acer/Desktop/TestSamples/Cropped36x36/Mixed/NoLiver/"
 
 #Images should be in .jpg
 def cropImagesInFolder(h1,h2,w1,w2,fol_path):
     for file in os.listdir(fol_path):
         if file.endswith(".jpg"):
             img = cv2.imread(fol_path + file)
-            cv2.imwrite(TEMPPATH + file, img[h1:h2,w1:w2])
+            cv2.imwrite(CROP_SAVE + file, img[h1:h2,w1:w2])
 
-cropImagesInFolder(270,306,370,406,TEMPPATH2)
+cropImagesInFolder(190,226,320,356,CROP_SOURCE)
 
 def getHistograms(fol_path):
     final_hist = np.zeros((1,256))

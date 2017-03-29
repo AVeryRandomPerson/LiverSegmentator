@@ -1,10 +1,12 @@
-import skfuzzy as fuzz
-import numpy as np
 import colorsys
 import math
+
 import cv2
+import numpy as np
+import skfuzzy as fuzz
+
 from Img import CTImage
-from Img import ClusterResult
+from Clusterer.clusterResults import ClusterResult
 
 # Colour const
 SAT = 1.0

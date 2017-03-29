@@ -1,4 +1,4 @@
-from FuzzyOperator import FuzzyClusterer
+from Clusterer.FuzzyOperator import FuzzyClusterer
 
 
 PATH = "C:/Users/acer/Desktop/TestSamples/Mixed"
