@@ -1,43 +1,16 @@
-from tkinter import Frame
-from tkinter import Tk
-from tkinter import Scrollbar
-from tkinter import Canvas
-from PIL import Image, ImageTk
+from tkinter import *
+root=Tk()
+frame=Frame(root,width=300,height=300)
+frame.grid(row=0,column=0)
+canvas=Canvas(frame,bg='#FFFFFF',width=300,height=300,scrollregion=(0,0,500,500))
+hbar=Scrollbar(frame,orient=HORIZONTAL)
+hbar.pack(side=BOTTOM,fill=X)
+hbar.config(command=canvas.xview)
+vbar=Scrollbar(frame,orient=VERTICAL)
+vbar.pack(side=RIGHT,fill=Y)
+vbar.config(command=canvas.yview)
+canvas.config(width=300,height=300)
+canvas.config(xscrollcommand=hbar.set, yscrollcommand=vbar.set)
+canvas.pack(side=LEFT,expand=True,fill=BOTH)
 
-from tkinter import filedialog
-
-if __name__ == "__main__":
-    root = Tk()
-
-    #setting up a tkinter canvas with scrollbars
-    frame = Frame(root, bd=2, relief="sunken")
-    frame.grid_rowconfigure(0, weight=1)
-    frame.grid_columnconfigure(0, weight=1)
-
-
-    xscroll = Scrollbar(frame, orient="horizontal")
-    xscroll.grid(row=1, column=0, sticky='e'+'w')
-    yscroll = Scrollbar(frame)
-
-    yscroll.grid(row=0, column=1, sticky='n'+'s')
-    canvas = Canvas(frame, bd=0, xscrollcommand=xscroll.set, yscrollcommand=yscroll.set)
-    canvas.grid(row=0, column=0, sticky='n'+'s'+'e'+'w')
-
-    xscroll.config(command=canvas.xview)
-    yscroll.config(command=canvas.yview)
-    frame.pack(fill="both",expand=1)
-
-    #adding the image
-    File = filedialog.askopenfilename(parent=root, initialdir="C:/",title='Choose an image.')
-    img = ImageTk.PhotoImage(Image.open(File))
-    canvas.create_image(0,0,image=img, anchor="nw")
-    canvas.config(scrollregion=canvas.bbox("all"))
-
-    #function to be called when mouse is clicked
-    def printcoords(event):
-        #outputting x and y coords to console
-        print (event.x,event.y)
-    #mouseclick event
-    canvas.bind("<Button 1>",printcoords)
-
-    root.mainloop()
+root.mainloop()
