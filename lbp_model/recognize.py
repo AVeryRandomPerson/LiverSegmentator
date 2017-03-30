@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from imutils import paths
 from sklearn.svm import LinearSVC
+from sklearn.svm import SVC
 
 from lbp_model import lbp
 
@@ -13,7 +14,7 @@ TESTING = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/non-liver/testing/"
 # and then parse the arguments
 
 
-#initializer the local binary patterns descriptor along with the data
+#initialize the local binary patterns descriptor along with the data
 #and label lists
 
 desc = lbp.LocalBinaryPatterns(24, 8)
@@ -37,11 +38,11 @@ for image_path in paths.list_images(TRAINING_NONLIVER):
     labels.append(image_path.split("/")[-3])
     data.append(hist)
 
-
-
 model = LinearSVC(C=100, random_state=42)
 model.fit(data, labels)
 
+model2 = SVC(C=100, random_state=42)
+model2.fit(data, labels)
 
 img_bin = np.zeros((396,504))
 img_data = cv2.imread("C:/Users/acer/Desktop/TestSamples/BodyOnly/Mixed/I0000091.jpg",0)
@@ -59,4 +60,19 @@ for Y in range(0,11):
             img_bin[y:y+36,x:x+36] = 255
 
 
-cv2.imwrite("C:/Users/acer/Desktop/TestSamples/BinI0000091.jpg",img_bin)
+cv2.imwrite("C:/Users/acer/Desktop/TestSamples/LSCVBinI0000091.jpg",img_bin)
+
+for Y in range(0,11):
+    y = 36 * Y
+    for X in range (0,14):
+        x = 36 * X
+
+        data = img_data[y:y+36,x:x+36]
+        hist = desc.describe(data)
+        prediction = model2.predict(hist.reshape(1,-1))
+        print("y = {0} ; x = {1} ; dimensions = ({2} x {3}) ;prediction = {4}".format(y,x,len(data),len(data[0]),prediction))
+
+        if(prediction[0] == 'liver'):
+            img_bin[y:y+36,x:x+36] = 255
+
+cv2.imwrite("C:/Users/acer/Desktop/TestSamples/SVCBinI0000091.jpg",img_bin)
