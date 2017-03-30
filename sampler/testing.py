@@ -9,7 +9,7 @@ import numpy as np
 
 from PIL import Image, ImageTk
 
-
+EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/non-liver/"
 
 class textureSampler(Frame):
     def __init__(self, master):
@@ -162,23 +162,27 @@ class textureSampler(Frame):
             self.canvas_image_index += 1
             self.img = ImageTk.PhotoImage(
                 Image.open(self.directory_texts.get(1.0, END).rstrip() + self.image_files[self.canvas_image_index]))
-
             self.canvas.create_image(0, 0, image=self.img, anchor="nw")
 
         self.coordinates = []
 
     def _export_textures(self):
         img = cv2.imread(self.directory_texts.get(1.0, END).rstrip()+ self.image_files[self.canvas_image_index],0)
-        if(not os.path.exists(self.directory_texts.get(1.0, END).rstrip() + 'exports/')):
-            os.makedirs(self.directory_texts.get(1.0, END).rstrip() + 'exports/')
+        if(not EXPORT_DIR + 'exports/'):
+            os.makedirs(EXPORT_DIR + 'exports/')
 
         i = 0
         for (x,y) in self.coordinates:
-            export_dir = self.directory_texts.get(1.0, END).rstrip() + 'exports/[' + str(i) +'].jpg'
-            cv2.imwrite( export_dir,
-                        img[x - 18:x + 18, y - 18:y + 18])
-            i += 1
+            export_dir = EXPORT_DIR + 'exports/['+ str(i) + ']' + self.image_files[self.canvas_image_index]
+            x0 = x-18
+            x1 = x+18
+            y0 = y-18
+            y1 = y+18
+            texture = img[y0:y1,x0:x1]
 
+            cv2.imwrite( export_dir,
+                        texture)
+            i += 1
             print("done!")
 
 
@@ -229,9 +233,9 @@ class textureSampler(Frame):
 
     def _onCanvasClicked(self, event):
         if(len(self.image_files) > 0):
-            print(event.x, event.y)
             self.coordinates.append((event.x, event.y))
-            self.canvas.create_oval((event.x -8), (event.y -8), (event.x +8), (event.y +8), outline="red", activeoutline="#37FF00")
+            self.canvas.create_rectangle((event.x -18), (event.y -18), (event.x +18), (event.y +18), outline="red", activeoutline="#37FF00")
+            print(event.x, event.y, len(self.coordinates) -1)
 
     def execute(self):
         self.master.mainloop()

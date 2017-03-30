@@ -17,7 +17,7 @@ TESTING = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/non-liver/testing/"
 #initialize the local binary patterns descriptor along with the data
 #and label lists
 
-desc = lbp.LocalBinaryPatterns(24, 8)
+desc = lbp.LocalBinaryPatterns(24, 18)
 data = []
 labels = []
 
