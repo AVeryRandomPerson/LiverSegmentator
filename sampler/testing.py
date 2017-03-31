@@ -10,7 +10,7 @@ from collections import OrderedDict
 
 from PIL import Image, ImageTk
 
-EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/liver/"
+EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/liver/training/"
 
 class textureSampler(Frame):
     def __init__(self, master):
@@ -111,8 +111,9 @@ class textureSampler(Frame):
             self.canvas_xscroll.configure(command=self.canvas.xview)
             self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
             self.canvas.pack(fill=BOTH)
+            print("Image {0} of {1}".format(self.canvas_image_index + 1, len(self.image_files)))
 
-            # mouseclick event
+            # button events button 1 and 3 are mouse buttons respectively
             self.canvas.bind("<Button 1>", self._onCanvasClicked)
             self.canvas.bind("<Button 3>", self._onCanvasRClicked)
             self.master.bind("<Control-z>", self._onUndo)
@@ -149,13 +150,17 @@ class textureSampler(Frame):
         if(len(self.image_files) == 0):
             print("No Image to display.")
         elif(self.canvas_image_index == 0):
+            self._export_textures()
             print("No Previous Image to Index")
+            print("Image {0} of {1}".format(self.canvas_image_index + 1, len(self.image_files)))
         else:
+            self._export_textures()
             self.canvas_image_index -= 1
             self.img = ImageTk.PhotoImage(
                 Image.open(self.directory_texts.get(1.0, END).rstrip() + self.image_files[self.canvas_image_index]))
             self.canvas.delete(ALL)
             self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
+            print("Image {0} of {1}".format(self.canvas_image_index + 1, len(self.image_files)))
 
         self.coordinates = OrderedDict()
         self.export_textures_button['state'] = DISABLED
@@ -164,62 +169,73 @@ class textureSampler(Frame):
         if(len(self.image_files) == 0):
             print("No Image to display.")
         elif(self.canvas_image_index == len(self.image_files) -1):
+            self._export_textures()
             print("No Next Image to Index")
+            print("Image {0} of {1}".format(self.canvas_image_index + 1, len(self.image_files)))
+
         else:
+            self._export_textures()
             self.canvas_image_index += 1
             self.img = ImageTk.PhotoImage(
                 Image.open(self.directory_texts.get(1.0, END).rstrip() + self.image_files[self.canvas_image_index]))
             self.canvas.delete(ALL)
             self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
+            print("Image {0} of {1}".format(self.canvas_image_index + 1, len(self.image_files)))
 
         self.coordinates = OrderedDict()
         self.export_textures_button['state'] = DISABLED
+
+
 
     def _export_textures(self):
         img = cv2.imread(self.directory_texts.get(1.0, END).rstrip()+ self.image_files[self.canvas_image_index],0)
         if(not EXPORT_DIR + 'exports/'):
             os.makedirs(EXPORT_DIR + 'exports/')
 
-        i = 0
-        for _ , (x,y) in self.coordinates.items():
-            export_dir = EXPORT_DIR + 'exports/['+ str(i) + ']' + self.image_files[self.canvas_image_index]
-            x0 = x - 18
-            x1 = x + 18
-            y0 = y - 18
-            y1 = y + 18
+        if(len(self.coordinates) == 0):
+            print("Nothing to export !")
 
-            if self._isValidCoordinates(x,y):
-                texture = img[y0:y1,x0:x1]
+        else:
+            i = 0
+            for _ , (x,y) in self.coordinates.items():
+                export_dir = EXPORT_DIR + 'exports/['+ str(i) + ']' + self.image_files[self.canvas_image_index]
+                x0 = x - 18
+                x1 = x + 18
+                y0 = y - 18
+                y1 = y + 18
 
-            else:
-                tx0 = 0
-                ty0 = 0
-                tx1 = 36
-                ty1 = 36
+                if self._isValidCoordinates(x,y):
+                    texture = img[y0:y1,x0:x1]
 
-                texture = np.zeros((36,36))
-                if(x0 < 0):
-                    tx0 = 36-x-18
-                    x0 = 0
+                else:
+                    tx0 = 0
+                    ty0 = 0
+                    tx1 = 36
+                    ty1 = 36
 
-                if(x1 > self.img.width()):
-                    tx1 = 36- (x1 - self.img.width())
-                    x1 = self.img.width()
+                    texture = np.zeros((36,36))
+                    if(x0 < 0):
+                        tx0 = 36-x-18
+                        x0 = 0
 
-                if(y0 < 0):
-                    ty0 = 36-y-18
-                    y0 = 0
+                    if(x1 > self.img.width()):
+                        tx1 = 36- (x1 - self.img.width())
+                        x1 = self.img.width()
 
-                if(y1 > self.img.height()):
-                    ty1 = 36 - (y1 - self.img.height())
-                    y1 = self.img.height()
+                    if(y0 < 0):
+                        ty0 = 36-y-18
+                        y0 = 0
 
-                texture[ty0:ty1,tx0:tx1] = img[y0:y1,x0:x1]
+                    if(y1 > self.img.height()):
+                        ty1 = 36 - (y1 - self.img.height())
+                        y1 = self.img.height()
 
-            cv2.imwrite( export_dir,
-                        texture)
-            i += 1
-            print("done!")
+                    texture[ty0:ty1,tx0:tx1] = img[y0:y1,x0:x1]
+
+                cv2.imwrite( export_dir,
+                            texture)
+                i += 1
+                print("done!")
 
 
 
