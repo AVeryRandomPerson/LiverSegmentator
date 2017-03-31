@@ -1,5 +1,5 @@
 from tkinter import Frame, Scrollbar, Canvas, Button, Text
-from tkinter import END, CENTER, DISABLED, NORMAL, NONE, HORIZONTAL, VERTICAL, BOTH, LEFT, Y , X, BOTTOM , RIGHT
+from tkinter.constants import *
 from tkinter import filedialog
 from tkinter import Tk
 
@@ -18,7 +18,7 @@ class textureSampler(Frame):
         master.title("Texture Sampler")
         #master.resizable(False, True)
         self.image_files = []
-        self.coordinates = []
+        self.coordinates = dict()
         self.canvas_image_index = 0
 
     def initUI(self):
@@ -108,11 +108,12 @@ class textureSampler(Frame):
 
             self.canvas_yscroll.configure(command=self.canvas.yview)
             self.canvas_xscroll.configure(command=self.canvas.xview)
-            self.canvas.create_image(0, 0, image=self.img, anchor="nw")
+            self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
             self.canvas.pack(fill=BOTH)
 
             # mouseclick event
             self.canvas.bind("<Button 1>", self._onCanvasClicked)
+            self.canvas.bind("<Button 3>", self._onCanvasRClicked)
 
     def _init_menu(self):
         #Menu Frame
@@ -137,7 +138,10 @@ class textureSampler(Frame):
         if(len(self.image_files) == 0):
             self.previous_image_button['state'] = DISABLED
             self.next_image_button['state'] = DISABLED
+
+        if(len(self.coordinates) == 0):
             self.export_textures_button['state'] = DISABLED
+
 
     def _draw_previous_image(self):
         if(len(self.image_files) == 0):
@@ -148,10 +152,11 @@ class textureSampler(Frame):
             self.canvas_image_index -= 1
             self.img = ImageTk.PhotoImage(
                 Image.open(self.directory_texts.get(1.0, END).rstrip() + self.image_files[self.canvas_image_index]))
+            self.canvas.delete(ALL)
+            self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
 
-            self.canvas.create_image(0, 0, image=self.img, anchor="nw")
-
-        self.coordinates = []
+        self.coordinates = dict()
+        self.export_textures_button['state'] = DISABLED
 
     def _draw_next_image(self):
         if(len(self.image_files) == 0):
@@ -162,9 +167,11 @@ class textureSampler(Frame):
             self.canvas_image_index += 1
             self.img = ImageTk.PhotoImage(
                 Image.open(self.directory_texts.get(1.0, END).rstrip() + self.image_files[self.canvas_image_index]))
-            self.canvas.create_image(0, 0, image=self.img, anchor="nw")
+            self.canvas.delete(ALL)
+            self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
 
-        self.coordinates = []
+        self.coordinates = dict()
+        self.export_textures_button['state'] = DISABLED
 
     def _export_textures(self):
         img = cv2.imread(self.directory_texts.get(1.0, END).rstrip()+ self.image_files[self.canvas_image_index],0)
@@ -172,13 +179,40 @@ class textureSampler(Frame):
             os.makedirs(EXPORT_DIR + 'exports/')
 
         i = 0
-        for (x,y) in self.coordinates:
+        for _ , (x,y) in self.coordinates.items():
             export_dir = EXPORT_DIR + 'exports/['+ str(i) + ']' + self.image_files[self.canvas_image_index]
-            x0 = x-18
-            x1 = x+18
-            y0 = y-18
-            y1 = y+18
-            texture = img[y0:y1,x0:x1]
+            x0 = x - 18
+            x1 = x + 18
+            y0 = y - 18
+            y1 = y + 18
+
+            if self._isValidCoordinates(x,y):
+                texture = img[y0:y1,x0:x1]
+
+            else:
+                tx0 = 0
+                ty0 = 0
+                tx1 = 36
+                ty1 = 36
+
+                texture = np.zeros((36,36))
+                if(x0 < 0):
+                    tx0 = 36-x-18
+                    x0 = 0
+
+                if(x1 > self.img.width()):
+                    tx1 = 36- (x1 - self.img.width())
+                    x1 = self.img.width()
+
+                if(y0 < 0):
+                    ty0 = 36-y-18
+                    y0 = 0
+
+                if(y1 > self.img.height()):
+                    ty1 = 36 - (y1 - self.img.height())
+                    y1 = self.img.height()
+
+                texture[ty0:ty1,tx0:tx1] = img[y0:y1,x0:x1]
 
             cv2.imwrite( export_dir,
                         texture)
@@ -231,15 +265,38 @@ class textureSampler(Frame):
     def _clear_image_files(self):
         self.image_files = []
 
+    def _isValidCoordinates(self, x,y):
+        return (x-18 >= 0 and y-18 >= 0 and x+18 <= self.img.width() and y+18 <= self.img.height())
+
     def _onCanvasClicked(self, event):
+        x = event.x
+        y = event.y
         if(len(self.image_files) > 0):
-            self.coordinates.append((event.x, event.y))
-            self.canvas.create_rectangle((event.x -18), (event.y -18), (event.x +18), (event.y +18), outline="red", activeoutline="#37FF00")
-            print(event.x, event.y, len(self.coordinates) -1)
+            if self._isValidCoordinates(x,y):
+                rectID = self.canvas.create_rectangle((x -18), (y -18), (x +18), (y +18), outline="red", activeoutline="#37FF00", width=3)
+                self.coordinates.update({rectID : (x,y)})
+
+            else:
+                rectID = self.canvas.create_rectangle((x -18), (y -18), (x +18), (y +18), outline="#00FFFD", activeoutline="#37FF00", width=3)
+                self.coordinates.update({rectID : (x,y)})
+
+            if(self.export_textures_button['state'] == DISABLED):
+                self.export_textures_button['state'] = NORMAL
+
+    def _onCanvasRClicked(self, event):
+        if(len(self.coordinates) > 0 and self.canvas.find_withtag(CURRENT)):
+            if (self.canvas.find_withtag(CURRENT) != self.canvas.find_withtag(self.image_id)):
+                rectID = self.canvas.find_withtag(CURRENT)[0]
+                self.coordinates.pop(rectID)
+                self.canvas.delete(CURRENT)
+
+        if(len(self.coordinates) == 0):
+            self.export_textures_button['state'] = DISABLED
+
+
 
     def execute(self):
         self.master.mainloop()
-
 
 
 
