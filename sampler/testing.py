@@ -6,6 +6,7 @@ from tkinter import Tk
 import os
 import cv2
 import numpy as np
+from collections import OrderedDict
 
 from PIL import Image, ImageTk
 
@@ -18,7 +19,7 @@ class textureSampler(Frame):
         master.title("Texture Sampler")
         #master.resizable(False, True)
         self.image_files = []
-        self.coordinates = dict()
+        self.coordinates = OrderedDict()
         self.canvas_image_index = 0
 
     def initUI(self):
@@ -156,7 +157,7 @@ class textureSampler(Frame):
             self.canvas.delete(ALL)
             self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
 
-        self.coordinates = dict()
+        self.coordinates = OrderedDict()
         self.export_textures_button['state'] = DISABLED
 
     def _draw_next_image(self):
@@ -171,7 +172,7 @@ class textureSampler(Frame):
             self.canvas.delete(ALL)
             self.image_id = self.canvas.create_image(0, 0, image=self.img, anchor="nw")
 
-        self.coordinates = dict()
+        self.coordinates = OrderedDict()
         self.export_textures_button['state'] = DISABLED
 
     def _export_textures(self):
@@ -296,9 +297,8 @@ class textureSampler(Frame):
 
     def _onUndo(self, event):
         if (len(self.coordinates) > 0):
-            rectID = self.canvas.find_withtag(CURRENT)[0]
-            self.coordinates.pop(rectID)
-            self.canvas.delete(CURRENT)
+            rectID, _ = self.coordinates.popitem()
+            self.canvas.delete((rectID,))
 
         if(len(self.coordinates) == 0):
             self.export_textures_button['state'] = DISABLED
