@@ -9,7 +9,7 @@ import numpy as np
 
 from PIL import Image, ImageTk
 
-EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/non-liver/"
+EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/liver/"
 
 class textureSampler(Frame):
     def __init__(self, master):
@@ -114,6 +114,7 @@ class textureSampler(Frame):
             # mouseclick event
             self.canvas.bind("<Button 1>", self._onCanvasClicked)
             self.canvas.bind("<Button 3>", self._onCanvasRClicked)
+            self.master.bind("<Control-z>", self._onUndo)
 
     def _init_menu(self):
         #Menu Frame
@@ -293,6 +294,14 @@ class textureSampler(Frame):
         if(len(self.coordinates) == 0):
             self.export_textures_button['state'] = DISABLED
 
+    def _onUndo(self, event):
+        if (len(self.coordinates) > 0):
+            rectID = self.canvas.find_withtag(CURRENT)[0]
+            self.coordinates.pop(rectID)
+            self.canvas.delete(CURRENT)
+
+        if(len(self.coordinates) == 0):
+            self.export_textures_button['state'] = DISABLED
 
 
     def execute(self):
