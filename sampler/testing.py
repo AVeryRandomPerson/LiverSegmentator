@@ -6,11 +6,14 @@ from tkinter import Tk
 import os
 import cv2
 import numpy as np
+
+import time
+
 from collections import OrderedDict
 
 from PIL import Image, ImageTk
 
-EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP/liver/training/"
+EXPORT_DIR = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/non-liver/training/"
 
 class textureSampler(Frame):
     def __init__(self, master):
@@ -21,6 +24,7 @@ class textureSampler(Frame):
         self.image_files = []
         self.coordinates = OrderedDict()
         self.canvas_image_index = 0
+        self.automated = False
 
     def initUI(self):
 
@@ -28,7 +32,17 @@ class textureSampler(Frame):
         self._init_canvas()
         self._init_menu()
 
+        # button events button 1 and 3 are mouse buttons respectively
+        self.canvas.bind("<Button 1>", self._onCanvasClicked)
+        self.canvas.bind("<Button 3>", self._onCanvasRClicked)
+        self.master.bind("<Control-z>", self._onUndo)
+        self.master.bind("<w>", self._onNextImageHotkey)
+        self.master.bind("<q>", self._onPreviousImageHotkey)
+        self.master.bind("<Control-a>", self._onClearAll)
+        self.master.bind("<Control-s>", self._onExportHotKey)
 
+        #Broken : Check self._onAutoInterval method for full detail
+        #self.master.bind("<Control-d>", self._onAutoInterval)
 
 
     def _init_directoryFrame(self):
@@ -54,10 +68,9 @@ class textureSampler(Frame):
 
         # Applying previous settings to directory path.
         file = open("latestdirectory.dat", "r")
-        fol_path = file.readline()
-        file.close()
+        fol_path = file.readline().rstrip()
         self._set_new_directory(fol_path)
-
+        self.canvas_image_index = int(file.readline().rstrip())
 
 
     def _init_canvas(self):
@@ -113,11 +126,6 @@ class textureSampler(Frame):
             self.canvas.pack(fill=BOTH)
             print("Image {0} of {1}".format(self.canvas_image_index + 1, len(self.image_files)))
 
-            # button events button 1 and 3 are mouse buttons respectively
-            self.canvas.bind("<Button 1>", self._onCanvasClicked)
-            self.canvas.bind("<Button 3>", self._onCanvasRClicked)
-            self.master.bind("<Control-z>", self._onUndo)
-
     def _init_menu(self):
         #Menu Frame
         self.menu_frame = Frame(self.master,
@@ -144,7 +152,6 @@ class textureSampler(Frame):
 
         if(len(self.coordinates) == 0):
             self.export_textures_button['state'] = DISABLED
-
 
     def _draw_previous_image(self):
         if(len(self.image_files) == 0):
@@ -185,12 +192,10 @@ class textureSampler(Frame):
         self.coordinates = OrderedDict()
         self.export_textures_button['state'] = DISABLED
 
-
-
     def _export_textures(self):
         img = cv2.imread(self.directory_texts.get(1.0, END).rstrip()+ self.image_files[self.canvas_image_index],0)
-        if(not EXPORT_DIR + 'exports/'):
-            os.makedirs(EXPORT_DIR + 'exports/')
+        if(not EXPORT_DIR):
+            os.makedirs(EXPORT_DIR)
 
         if(len(self.coordinates) == 0):
             print("Nothing to export !")
@@ -198,7 +203,7 @@ class textureSampler(Frame):
         else:
             i = 0
             for _ , (x,y) in self.coordinates.items():
-                export_dir = EXPORT_DIR + 'exports/['+ str(i) + ']' + self.image_files[self.canvas_image_index]
+                export_dir = EXPORT_DIR + '['+ str(i) + ']' + self.image_files[self.canvas_image_index]
                 x0 = x - 18
                 x1 = x + 18
                 y0 = y - 18
@@ -237,13 +242,10 @@ class textureSampler(Frame):
                 i += 1
                 print("done!")
 
-
-
     def _request_new_directory(self):
         fol_path = filedialog.askdirectory(parent=self.master, initialdir=self.directory_texts.get(1.0, END).rstrip(), title='Please Specify a FOLDER')
         if(fol_path):
             fol_path = fol_path + '/'
-            self._set_new_directory(fol_path)
             file = open('latestdirectory.dat','w')
             file.writelines(fol_path)
             file.close()
@@ -279,7 +281,6 @@ class textureSampler(Frame):
             if file.endswith('.jpg') or file.endswith('.png'):
                 self.image_files.append(file)
 
-
     def _clear_image_files(self):
         self.image_files = []
 
@@ -311,6 +312,9 @@ class textureSampler(Frame):
         if(len(self.coordinates) == 0):
             self.export_textures_button['state'] = DISABLED
 
+    def _onExportHotKey(self, event):
+        self._export_textures()
+
     def _onUndo(self, event):
         if (len(self.coordinates) > 0):
             rectID, _ = self.coordinates.popitem()
@@ -319,7 +323,28 @@ class textureSampler(Frame):
         if(len(self.coordinates) == 0):
             self.export_textures_button['state'] = DISABLED
 
+    def _onNextImageHotkey(self,event):
+        self._draw_next_image()
 
+    def _onClearAll(self, event):
+        while (len(self.coordinates) > 0):
+            self._onUndo(event)
+
+    def _onPreviousImageHotkey(self, event):
+        self._draw_previous_image()
+
+    #BROKEN
+    '''
+    Most Probably needs 2 things:
+        1. Synchronized Threading.
+        2. Proper event binding with canvas.
+        
+    def _onAutoInterval(self, event):
+        self.automated = not self.automated
+        while self.automated:
+            time.sleep(0.75)
+            self._onCanvasClicked(event)
+    '''
     def execute(self):
         self.master.mainloop()
 
