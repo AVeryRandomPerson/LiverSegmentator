@@ -1,7 +1,7 @@
 import os
 import random
 
-folder_path = "C:/Users/acer/Desktop/TestSamples/BodyOnly/Mixed/"
+folder_path = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/non-liver/training/"
 
 accepted_formats = ('.jpg', '.png')
 
@@ -22,6 +22,8 @@ def kcrossvalidate(folder_path, accepted_formats, k = 10):
             else:
                 #print(folder_path + 'training/' + file)
                 os.rename(folder_path+file, folder_path + 'training/' + file)
+                print(i, train_sample_indexes[0])
+
             i+=1
     except:
 
@@ -43,9 +45,10 @@ def generateTrainIndex(total_files, k):
         index = (k * i) +  random.randint(0,(k-1))
         train_sample_indexes.append(index)
 
+
     return train_sample_indexes #.reverse()
 
 
 
 if __name__  == '__main__':
-    kcrossvalidate(folder_path,accepted_formats)
+    kcrossvalidate(folder_path,accepted_formats,3)
