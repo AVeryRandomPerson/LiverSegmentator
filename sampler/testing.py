@@ -67,7 +67,7 @@ class textureSampler(Frame):
         self.directory_texts.grid(column=1, row=0, columnspan=2)
 
         # Applying previous settings to directory path.
-        file = open("latestdirectory.dat", "r")
+        file = open("latestdirectory.txt", "r")
         fol_path = file.readline().rstrip()
         self._set_new_directory(fol_path)
         self.canvas_image_index = int(file.readline().rstrip())
@@ -246,7 +246,7 @@ class textureSampler(Frame):
         fol_path = filedialog.askdirectory(parent=self.master, initialdir=self.directory_texts.get(1.0, END).rstrip(), title='Please Specify a FOLDER')
         if(fol_path):
             fol_path = fol_path + '/'
-            file = open('latestdirectory.dat','w')
+            file = open('latestdirectory.txt','w')
             file.writelines(fol_path)
             file.close()
             self._init_canvas()

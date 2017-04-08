@@ -1,0 +1,3 @@
+CT_SOURCE "C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/"
+LBP_TEXTURE = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/"
+LOG_BASE = "C:/Users/acer/Desktop/TestSamples/Logs/"

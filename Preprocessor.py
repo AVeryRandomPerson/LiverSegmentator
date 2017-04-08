@@ -1,8 +1,12 @@
-import os
-import numpy as np
-from matplotlib import pyplot as plt
-import cv2
 import logging
+import os
+
+import cv2
+import numpy as np
+
+from imutils import paths
+#refactoring needed.
+
 
 CROP_SOURCE = "C:/Users/acer/Desktop/TestSamples/BodyOnly/Mixed/"
 CROP_SAVE = "C:/Users/acer/Desktop/TestSamples/Cropped36x36/Mixed/NoLiver/"
@@ -58,9 +62,10 @@ def binaryAND(src1,src2,out):
         final_img = cv2.bitwise_and(img1,img2)
         cv2.imwrite(out + fol1_img[i], final_img)
 
-binaryAND("C:/Users/acer/Desktop/TestSamples/ML-Dataset/Bin-Results/lsvc/pixels/",
-          "C:/Users/acer/Desktop/TestSamples/ML-Dataset/Bin-Results/lsvc/tiles/",
-          "C:/Users/acer/Desktop/TestSamples/ML-Dataset/Bin-Results/lsvc/final/")
+
+
+
+
 
 
 class RangeFilter:
