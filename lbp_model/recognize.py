@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from imutils import paths
 from sklearn.svm import LinearSVC
+import pickle
 from sklearn.svm import SVC
 from sklearn.svm import NuSVC
 import os
@@ -17,8 +18,38 @@ prediction_log = logs.setupLogger("prediction_log",
 training_log = logs.setupLogger("training_log",
                                 "C:/Users/acer/Desktop/TestSamples/Logs/Training/annotatedTraining.txt")
 
+
+def trainLBP(img, key_points, descriptor, tile_dimensions = (5,5)):
+    data = []
+    labels = []
+
+    xMin = max([tile_dimensions[0],descriptor.radius])
+    yMin = max([tile_dimensions[1], descriptor.radius])
+
+    buffered_img = np.zeros((len(img)+2*yMin+1,len(img[0])+2*xMin+1))
+    buffered_img[yMin:len(img)+yMin,xMin:len(img[0])+xMin] = img
+
+    for y in range(yMin, len(img) + yMin):
+        for x in range(xMin, len(img) + xMin):
+            texture = buffered_img[y - yMin:y + yMin + 1, x - xMin:x + xMin + 1]
+            hist = descriptor.computeHistogram(texture)
+            data.append(hist)
+
+            if (key_points and (y == key_points[0][0] + yMin) and (x == key_points[0][1] + xMin)):
+                labels.append('liver')
+                del key_points[0]
+            else:
+                labels.append('non-liver')
+
+        if (y % 50 == 0):
+            training_log.info("Training completed at row {0}".format(y - yMin))
+
+    training_log.info("COMPLETED TRAINING!")
+    return data, labels
+
+
 # Coordinate (X,Y)
-def trainLBP(img, key_points, descriptor ,tile_dimensions = (5,5)):
+def trainLBP2(img, key_points, descriptor ,tile_dimensions = (5,5)):
     data = []
     labels = []
 
@@ -33,7 +64,6 @@ def trainLBP(img, key_points, descriptor ,tile_dimensions = (5,5)):
     buffered_img[tile_h:len(img)+tile_h,tile_w:len(img[0])+tile_w] = img
 
     for y in range(tile_h,len(img)+tile_h):
-        training_log.info("Training completed at row {0}".format(y-tile_h))
         for x in range(tile_w,len(img)+tile_w):
             texture = buffered_img[y - tile_h:y + tile_h + 1, x - tile_w:x + tile_w + 1]
             hist = descriptor.describe(texture)
@@ -44,6 +74,9 @@ def trainLBP(img, key_points, descriptor ,tile_dimensions = (5,5)):
                 del key_points[0]
             else:
                 labels.append('non-liver')
+
+        if(y%50 ==0):
+            training_log.info("Training completed at row {0}".format(y - tile_h))
 
     training_log.info("COMPLETED TRAINING!")
     return data, labels
@@ -63,18 +96,40 @@ def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5
     return all_data, all_labels
 
 
-def predictImageFolder(fol_dir, model, descriptor, tile_dimensions =(5,5)):
+def predictImageFolder(fol_dir, model, descriptor, tile_dimensions =(5,5), out_dir="C:/Users/acer/Desktop/"):
     for img in paths.list_images(fol_dir):
         mask = predictImage(cv2.imread(img, 0),
                      model,
                      descriptor,
                      tile_dimensions)
 
-        cv2.imwrite("C:/Users/acer/Desktop/TestSamples/ML-Dataset/Bin-Results/lsvc/LSVC-C-100/" + img.split('/').pop(),mask)
+        cv2.imwrite(out_dir + img.split('/').pop(),mask)
+
+
+def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
+    xMin = max([tile_dimensions[0], descriptor.radius])
+    yMin = max([tile_dimensions[1], descriptor.radius])
+
+    buffered_img = np.zeros((len(img)+2*yMin+1,len(img[0])+2*xMin+1))
+    buffered_img[yMin:len(img)+yMin,xMin:len(img[0])+xMin] = img
+    img_mask = np.zeros((len(img),len(img[0])))
+
+    for y in range(yMin, len(img) + yMin):
+        for x in range(xMin, len(img) + xMin):
+            texture = buffered_img[y - yMin:y + yMin + 1, x - xMin:x + xMin + 1]
+            hist = descriptor.computeHistogram(texture)
+            prediction = model.predict(hist.reshape(1, -1))
+            if (prediction[0] == 'liver'):
+                img_mask[y - yMin][x - xMin] = 255
+
+        if (y % 50 == 0):
+            prediction_log.info("Prediction completed at row{0}".format(y - yMin))
+
+    return img_mask
 
 
 # Refactor for custom path. SoftCode
-def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
+def predictImage2(img, model, descriptor ,tile_dimensions = (5,5)):
 
     tile_w = tile_dimensions[0]
     tile_h = tile_dimensions[1]
@@ -98,7 +153,7 @@ def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
                 img_mask[y-tile_h][x-tile_w] = 255
 
         if(y%50 == 0):
-            prediction_log.info("Prediction completed at row {1}".format(y - tile_h))
+            prediction_log.info("Prediction completed at row{0}".format(y - tile_h))
 
     return img_mask
 
@@ -139,14 +194,49 @@ if __name__ == "__main__":
     TESTING_CT = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/testing/"
     BIN_RESULTS = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/Bin-Results/"
 
-    kp = core.readAnnotation('C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/annotation_coordinates/scan8.txt')
-    img = cv2.imread("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/training/scan8.jpg",0)
+    ''' Full Training Programme
+    all_kp = core.readAnnotationFolder('C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/annotation_coordinates/')
     desc = lbp.LocalBinaryPatterns(27, 10)
-    data, labels = trainLBP(img,kp.coordinates,desc,tile_dimensions=(73,73))
+    data, labels = trainLBPFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/training/",all_kp,desc,tile_dimensions=(73,73))
 
-    lsvc = LinearSVC(C=100, random_state=42)
+    lsvc = LinearSVC(C=1000, random_state=42)
     lsvc.fit(data, labels)
     predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/testing/", lsvc, desc, tile_dimensions=(73, 73))
+  
+    #
+    with open('C:/Users/acer/Desktop/data-labels.bin','wb') as f:
+        pickle.dump([data,labels], f)
+
+    
+    with open('C:/Users/acer/Desktop/data-labels.bin','rb') as f:
+        data, labels = pickle.load(f)
+    '''
+
+    all_kp = core.readAnnotationFolder('C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/annotate/')
+    desc = lbp.LocalBinaryPatterns(16, 8)
+
+    data, labels = trainLBPFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/train/",all_kp,desc,tile_dimensions=(73,73))
+    with open('C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/5f_16n8r.bin','wb') as f:
+        pickle.dump([data,labels], f)
+
+    lsvc_c1000 = LinearSVC(C=1000, random_state=42)
+    lsvc_c100 = LinearSVC(C=100, random_state=42)
+    lsvc_c1 = LinearSVC(C=1, random_state=42)
+    lsvc_c001 = LinearSVC(C=0.01, random_state=42)
+    lsvc_c0001 = LinearSVC(C=0.001, random_state=42)
+
+    lsvc_c1000.fit(data, labels)
+    lsvc_c100.fit(data, labels)
+    lsvc_c1.fit(data, labels)
+    lsvc_c001.fit(data, labels)
+    lsvc_c0001.fit(data, labels)
+
+
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/",lsvc_c1000,desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C1000/")
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c100, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C100/")
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c1, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C1/")
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c001, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C001/")
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c0001, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C0001/")
 
 
 
