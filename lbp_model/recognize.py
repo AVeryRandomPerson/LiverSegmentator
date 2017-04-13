@@ -81,7 +81,7 @@ def trainLBP2(img, key_points, descriptor ,tile_dimensions = (5,5)):
     training_log.info("COMPLETED TRAINING!")
     return data, labels
 
-def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5)):
+def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5), bin_dir = ""):
     all_data = []
     all_labels = []
 
@@ -90,8 +90,15 @@ def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5
         key_points = annotation.coordinates
 
         data, labels = trainLBP(img, key_points, descriptor, tile_dimensions)
-        all_data = all_data + data
-        all_labels = all_labels + labels
+
+
+        if(bin_dir == ""):
+            all_data = all_data + data
+            all_labels = all_labels + labels
+        else:
+            with open('C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_16n8r/binaries/lbp_binaries/' + annotation.getName() + '.bin' ,'wb') as f:
+                pickle.dump([data,labels], f)
+
 
     return all_data, all_labels
 
@@ -104,6 +111,7 @@ def predictImageFolder(fol_dir, model, descriptor, tile_dimensions =(5,5), out_d
                      tile_dimensions)
 
         cv2.imwrite(out_dir + img.split('/').pop(),mask)
+
 
 
 def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
@@ -124,6 +132,7 @@ def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
 
         if (y % 50 == 0):
             prediction_log.info("Prediction completed at row{0}".format(y - yMin))
+
 
     return img_mask
 
@@ -212,31 +221,60 @@ if __name__ == "__main__":
         data, labels = pickle.load(f)
     '''
 
-    all_kp = core.readAnnotationFolder('C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/annotate/')
+    #all_kp = core.readAnnotationFolder('C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/annotate/')
     desc = lbp.LocalBinaryPatterns(16, 8)
 
-    data, labels = trainLBPFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/train/",all_kp,desc,tile_dimensions=(73,73))
-    with open('C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/5f_16n8r.bin','wb') as f:
-        pickle.dump([data,labels], f)
+    #data, labels = trainLBPFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/train/",all_kp,desc,tile_dimensions=(73,73))
 
+
+    data = []
+    labels = []
+
+    for file in os.listdir('C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_16n8r/binaries/lbp_binaries/'):
+        if file.endswith('.bin'):
+            with open('C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_16n8r/binaries/lbp_binaries/' + file,'rb') as f:
+                d, l = pickle.load(f)
+                data = data + d
+                labels = labels + l
+
+    print(len(data))
+    print(len(labels))
     lsvc_c1000 = LinearSVC(C=1000, random_state=42)
-    lsvc_c100 = LinearSVC(C=100, random_state=42)
-    lsvc_c1 = LinearSVC(C=1, random_state=42)
-    lsvc_c001 = LinearSVC(C=0.01, random_state=42)
-    lsvc_c0001 = LinearSVC(C=0.001, random_state=42)
-
+    print("Check")
     lsvc_c1000.fit(data, labels)
+
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c1000, desc, (73, 73),
+                       out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C1000/")
+
+    del lsvc_c1000
+
+    lsvc_c100 = LinearSVC(C=100, random_state=42)
     lsvc_c100.fit(data, labels)
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c100, desc, (73, 73),
+                       out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C100/")
+
+    del lsvc_c100
+
+    lsvc_c1 = LinearSVC(C=1, random_state=42)
     lsvc_c1.fit(data, labels)
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c1, desc, (73, 73),
+                       out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C1/")
+
+    del lsvc_c1
+
+    lsvc_c001 = LinearSVC(C=0.01, random_state=42)
     lsvc_c001.fit(data, labels)
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c001, desc, (73, 73),
+                       out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C001/")
+
+    del lsvc_c001
+
+
+    lsvc_c0001 = LinearSVC(C=0.001, random_state=42)
     lsvc_c0001.fit(data, labels)
+    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c0001, desc, (73, 73),
+                       out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C0001/")
 
-
-    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/",lsvc_c1000,desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C1000/")
-    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c100, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C100/")
-    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c1, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C1/")
-    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c001, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C001/")
-    predictImageFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/test/", lsvc_c0001, desc, (73, 73), out_dir="C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/Out_C0001/")
-
+    del lsvc_c0001
 
 

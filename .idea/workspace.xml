@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cce53985-32aa-40f8-9038-8968dcf8f890" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/packagetracks" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/lbp.py" afterPath="$PROJECT_DIR$/lbp_model/lbp.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/recognize.py" afterPath="$PROJECT_DIR$/lbp_model/recognize.py" />
     </list>
     <ignored path="LiverSegmentator.iws" />
@@ -24,7 +22,7 @@
     <SUITE FILE_PATH="coverage/LiverSegmentator$core.coverage" NAME="core Coverage Results" MODIFIED="1491632409170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$recognize__1_.coverage" NAME="recognize (1) Coverage Results" MODIFIED="1491151682442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/hog_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$lbp.coverage" NAME="lbp Coverage Results" MODIFIED="1492026661087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
-    <SUITE FILE_PATH="coverage/LiverSegmentator$recognize.coverage" NAME="recognize Coverage Results" MODIFIED="1492023803429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
+    <SUITE FILE_PATH="coverage/LiverSegmentator$recognize.coverage" NAME="recognize Coverage Results" MODIFIED="1492072878317" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$TestingShit.coverage" NAME="TestingShit Coverage Results" MODIFIED="1491552471116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -39,7 +37,7 @@
       <file leaf-file-name="Preprocessor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Preprocessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="1029">
               <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding />
             </state>
@@ -49,15 +47,14 @@
       <file leaf-file-name="recognize.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lbp_model/recognize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="225" column="52" lean-forward="true" selection-start-line="225" selection-start-column="52" selection-end-line="225" selection-end-column="52" />
+            <state relative-caret-position="500">
+              <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1673#2757#0" expanded="false" />
-                <element signature="e#2847#3221#0" expanded="false" />
-                <element signature="e#4572#5547#0" expanded="false" />
-                <element signature="e#5595#5651#0" expanded="false" />
-                <element signature="e#5792#7295#0" expanded="false" />
+                <element signature="e#4855#5830#0" expanded="false" />
+                <element signature="e#5878#5934#0" expanded="false" />
+                <element signature="e#6075#7578#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,8 +63,8 @@
       <file leaf-file-name="lbp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="752">
-              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+            <state relative-caret-position="882">
+              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -88,7 +85,7 @@
       <file leaf-file-name="core.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
+            <state relative-caret-position="1743">
               <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
@@ -113,7 +110,7 @@
       <file leaf-file-name="testing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sampler/testing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="521">
+            <state relative-caret-position="3234">
               <caret line="336" column="0" lean-forward="false" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
               <folding>
                 <element signature="e#2848#5353#0" expanded="false" />
@@ -228,8 +225,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -300,10 +295,13 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -323,7 +321,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.lbp">
+  <component name="RunManager" selected="Python.recognize">
     <configuration default="false" name="recognize" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -610,8 +608,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.lbp" />
-        <item index="1" class="java.lang.String" itemvalue="Python.recognize" />
+        <item index="0" class="java.lang.String" itemvalue="Python.recognize" />
+        <item index="1" class="java.lang.String" itemvalue="Python.lbp" />
         <item index="2" class="java.lang.String" itemvalue="Python.core" />
         <item index="3" class="java.lang.String" itemvalue="Python.TestingShit" />
         <item index="4" class="java.lang.String" itemvalue="Python.Preprocessor" />
@@ -712,45 +710,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/testing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2205">
-          <caret line="216" column="27" lean-forward="true" selection-start-line="216" selection-start-column="27" selection-end-line="216" selection-end-column="27" />
-          <folding>
-            <element signature="e#2848#5353#0" expanded="false" />
-            <element signature="e#5389#6594#0" expanded="false" />
-            <element signature="e#6640#7508#0" expanded="false" />
-            <element signature="e#7550#8438#0" expanded="false" />
-            <element signature="e#10077#10516#0" expanded="false" />
-            <element signature="e#10570#11229#0" expanded="false" />
-            <element signature="e#11281#11419#0" expanded="false" />
-            <element signature="e#11463#11484#0" expanded="false" />
-            <element signature="e#11534#11625#0" expanded="false" />
-            <element signature="e#11674#12336#0" expanded="false" />
-            <element signature="e#12386#12801#0" expanded="false" />
-            <element signature="e#13187#13210#0" expanded="false" />
-            <element signature="e#13375#13402#0" expanded="false" />
-            <element signature="e#13420#13736#1" expanded="false" />
-            <element signature="e#13768#13790#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sampler/latestdirectory.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -765,10 +729,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -821,10 +784,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -867,10 +829,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -913,10 +874,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -959,10 +919,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -998,10 +957,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1037,10 +995,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1076,10 +1033,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1115,10 +1071,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1154,10 +1109,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1193,10 +1147,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1208,10 +1161,9 @@
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1283,18 +1235,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35-32/Lib/site-packages/sklearn/utils/validation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="525" column="0" lean-forward="false" selection-start-line="525" selection-start-column="0" selection-end-line="525" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1302,14 +1246,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="2" column="52" lean-forward="false" selection-start-line="2" selection-start-column="52" selection-end-line="2" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Preprocessor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1324,7 +1260,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
+        <state relative-caret-position="1743">
           <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
@@ -1337,7 +1273,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sampler/testing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
+        <state relative-caret-position="3234">
           <caret line="336" column="0" lean-forward="false" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
           <folding>
             <element signature="e#2848#5353#0" expanded="false" />
@@ -1361,25 +1297,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+        <state relative-caret-position="882">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35-32/Lib/site-packages/sklearn/utils/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="381" column="0" lean-forward="false" selection-start-line="381" selection-start-column="0" selection-end-line="381" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35-32/Lib/site-packages/sklearn/svm/classes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="206" column="0" lean-forward="false" selection-start-line="206" selection-start-column="0" selection-end-line="206" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1029">
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lbp_model/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lbp_model/recognize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="225" column="52" lean-forward="true" selection-start-line="225" selection-start-column="52" selection-end-line="225" selection-end-column="52" />
+        <state relative-caret-position="500">
+          <caret line="254" column="0" lean-forward="true" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1673#2757#0" expanded="false" />
-            <element signature="e#2847#3221#0" expanded="false" />
-            <element signature="e#4572#5547#0" expanded="false" />
-            <element signature="e#5595#5651#0" expanded="false" />
-            <element signature="e#5792#7295#0" expanded="false" />
+            <element signature="e#4855#5830#0" expanded="false" />
+            <element signature="e#5878#5934#0" expanded="false" />
+            <element signature="e#6075#7578#0" expanded="false" />
           </folding>
         </state>
       </provider>
