@@ -5,9 +5,17 @@ import cv2
 import numpy as np
 import logs
 
-def maskToAnnotation(src):
-    annotation = Annotation(src)
-    image = cv2.imread(src,0)
+#   maskedToAnnotation(STRING path):
+#   gets annotated coordinates of an annotated mask image.
+#
+#
+#   <Input>
+#      required STRING path | Source location of mask image.
+#   <Output>
+#      required ANNOTATION annotation | Stores annotated information of a mask image |See [Class Annotation]
+def maskToAnnotation(path):
+    annotation = Annotation(path)
+    image = cv2.imread(path,0)
     for y in range(0,len(image)):
         for x in range(0, len(image[0])):
             if image[y][x] > 0:
@@ -16,7 +24,14 @@ def maskToAnnotation(src):
     annotation.computeCenter()
     return annotation
 
-# returns a whole list of key point objects.
+#   annotationFromMaskFolder(STRING fol_path):
+#   gets annotated coordinates of all annotated mask images within a folder directory.
+#
+#
+#   <Input>
+#      required STRING src | Source location of mask image(s) folder.
+#   <Output>
+#      required 1D-ARRAY Annotation | List of Annotation objects, each storing annotation information of an image. | See [Class Annotation]
 def annotationFromMaskFolder(fol_path):
     all_annotations = []
     for img in paths.list_images(fol_path):
@@ -25,15 +40,34 @@ def annotationFromMaskFolder(fol_path):
 
     return all_annotations
 
-# Visualize kps for debug purposes
+#   visualizeKeyCoords(1D-ARRAY<Tuple(int,int)> coordinates, TUPLE(int,int) canvas_size):
+#   Draws a set of given coordinates onto a canvas as annotated pixels. Good for debugging purposes.
+#   Image is displayed during process. But function will return NONE.
+#
+#
+#   <Input>
+#       required 1D-ARRAY<Tuple(int,int)> coordinates | A list of tuple of coordinates in (Y,X).
+#       optional TUPLE(int,int) canvas_size | The dimensions of the canvas in (Y,X).
+#   <Output>
+#       NONE
 def visualizeKeyCoords(coords, canvas_size = (512, 512)):
     temp_img = np.zeros(canvas_size)
-    for points in coords.coordinates:
+    for points in coords:
         temp_img[points[0]][points[1]] = 255
 
     cv2.imshow("Key-points Acquired", temp_img)
     cv2.waitKey(0)
 
+#   writeAnnotation(ANNOTATION annotation, STRING out_path):
+#   given an Annotation object, write information to a .txt file.
+#   file is created during process. But function will return NONE
+#
+#
+#   <Input>
+#       required ANNOTATION annotation | An annotation object, with stored annotation information.
+#       optional STRING out_path | The output location. | Default = (512,512)
+#   <Output>
+#       NONE
 def writeAnnotation(annotation, out_path):
     annotation_file = open(out_path,'w+')
 
@@ -46,13 +80,30 @@ def writeAnnotation(annotation, out_path):
     annotation_file.write("{0}-{1}".format(annotation.center[0], annotation.center[1]))
     annotation_file.close()
 
-
+#   writeAnnotationToFolder(1D-ARRAY<Annotation> annotations_list, String out_path):
+#   given a list of Annotation object, and an output folder directory, write annotation(s) into the folder directory
+#   file(s) are created during process. But function will return NONE
+#
+#
+#   <Input>
+#       required 1D-ARRAY<Annotation> annotations_list | A list of annotation object(s), with stored annotation information.
+#       required STRING out_path | The output directory location. (The folder)
+#   <Output>
+#       NONE
 def writeAnnotationToFolder(annotations_list, out_dir):
     for annotation in annotations_list:
         out_path = out_dir+annotation.getName() + '.txt'
         writeAnnotation(annotation, out_path)
 
-
+#   readAnnotation(STRING path):
+#   reads the annotation information from a .txt file and saves it into an Annotation object
+#   see [Class Annotation]
+#
+#
+#   <Input>
+#       required STRING path | the location of the annotation .txt file.
+#   <Output>
+#       ANNOTATION annotation | the annotation object containing all the information from the .txt file.
 def readAnnotation(path):
     annotation_file = open(path)
 
@@ -71,7 +122,16 @@ def readAnnotation(path):
     annotation_file.close()
     return annotation
 
-
+#   readAnnotationFolder(STRING in_dir):
+#   reads the information of all annotation(s) from all .txt file(s) in a given folder directory
+#   and saves them into a 1D-Array list of Annotation object(s).
+#   see [Class Annotation]
+#
+#
+#   <Input>
+#       required STRING in_dir | the location of the folder containing annotation .txt file(s).
+#   <Output>
+#       1D-ARRAY<Annotation> annotation | the 1D-Array containing all annotation(s) in the same order as the (.txt) files read.
 def readAnnotationFolder(in_dir):
     all_annotations = []
     for file in os.listdir(in_dir):
@@ -81,6 +141,23 @@ def readAnnotationFolder(in_dir):
 
     return all_annotations
 
+#   *OBSOLETE*
+#   * No longer used because of poor optimization.
+#
+#   generateTexture(ANNOTATION annotation, STRING src_dir, STRING out_dir, TUPLE(int,int) dimensions):
+#   from an Annotation object, captures an (X by Y) sized tile of the src image and saves it as a new image.
+#   see [Class Annotation]
+#   image file(s) are created during process. But function will return NONE
+#
+#
+#   <Input>
+#       required ANNOTATION annotation | the annotation object that stores annotated coordinates of an image.
+#       required STRING src_dir | the location directory of the folder containing the image.
+#       required STRING out_dir | the location directory of the folder where the cropped image is stored.
+#       optional TUPLE(int,int) dimensions | the X by Y dimension of the texture window. | Default = (73,73)
+#   <Output>
+#       NONE
+#
 def generateTexture(annotation, src_dir, out_dir, dimensions=(73,73)):
     texture_log = logs.setupLogger("texture_log","C:/Users/acer/Desktop/TestSamples/Logs/TextureGeneration/" + annotation.getName() + "_log.txt")
 
@@ -110,11 +187,51 @@ def generateTexture(annotation, src_dir, out_dir, dimensions=(73,73)):
         texture_log.info("Completed export texture for image at row : {0}".format(y-h2))
     texture_log.info("Textures successfully Generated.")
 
-
+#   *OBSOLETE*
+#   * No longer used because of poor optimization.
+#
+#   generateTexture(ANNOTATION annotation, STRING src_dir, STRING out_dir, TUPLE(int,int) dimensions):
+#   from an Annotation object, captures an (X by Y) sized tile of the src image and saves it as a new image.
+#   see [Class Annotation]
+#   image file(s) are created during process. But function will return NONE
+#
+#
+#   <Input>
+#       required 1D-ARRAY<Annotation> annotation | the list of annotation object(s) that stores annotated coordinates of image(s).
+#       required STRING src_dir | the location directory of the folder containing images.
+#       required STRING out_dir | the location directory of the folder where the cropped images are stored.
+#       optional TUPLE(int,int) dimensions | the X by Y dimension of the texture window. | Default = (73,73)
+#   <Output>
+#       1D-ARRAY<Annotation> annotation | the 1D-Array containing all annotation(s) in the same order as the (.txt) files read.
 def generateTextureFromList(annotation_list, src_dir, out_dir, dimensions=(73,73)):
     for annotation in annotation_list:
         generateTexture(annotation, src_dir, out_dir, dimensions)
 
+#   *ALIASED*
+#   * Aliased functions perform the same as this function.
+#   * >getTrainingList
+#   * >getTestingList
+#
+#   getFileList(STRING path):
+#   Acquires a list of file specified by a .txt file. Usually used to specify which filenames belong to test or train.
+#
+#   <Input>
+#       required STRING src_dir | the location directory of the .txt file specifying a list of filename(s).
+#   <Output>
+#       1D-ARRAY<String> file_list | the list of filename(s) as specified in the .txt file given.
+def getFileList(path):
+    file_list = []
+    with open(path) as f:
+        file_list = f.read()
+        file_list = file_list.split('\n')
+
+    print(file_list)
+    return file_list
+
+
+class Dataset():
+    def __init__(self, base_dir):
+        self.base_dir = base_dir
 
 
 class Annotation():
@@ -139,12 +256,6 @@ class Annotation():
 
         self.center = (Y//len(self.coordinates),  X//len(self.coordinates))
 
-#kps = annotationFromMaskFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/1x1-8r/liver/training/")
-#writeAnnotationToFolder(kps, 'C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/annotation_coordinates/')
-#all_kps = readAnnotationFolder('C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/annotation_coordinates/')
 
-#kp = readAnnotation('C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/annotation_coordinates/scan8.txt')
-#print(kp.src)
-#generateTexture(kp, "C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/training/" ,"C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/73x73-annote/")
-
-
+getTrainingList = getFileList
+getTestingList = getFileList

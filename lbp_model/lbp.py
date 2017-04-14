@@ -1,5 +1,5 @@
 import numpy as np
-
+from lbp_model import core
 from skimage import feature
 
 
@@ -33,12 +33,16 @@ class LocalBinaryPatterns:
 if __name__ == "__main__":
     import cv2
     from imutils import paths
-    
-    for img_path in paths.list_images("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/train/"):
+
+
+
+    descriptor = LocalBinaryPatterns(24, 8)
+    exp_path = "C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_24n8r/preprocessed_samples/"
+    for img_path in paths.list_images("C:/Users/acer/Desktop/TestSamples/LiverSegmentator/sourceCT/CTs/"):
         img = cv2.imread(img_path,0)
-        descriptor = LocalBinaryPatterns(16, 8)
+        img_name = img_path.split('/').pop()
         lbp_img = descriptor.describe(img, mode='I')
-        cv2.imwrite(img_path, lbp_img)
-        print("Exported" + img_path)
+        cv2.imwrite(exp_path + img_name, lbp_img)
+        print("Exported" + exp_path + img_name)
         
 
