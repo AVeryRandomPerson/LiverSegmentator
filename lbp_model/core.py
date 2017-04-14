@@ -1,5 +1,8 @@
 from imutils import paths
+from sklearn.svm import LinearSVC
+from lbp_model import recognize
 
+import pickle
 import os
 import cv2
 import numpy as np
@@ -130,14 +133,21 @@ def readAnnotation(path):
 #
 #   <Input>
 #       required STRING in_dir | the location of the folder containing annotation .txt file(s).
+#       optional 1D-ARRAY<String> file_list | a list of targeted files to read. IF none specified, all .txt files will be taken.
 #   <Output>
 #       1D-ARRAY<Annotation> annotation | the 1D-Array containing all annotation(s) in the same order as the (.txt) files read.
-def readAnnotationFolder(in_dir):
+def readAnnotationFolder(in_dir, file_list=None):
     all_annotations = []
-    for file in os.listdir(in_dir):
-        if file.endswith('.txt'):
-            annotation = readAnnotation(in_dir + file)
+    if file_list:
+        for file in file_list:
+            annotation = readAnnotation(in_dir + file + '.txt')
             all_annotations = all_annotations + [annotation]
+
+    else:
+        for file in os.listdir(in_dir):
+            if file.endswith('.txt'):
+                annotation = readAnnotation(in_dir + file)
+                all_annotations = all_annotations + [annotation]
 
     return all_annotations
 
@@ -228,10 +238,125 @@ def getFileList(path):
     print(file_list)
     return file_list
 
+getTrainingList = getFileList
+getTestingList = getFileList
+
 
 class Dataset():
-    def __init__(self, base_dir):
+    base_dir = ""
+    dataset_dir = ""
+
+    annotation_mask_source = ""
+    annotation_source = ""
+    clean_ct_source = ""
+
+    processed_ct_dir = ""
+    binary_dir = ""
+    test_list = []
+    train_list = []
+
+    out_dir = ""
+    def __init__(self, base_dir, lbp_descriptor, folds=5, sobel=False, gamma=None):
+        self.descriptor = lbp_descriptor
+        dataset_name = self._getDatasetName(lbp_descriptor, folds, sobel, gamma)
+        self._generateDirectories(base_dir, lbp_descriptor, dataset_name)
+        self.train_list = getTrainingList(self.base_dir + 'sourceCT/kfolds_list/{0}folds_train_list.txt'.format(folds))
+        self.test_list = getTestingList(self.base_dir + 'sourceCT/kfolds_list/{0}folds_test_list.txt'.format(folds))
+        self._preprocessSamples()
+
+        print("Finished initializing")
+
+    def _getDatasetName(self, lbp_descriptor, folds, sobel, gamma):
+        dataset_name = '{0}folds_{1}n{2}r'.format(folds, lbp_descriptor.numPoints, lbp_descriptor.radius)
+        if (sobel):
+            dataset_name = dataset_name + '_sobel'
+
+        if (gamma):
+            dataset_name = dataset_name + '_gamma' + gamma
+
+        dataset_name = dataset_name + '/'
+        return dataset_name
+
+    def _generateDirectories(self, base_dir, lbp_descriptor, dataset_name):
         self.base_dir = base_dir
+        if(not self.base_dir.endswith("\\") or not self.base_dir.endswith("/")):
+            base_dir = base_dir + '/'
+
+        self.clean_ct_source = self.base_dir + 'sourceCT/' + 'CTs/'
+        self.annotation_source = self.base_dir + 'sourceCT/' +'annotations/'
+        self.annotation_mask_source = self.base_dir + 'sourceCT/' + 'annotation_mask_source/'
+
+        self.dataset_dir = self.base_dir + 'all-datasets/' + dataset_name
+        if not os.path.exists(self.dataset_dir):
+            os.makedirs(self.dataset_dir)
+
+        self.processed_ct_dir = self.dataset_dir + 'preprocessed_samples/'
+        self.binary_dir = self.dataset_dir + 'binaries/'
+        self.out_dir = self.dataset_dir + 'output/'
+
+    def _preprocessSamples(self):
+        if not os.path.exists(self.processed_ct_dir):
+            os.makedirs(self.processed_ct_dir)
+
+        for img_path in paths.list_images(self.clean_ct_source):
+            img = cv2.imread(img_path, 0)
+            img_name = img_path.split('/').pop()
+            lbp_img = self.descriptor.describe(img, mode='I')
+            cv2.imwrite(self.processed_ct_dir + img_name, lbp_img)
+            print("Exported - " + self.processed_ct_dir + img_name)
+
+    def trainDataset(self, tile_dimensions=(73,73), useSDV=False, useCCostMeasure=False):
+        annotations = readAnnotationFolder(self.annotation_source, self.train_list)
+
+        final_bin_dir = self.binary_dir + 'lbp'
+        if(useSDV): final_bin_dir = self.binary_dir + '_sdv'
+        if(useCCostMeasure): final_bin_dir = self.binary_dir + '_ccm'
+        final_bin_dir = final_bin_dir + '/'
+
+
+        if not os.path.exists(final_bin_dir):
+            os.makedirs(final_bin_dir)
+        recognize.trainLBPFolder(self.processed_ct_dir,
+                                 annotations,
+                                 self.descriptor,
+                                 tile_dimensions,
+                                 final_bin_dir)
+
+    def lsvcPredictData(self, tile_dimensions=(73,73), C=100.0, useSDV=False, useCCostMeasure=False):
+        model_name = 'lbp'
+        if(useSDV): model_name = model_name + '_sdv'
+        if(useCCostMeasure): model_name = model_name + '_ccm'
+        model_name = model_name + '/'
+
+        data = []
+        labels = []
+        for file in self.train_list:
+            with open(self.binary_dir + model_name + file + '.bin', 'rb') as f:
+                    d, l = pickle.load(f)
+                    data = data + d
+                    labels = labels + l
+
+        model = LinearSVC(C=C, random_state=42)
+        model.fit(data, labels)
+
+        model_name = 'c{0}_{1}x{2}_{3}'.format(C, tile_dimensions[0], tile_dimensions[1], model_name)
+        final_out_dir = self.out_dir + model_name
+        if not os.path.exists(final_out_dir):
+            os.makedirs(final_out_dir)
+
+        img_list = []
+        for file_name in self.test_list:
+            img = file_name + '.jpg'
+            img_list = img_list + [img]
+        recognize.predictImageFolder(self.processed_ct_dir,
+                                     img_list,
+                                     model,
+                                     self.descriptor,
+                                     final_out_dir,
+                                     (73,73))
+
+        del model
+
 
 
 class Annotation():
@@ -257,5 +382,3 @@ class Annotation():
         self.center = (Y//len(self.coordinates),  X//len(self.coordinates))
 
 
-getTrainingList = getFileList
-getTestingList = getFileList

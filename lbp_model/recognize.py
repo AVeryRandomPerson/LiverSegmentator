@@ -23,7 +23,7 @@ def trainLBP(img, key_points, descriptor, tile_dimensions = (5,5)):
     data = []
     labels = []
 
-    xMin = max([tile_dimensions[0],descriptor.radius])
+    xMin = max([tile_dimensions[0], descriptor.radius])
     yMin = max([tile_dimensions[1], descriptor.radius])
 
     buffered_img = np.zeros((len(img)+2*yMin+1,len(img[0])+2*xMin+1))
@@ -96,21 +96,30 @@ def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5
             all_data = all_data + data
             all_labels = all_labels + labels
         else:
-            with open(bin_dir + annotation.getName() + '.bin' ,'wb') as f:
+            with open(bin_dir + annotation.getName() + '.bin' ,'wb+') as f:
                 pickle.dump([data,labels], f)
 
 
     return all_data, all_labels
 
 
-def predictImageFolder(fol_dir, model, descriptor, tile_dimensions =(5,5), out_dir="C:/Users/acer/Desktop/"):
-    for img in paths.list_images(fol_dir):
-        mask = predictImage(cv2.imread(img, 0),
-                     model,
-                     descriptor,
-                     tile_dimensions)
+def predictImageFolder(fol_dir, img_list, model, descriptor, out_dir, tile_dimensions =(5,5)):
+    if(img_list):
+        for img in img_list:
+            mask = predictImage(cv2.imread(fol_dir + img, 0),
+                                model,
+                                descriptor,
+                                tile_dimensions)
+            cv2.imwrite(out_dir + img,mask)
 
-        cv2.imwrite(out_dir + img.split('/').pop(),mask)
+    else:
+        for img in paths.list_images(fol_dir):
+            mask = predictImage(cv2.imread(img, 0),
+                         model,
+                         descriptor,
+                         tile_dimensions)
+
+            cv2.imwrite(out_dir + img.split('/').pop(),mask)
 
 
 
@@ -197,6 +206,7 @@ def predictVisualize(lbp_radius, descriptor, model_list, model_names, src_test_d
             cv2.imwrite(write_dir, img_bin)
 
 
+
 if __name__ == "__main__":
     TRAINING_LIVER = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/1x1-8r/liver/training/"
     TRAINING_NONLIVER = "C:/Users/acer/Desktop/TestSamples/ML-Dataset/LBP_Texture/1x1-8r/non-liver/training/"
@@ -222,9 +232,9 @@ if __name__ == "__main__":
     '''
 
     all_kp = core.readAnnotationFolder('C:/Users/acer/Desktop/TestSamples/LiverSegmentator/sourceCT/annotations/')
-    desc = lbp.LocalBinaryPatterns(16, 8)
+    desc = lbp.LocalBinaryPatterns(8, 8)
 
-    data, labels = trainLBPFolder("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/x/train/",all_kp,desc,tile_dimensions=(73,73), bin_dir='C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_16n8r/binaries/lbp_binaries/')
+    data, labels = trainLBPFolder("C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_8n8r/preprocessed_samples/",all_kp,desc,tile_dimensions=(73,73), bin_dir='C:/Users/acer/Desktop/TestSamples/LiverSegmentator/all-datasets/5folds_8n8r/binaries/lbp_binaries/')
 
     '''
     data = []
