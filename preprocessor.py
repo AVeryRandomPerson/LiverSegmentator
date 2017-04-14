@@ -1,4 +1,3 @@
-import logging
 import os
 import cv2
 import numpy as np
@@ -131,7 +130,3 @@ def gammaContrast(img, gamma):
                       for i in np.arange(0, 256)]).astype("uint8")
     del invGamma
     return cv2.LUT(img, table)
-
-if __name__ == '__main__':
-    cv2.imshow("gamma", gammaContrast(cv2.imread('C:/Users/acer/Desktop/TestSamples/scan6.jpg',0),0.5))
-    cv2.waitKey(0)

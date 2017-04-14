@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cce53985-32aa-40f8-9038-8968dcf8f890" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mainLBP.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Preprocessor.py" afterPath="$PROJECT_DIR$/preprocessor.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/core.py" afterPath="$PROJECT_DIR$/lbp_model/core.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/lbp.py" afterPath="$PROJECT_DIR$/lbp_model/lbp.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/recognize.py" afterPath="$PROJECT_DIR$/lbp_model/recognize.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainLBP.py" afterPath="$PROJECT_DIR$/mainLBP.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preprocessor.py" afterPath="$PROJECT_DIR$/preprocessor.py" />
     </list>
     <ignored path="LiverSegmentator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,12 +23,12 @@
     <SUITE FILE_PATH="coverage/LiverSegmentator$Preprocessor.coverage" NAME="Preprocessor Coverage Results" MODIFIED="1491164603601" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$crossvalidator.coverage" NAME="crossvalidator Coverage Results" MODIFIED="1491145749349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sampler" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$core.coverage" NAME="core Coverage Results" MODIFIED="1492174241030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
-    <SUITE FILE_PATH="coverage/LiverSegmentator$preprocessor.coverage" NAME="preprocessor Coverage Results" MODIFIED="1492206055308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LiverSegmentator$preprocessor.coverage" NAME="preprocessor Coverage Results" MODIFIED="1492209605814" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$recognize__1_.coverage" NAME="recognize (1) Coverage Results" MODIFIED="1491151682442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/hog_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$lbp.coverage" NAME="lbp Coverage Results" MODIFIED="1492176112208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$recognize.coverage" NAME="recognize Coverage Results" MODIFIED="1492183450077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$TestingShit.coverage" NAME="TestingShit Coverage Results" MODIFIED="1491552471116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/LiverSegmentator$mainLBP.coverage" NAME="mainLBP Coverage Results" MODIFIED="1492204095409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LiverSegmentator$mainLBP.coverage" NAME="mainLBP Coverage Results" MODIFIED="1492210342968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -55,41 +54,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lbp.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
+      <file leaf-file-name="core.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="5" column="61" lean-forward="false" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
+            <state relative-caret-position="-1262">
+              <caret line="290" column="48" lean-forward="false" selection-start-line="290" selection-start-column="48" selection-end-line="290" selection-end-column="48" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
+                <element signature="e#179#215#0" expanded="false" />
+                <element signature="e#506#775#0" expanded="false" />
+                <element signature="e#777#823#0" expanded="false" />
+                <element signature="e#1194#1386#0" expanded="false" />
+                <element signature="e#1388#1477#0" expanded="false" />
+                <element signature="e#1935#2106#0" expanded="false" />
+                <element signature="e#2108#2168#0" expanded="false" />
+                <element signature="e#2567#3090#0" expanded="false" />
+                <element signature="e#3092#3176#0" expanded="false" />
+                <element signature="e#3670#3810#0" expanded="false" />
+                <element signature="e#4691#4731#0" expanded="false" />
+                <element signature="e#5794#5808#0" expanded="false" />
+                <element signature="e#6714#8163#0" expanded="false" />
+                <element signature="e#8165#8179#0" expanded="false" />
+                <element signature="e#9231#9333#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="core.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
+      <file leaf-file-name="lbp.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="355" column="44" lean-forward="true" selection-start-line="355" selection-start-column="44" selection-end-line="355" selection-end-column="44" />
+            <state relative-caret-position="-697">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="7" selection-end-column="52" />
               <folding>
-                <element signature="e#0#25#0" expanded="true" />
-                <element signature="e#160#196#0" expanded="false" />
-                <element signature="e#487#756#0" expanded="false" />
-                <element signature="e#758#804#0" expanded="false" />
-                <element signature="e#1175#1367#0" expanded="false" />
-                <element signature="e#1369#1458#0" expanded="false" />
-                <element signature="e#1916#2087#0" expanded="false" />
-                <element signature="e#2089#2149#0" expanded="false" />
-                <element signature="e#2548#3071#0" expanded="false" />
-                <element signature="e#3073#3157#0" expanded="false" />
-                <element signature="e#3651#3791#0" expanded="false" />
-                <element signature="e#4672#4712#0" expanded="false" />
-                <element signature="e#5775#5789#0" expanded="false" />
-                <element signature="e#6695#8144#0" expanded="false" />
-                <element signature="e#8146#8160#0" expanded="false" />
-                <element signature="e#9212#9314#0" expanded="false" />
-                <element signature="e#9314#9327#0" expanded="false" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,8 +96,8 @@
       <file leaf-file-name="mainLBP.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mainLBP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+            <state relative-caret-position="231">
+              <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -121,17 +119,21 @@
         <entry file="file://$PROJECT_DIR$/preprocessor.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="437">
-              <caret line="136" column="18" lean-forward="true" selection-start-line="136" selection-start-column="18" selection-end-line="136" selection-end-column="18" />
+              <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
               <folding>
-                <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#83#154#0" expanded="false" />
-                <element signature="e#1178#1306#0" expanded="false" />
-                <element signature="e#1306#1339#0" expanded="false" />
-                <element signature="e#1716#2007#0" expanded="false" />
-                <element signature="e#2009#2083#0" expanded="false" />
-                <element signature="e#2691#3166#0" expanded="false" />
-                <element signature="e#3166#3231#0" expanded="false" />
-                <marker date="1492206065911" expanded="false" signature="3748:4191" ph="..." />
+                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#68#139#0" expanded="false" />
+                <element signature="e#1163#1291#0" expanded="false" />
+                <element signature="e#1291#1324#0" expanded="false" />
+                <element signature="e#1701#1992#0" expanded="false" />
+                <element signature="e#1994#2068#0" expanded="false" />
+                <element signature="e#2676#3151#0" expanded="false" />
+                <element signature="e#3151#3216#0" expanded="false" />
+                <element signature="e#4178#4241#0" expanded="false" />
+                <element signature="e#4868#5250#0" expanded="false" />
+                <element signature="e#5252#5307#0" expanded="false" />
+                <element signature="e#5658#5905#0" expanded="false" />
+                <marker date="1492209637012" expanded="false" signature="3733:4176" ph="..." />
               </folding>
             </state>
           </provider>
@@ -175,6 +177,7 @@
       <find>with</find>
       <find>int(</find>
       <find>paths</find>
+      <find>gamma</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,11 +201,11 @@
         <option value="$PROJECT_DIR$/SETTINGS" />
         <option value="$PROJECT_DIR$/packagetracks" />
         <option value="$PROJECT_DIR$/Preprocessor.py" />
-        <option value="$PROJECT_DIR$/lbp_model/lbp.py" />
-        <option value="$PROJECT_DIR$/mainLBP.py" />
         <option value="$PROJECT_DIR$/lbp_model/recognize.py" />
-        <option value="$PROJECT_DIR$/lbp_model/core.py" />
+        <option value="$PROJECT_DIR$/lbp_model/lbp.py" />
         <option value="$PROJECT_DIR$/preprocessor.py" />
+        <option value="$PROJECT_DIR$/mainLBP.py" />
+        <option value="$PROJECT_DIR$/lbp_model/core.py" />
       </list>
     </option>
   </component>
@@ -330,7 +333,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.preprocessor">
+  <component name="RunManager" selected="Python.mainLBP">
     <configuration default="false" name="recognize" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -617,8 +620,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.preprocessor" />
-        <item index="1" class="java.lang.String" itemvalue="Python.mainLBP" />
+        <item index="0" class="java.lang.String" itemvalue="Python.mainLBP" />
+        <item index="1" class="java.lang.String" itemvalue="Python.preprocessor" />
         <item index="2" class="java.lang.String" itemvalue="Python.recognize" />
         <item index="3" class="java.lang.String" itemvalue="Python.lbp" />
         <item index="4" class="java.lang.String" itemvalue="Python.core" />
@@ -659,8 +662,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1102" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2484375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2484375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1106,16 +1110,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="5" column="61" lean-forward="false" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lbp_model/recognize.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
@@ -1129,54 +1123,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
+    <entry file="file://$PROJECT_DIR$/preprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="355" column="44" lean-forward="true" selection-start-line="355" selection-start-column="44" selection-end-line="355" selection-end-column="44" />
+        <state relative-caret-position="437">
+          <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
-            <element signature="e#160#196#0" expanded="false" />
-            <element signature="e#487#756#0" expanded="false" />
-            <element signature="e#758#804#0" expanded="false" />
-            <element signature="e#1175#1367#0" expanded="false" />
-            <element signature="e#1369#1458#0" expanded="false" />
-            <element signature="e#1916#2087#0" expanded="false" />
-            <element signature="e#2089#2149#0" expanded="false" />
-            <element signature="e#2548#3071#0" expanded="false" />
-            <element signature="e#3073#3157#0" expanded="false" />
-            <element signature="e#3651#3791#0" expanded="false" />
-            <element signature="e#4672#4712#0" expanded="false" />
-            <element signature="e#5775#5789#0" expanded="false" />
-            <element signature="e#6695#8144#0" expanded="false" />
-            <element signature="e#8146#8160#0" expanded="false" />
-            <element signature="e#9212#9314#0" expanded="false" />
-            <element signature="e#9314#9327#0" expanded="false" />
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#68#139#0" expanded="false" />
+            <element signature="e#1163#1291#0" expanded="false" />
+            <element signature="e#1291#1324#0" expanded="false" />
+            <element signature="e#1701#1992#0" expanded="false" />
+            <element signature="e#1994#2068#0" expanded="false" />
+            <element signature="e#2676#3151#0" expanded="false" />
+            <element signature="e#3151#3216#0" expanded="false" />
+            <element signature="e#4178#4241#0" expanded="false" />
+            <element signature="e#4868#5250#0" expanded="false" />
+            <element signature="e#5252#5307#0" expanded="false" />
+            <element signature="e#5658#5905#0" expanded="false" />
+            <marker date="1492209637012" expanded="false" signature="3733:4176" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preprocessor.py">
+    <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="136" column="18" lean-forward="true" selection-start-line="136" selection-start-column="18" selection-end-line="136" selection-end-column="18" />
+        <state relative-caret-position="-697">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="7" selection-end-column="52" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#83#154#0" expanded="false" />
-            <element signature="e#1178#1306#0" expanded="false" />
-            <element signature="e#1306#1339#0" expanded="false" />
-            <element signature="e#1716#2007#0" expanded="false" />
-            <element signature="e#2009#2083#0" expanded="false" />
-            <element signature="e#2691#3166#0" expanded="false" />
-            <element signature="e#3166#3231#0" expanded="false" />
-            <marker date="1492206065911" expanded="false" signature="3748:4191" ph="..." />
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1262">
+          <caret line="290" column="48" lean-forward="false" selection-start-line="290" selection-start-column="48" selection-end-line="290" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#179#215#0" expanded="false" />
+            <element signature="e#506#775#0" expanded="false" />
+            <element signature="e#777#823#0" expanded="false" />
+            <element signature="e#1194#1386#0" expanded="false" />
+            <element signature="e#1388#1477#0" expanded="false" />
+            <element signature="e#1935#2106#0" expanded="false" />
+            <element signature="e#2108#2168#0" expanded="false" />
+            <element signature="e#2567#3090#0" expanded="false" />
+            <element signature="e#3092#3176#0" expanded="false" />
+            <element signature="e#3670#3810#0" expanded="false" />
+            <element signature="e#4691#4731#0" expanded="false" />
+            <element signature="e#5794#5808#0" expanded="false" />
+            <element signature="e#6714#8163#0" expanded="false" />
+            <element signature="e#8165#8179#0" expanded="false" />
+            <element signature="e#9231#9333#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainLBP.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        <state relative-caret-position="231">
+          <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>

@@ -7,7 +7,7 @@ import os
 import cv2
 import numpy as np
 import logs
-
+import preprocessor
 #   maskedToAnnotation(STRING path):
 #   gets annotated coordinates of an annotated mask image.
 #
@@ -241,8 +241,19 @@ def getFileList(path):
 getTrainingList = getFileList
 getTestingList = getFileList
 
-
-class Dataset():
+#   Dataset
+#       Class contains directory and core information of a dataset.
+#       STRING base_dir   [The Base Directory of the dataset]
+#       STRING dataset_dir      [The directory to the dataset]
+#       STRING annotation_mask_source [The directory for masked images of the dataset]
+#       STRING annotation_source [The directory containing .txt files of annotation data]
+#       STRING clean_ct_source [The directory for untouched ct scans]
+#       STRING processed_ct_dir [The directory of preprocessed ct scans]
+#       STRING binary_dir [The base directory of binary .BIN training info]
+#       STRING out_dir [ The output directory of predicted/test images ]
+#       1D-ARRAY<String> test_list [The list of filenames (Without format) of test samples]
+#       1D-ARRAY<String> prediction_list [The list of filenames (Without format) of the training samples]
+class Dataset:
     base_dir = ""
     dataset_dir = ""
 
@@ -252,27 +263,32 @@ class Dataset():
 
     processed_ct_dir = ""
     binary_dir = ""
+    out_dir = ""
+
     test_list = []
     train_list = []
 
-    out_dir = ""
-    def __init__(self, base_dir, lbp_descriptor, folds=5, sobel=False, gamma=None):
+
+    def __init__(self, base_dir, lbp_descriptor, folds=5, sobel=False, gamma=1.0, histEQ=False):
         self.descriptor = lbp_descriptor
-        dataset_name = self._getDatasetName(lbp_descriptor, folds, sobel, gamma)
+        dataset_name = self._getDatasetName(lbp_descriptor, folds, sobel, gamma, histEQ)
         self._generateDirectories(base_dir, lbp_descriptor, dataset_name)
         self.train_list = getTrainingList(self.base_dir + 'sourceCT/kfolds_list/{0}folds_train_list.txt'.format(folds))
         self.test_list = getTestingList(self.base_dir + 'sourceCT/kfolds_list/{0}folds_test_list.txt'.format(folds))
-        self._preprocessSamples()
+        self._preprocessSamples(sobel, gamma, histEQ)
 
         print("Finished initializing")
 
-    def _getDatasetName(self, lbp_descriptor, folds, sobel, gamma):
+    def _getDatasetName(self, lbp_descriptor, folds, sobel, gamma, histEQ):
         dataset_name = '{0}folds_{1}n{2}r'.format(folds, lbp_descriptor.numPoints, lbp_descriptor.radius)
         if (sobel):
             dataset_name = dataset_name + '_sobel'
 
-        if (gamma):
-            dataset_name = dataset_name + '_gamma' + gamma
+        if (gamma != 1.0):
+            dataset_name = dataset_name + '_gamma{0}'.format(gamma)
+
+        if (histEQ):
+            dataset_name = dataset_name + '_histEQ'
 
         dataset_name = dataset_name + '/'
         return dataset_name
@@ -294,12 +310,22 @@ class Dataset():
         self.binary_dir = self.dataset_dir + 'binaries/'
         self.out_dir = self.dataset_dir + 'output/'
 
-    def _preprocessSamples(self):
+    def _preprocessSamples(self, sobel, gamma, histEQ):
         if not os.path.exists(self.processed_ct_dir):
             os.makedirs(self.processed_ct_dir)
 
         for img_path in paths.list_images(self.clean_ct_source):
             img = cv2.imread(img_path, 0)
+
+            if(sobel):
+                img = preprocessor.applySobel(img, 1, 1, 5)
+
+            if(gamma != 1.0):
+                img = preprocessor.gammaContrast(img, gamma)
+
+            if(histEQ):
+                img = cv2.equalizeHist(img)
+
             img_name = img_path.split('/').pop()
             lbp_img = self.descriptor.describe(img, mode='I')
             cv2.imwrite(self.processed_ct_dir + img_name, lbp_img)
@@ -339,7 +365,8 @@ class Dataset():
         model = LinearSVC(C=C, random_state=42)
         model.fit(data, labels)
 
-        model_name = 'c{0}_{1}x{2}_{3}'.format(C, tile_dimensions[0], tile_dimensions[1], model_name)
+        strC = str(C).replace('.','f')
+        model_name = 'c{0}_{1}x{2}_{3}'.format(strC, tile_dimensions[0], tile_dimensions[1], model_name)
         final_out_dir = self.out_dir + model_name
         if not os.path.exists(final_out_dir):
             os.makedirs(final_out_dir)
