@@ -3,11 +3,13 @@ import numpy as np
 from imutils import paths
 import pickle
 import logs
+import math
+from CONSTANTS import TESTING_LOG, TRAINING_LOG
 
 prediction_log = logs.setupLogger("prediction_log",
-                                  "C:/Users/acer/Desktop/TestSamples/Logs/Predicting/prediction.txt")
+                                  TESTING_LOG)
 training_log = logs.setupLogger("training_log",
-                                "C:/Users/acer/Desktop/TestSamples/Logs/Training/annotatedTraining.txt")
+                                TRAINING_LOG)
 
 #   getStdDevCoeff(NUMPY_ARRAY[Image] img)
 #   computes the standard deviation of an image.
@@ -29,7 +31,14 @@ def getStdDevCoeff(img):
 #   <OUTPUT>
 #       FLOAT /Anonymous/ | the distance of the sliding window center to the estimated liver center
 def getCCM(cY, cX, estLiverC):
-    return ((cY-estLiverC[0])^2 + (cX-estLiverC[1])^2)^0.5
+    dY = cY - estLiverC[0]
+    dX = cX - estLiverC[1]
+
+    dY2 = math.pow(dY, 2)
+    dX2 = math.pow(dX, 2)
+
+    dist = math.pow((dY2 + dX2), 0.5)
+    return dist
 
 #   trainLBP(NUMPY_ARRAY[Image] img, 1D-ARRAY<Tuple(Int,Int)> key_points, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions, BOOL useSDV, BOOL useCCM):
 #   trains an image using LBP feature using a tile size (X , Y) sliding window. Image(s) must already be preprocessed.
@@ -62,14 +71,15 @@ def trainLBP(img, annotation, descriptor, tile_dimensions = (5,5), useSDV = Fals
             feature = descriptor.computeHistogram(texture)
 
             if(useSDV):
-                feature = [feature, getStdDevCoeff(texture)]
+                feature = feature + [getStdDevCoeff(texture)]
 
             if(useCCM):
                 if(annotation.center == (0,0)):
                     annotation.center.computeCenter()
 
                 estLiverC = annotation.center
-                feature = feature + [getCCM(y, x, estLiverC)]
+                ccm = getCCM(y, x, estLiverC)
+                feature = feature + [ccm]
 
             data.append(feature)
 
@@ -198,7 +208,7 @@ def predictImage(img, model, descriptor ,tile_dimensions = (5,5), useSDV = False
             feature = descriptor.computeHistogram(texture)
 
             if(useSDV):
-                feature = [feature, getStdDevCoeff(texture)]
+                feature = feature + [getStdDevCoeff(texture)]
 
             if(estLiverC):
                 feature = feature + [getCCM(y, x, estLiverC)]

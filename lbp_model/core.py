@@ -116,7 +116,7 @@ def readAnnotation(path):
     annotation_data = annotation_file.read().split('?')     #Get The src name
     src_name = annotation_data[0]
     key_points = annotation_data[1].split(' ')
-    center = key_points.pop()
+    center = key_points.pop().split('-')
 
     annotation = Annotation(src_name)
     for point in key_points:
@@ -124,7 +124,7 @@ def readAnnotation(path):
         coords = list(map(int, coords))
         annotation.appendCoords(tuple(coords))
 
-    annotation.center = center
+    annotation.center = ( int(center[0]) , int(center[1]) )
     annotation_file.close()
     return annotation
 
@@ -303,7 +303,7 @@ class Dataset:
             dataset_name = dataset_name + '_histEQ'
 
         if (gamma != 1.0):
-            dataset_name = dataset_name + '_gamma{0}'.format(gamma)
+            dataset_name = dataset_name + '_gamma{0}'.format(gamma).replace('.','f')
 
         if (useSobel):
             dataset_name = dataset_name + '_sobel'
@@ -383,15 +383,17 @@ class Dataset:
         annotations = readAnnotationFolder(self.annotation_source, self.train_list)
 
         final_bin_dir = self.binary_dir + 'lbp'
-        if(useSDV): final_bin_dir = self.binary_dir + '_sdv'
-        if(useCCostMeasure): final_bin_dir = self.binary_dir + '_ccm'
+        if(useSDV): final_bin_dir = final_bin_dir + '_sdv'
+        if(useCCostMeasure): final_bin_dir = final_bin_dir + '_ccm'
         final_bin_dir = final_bin_dir + '/'
+        self.estLiverC = (0, 0)
+        if (useCCostMeasure):
+            total_coords = 0
+            for i in range(0, len(annotations)):
+                self.estLiverC = (self.estLiverC[0] + annotations[i].center[0], self.estLiverC[1] + annotations[i].center[1])
+                total_coords = total_coords + len(annotations[i].coordinates)
 
-        if(useCCostMeasure):
-            estLiverC = (0,0)
-            for i in range(0,len(annotations)):
-                estLiverC = (estLiverC[0] + annotations[i].center[0], estLiverC[1] + annotations[i].center[1])
-            estLiverC = (estLiverC[0] / len(annotations)[0], estLiverC[1] / len(annotations)[1])
+            self.estLiverC = (self.estLiverC[0]/len(annotations) , self.estLiverC[1]/len(annotations))
 
         if not os.path.exists(final_bin_dir):
             os.makedirs(final_bin_dir)
@@ -416,12 +418,15 @@ class Dataset:
         annotations = readAnnotationFolder(self.annotation_source, self.train_list)
 
         final_bin_dir = self.binary_dir + 'lbp'
-        if(useSDV): final_bin_dir = self.binary_dir + '_sdv'
-        if(useCCostMeasure): final_bin_dir = self.binary_dir + '_ccm'
+        if(useSDV): final_bin_dir = final_bin_dir + '_sdv'
+        if(useCCostMeasure): final_bin_dir = final_bin_dir + '_ccm'
         final_bin_dir = final_bin_dir + '/'
 
-        binaries = os.listdir(final_bin_dir)
-        return len(self.train_list) == len(binaries)
+        if os.path.exists(final_bin_dir):
+            binaries = os.listdir(final_bin_dir)
+            return len(self.train_list) == len(binaries)
+        else:
+            return False
 
     #   lsvcPredictData(TUPLE(int,int) tile_dimensions, FLOAT C, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
     #   Attempts to predict data from stored information of trained binaries. Data is fit into a linear SVC.
@@ -452,8 +457,8 @@ class Dataset:
         model = LinearSVC(C=C, random_state=42)
         model.fit(data, labels)
 
-        strC = str(C).replace('.','f')
-        model_name = 'c{0}_{1}x{2}_{3}'.format(strC, tile_dimensions[0], tile_dimensions[1], model_name)
+        model_name = 'c{0}_{1}x{2}_{3}'.format(C, tile_dimensions[0], tile_dimensions[1], model_name)
+
         final_out_dir = self.out_dir + model_name
         if not os.path.exists(final_out_dir):
             os.makedirs(final_out_dir)
@@ -462,6 +467,11 @@ class Dataset:
         for file_name in self.test_list:
             img = file_name + '.jpg'
             img_list = img_list + [img]
+
+        if(useCCostMeasure):
+            estLiverC = self.estLiverC
+        else:
+            estLiverC = None
         recognize.predictImageFolder(self.processed_ct_dir,
                                      img_list,
                                      model,
@@ -469,7 +479,7 @@ class Dataset:
                                      final_out_dir,
                                      (73,73),
                                      useSDV,
-                                     useCCostMeasure)
+                                     estLiverC)
 
         del model
 
@@ -522,7 +532,6 @@ class Annotation():
         for (y,x) in self.coordinates:
             Y = Y + y
             X = X + x
-
         self.center = (Y//len(self.coordinates),  X//len(self.coordinates))
 
 

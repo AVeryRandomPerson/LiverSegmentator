@@ -2,7 +2,7 @@ from lbp_model.core import Dataset
 from lbp_model import lbp
 from CONSTANTS import *
 
-#   basicTrainingProgramme(1D-ARRAY<Float> cList,
+#   runTrainingProgramme(1D-ARRAY<Float> cList,
 #                          STRING dsBaseDir,
 #                          INT descNPoints,
 #                          INT descRadius,
@@ -29,7 +29,7 @@ from CONSTANTS import *
 #       optional TUPLE(int, int) tile_dimensions | the size of the sliding window tile for training and testing. Format (X by Y) | Default (73, 73).
 #   <Output>
 #       NONE.
-def basicTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useSobel, gamma, useHistEQ, useSDV, useCCostMeasure, tile_dimensions=(73,73)):
+def runTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useSobel, gamma, useHistEQ, useSDV, useCCostMeasure, tile_dimensions=(73,73)):
     dataset = Dataset(dsBaseDir, lbp.LocalBinaryPatterns(descNPoints, descRadius), folds, useSobel, gamma, useHistEQ)
     if(not dataset.hasTrainedBinaries()):
        dataset.trainDataset(tile_dimensions=tile_dimensions, useSDV=useSDV, useCCostMeasure=useCCostMeasure)
@@ -37,66 +37,8 @@ def basicTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, use
     for c in cList:
         dataset.lsvcPredictData(C=c, tile_dimensions=tile_dimensions, useSDV=useSDV,useCCostMeasure=useCCostMeasure)
 
+
+
 # Entry point of entire lbp model program.
 if __name__ == '__main__':
-
-    descriptor = lbp.LocalBinaryPatterns(8, 8)
-    dataset2 = Dataset(BASE_DIR, descriptor, 5)
-    dataset2.trainDataset()
-    dataset2.lsvcPredictData(C=1000)
-    dataset2.lsvcPredictData(C=100)
-    dataset2.lsvcPredictData(C=1)
-    dataset2.lsvcPredictData(C=0.01)
-    dataset2.lsvcPredictData(C=0.001)
-
-    del dataset2
-    del descriptor
-
-    descriptor = lbp.LocalBinaryPatterns(16, 8)
-    dataset1 = Dataset(BASE_DIR, descriptor, 5)
-    # dataset1.trainDataset()
-    dataset1.lsvcPredictData(C=1000)
-    dataset1.lsvcPredictData(C=1)
-    dataset1.lsvcPredictData(C=0.01)
-    dataset1.lsvcPredictData(C=0.001)
-
-    del dataset1
-    del descriptor
-
-    descriptor = lbp.LocalBinaryPatterns(12, 8)
-    dataset2 = Dataset(BASE_DIR, descriptor, 5)
-    dataset2.trainDataset()
-    dataset2.lsvcPredictData(C=1000)
-    dataset2.lsvcPredictData(C=100)
-    dataset2.lsvcPredictData(C=1)
-    dataset2.lsvcPredictData(C=0.01)
-    dataset2.lsvcPredictData(C=0.001)
-
-    del dataset2
-    del descriptor
-
-
-    descriptor = lbp.LocalBinaryPatterns(20, 8)
-    dataset2 = Dataset(BASE_DIR, descriptor, 5)
-    dataset2.trainDataset()
-    dataset2.lsvcPredictData(C=1000)
-    dataset2.lsvcPredictData(C=100)
-    dataset2.lsvcPredictData(C=1)
-    dataset2.lsvcPredictData(C=0.01)
-    dataset2.lsvcPredictData(C=0.001)
-
-    del dataset2
-    del descriptor
-
-
-    descriptor = lbp.LocalBinaryPatterns(24, 8)
-    dataset2 = Dataset(BASE_DIR, descriptor, 5)
-    dataset2.trainDataset()
-    dataset2.lsvcPredictData(C=1000)
-    dataset2.lsvcPredictData(C=100)
-    dataset2.lsvcPredictData(C=1)
-    dataset2.lsvcPredictData(C=0.01)
-    dataset2.lsvcPredictData(C=0.001)
-
-    del dataset2
-    del descriptor
+    runTrainingProgramme([1000,100,1,0.01,0.001], BASE_DIR, 16, 8, 5, True, 0.3, True, True, True, (73,73))
