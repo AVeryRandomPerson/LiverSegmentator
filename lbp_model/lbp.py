@@ -25,7 +25,7 @@ class LocalBinaryPatterns:
     #
     #       mode == *
     #           NUMPY_ARRAY[Image] lbp | the lbp image.
-    def describe(self, image, mode="H", eps=1e-7):
+    def describe(self, image, mode="H", eps=1e-7, chingchong=None):
         lbp = feature.local_binary_pattern(image, self.numPoints,self.radius, method="uniform")
 
         if(mode == "H"):
@@ -54,5 +54,4 @@ class LocalBinaryPatterns:
         hist /= (hist.sum() + eps)
 
         return hist
-
 

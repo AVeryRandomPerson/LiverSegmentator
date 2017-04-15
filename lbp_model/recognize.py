@@ -9,19 +9,43 @@ prediction_log = logs.setupLogger("prediction_log",
 training_log = logs.setupLogger("training_log",
                                 "C:/Users/acer/Desktop/TestSamples/Logs/Training/annotatedTraining.txt")
 
-#   trainLBP(NUMPY_ARRAY[Image] img, 1D-ARRAY<Tuple(Int,Int)> key_points, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions):
+#   getStdDevCoeff(NUMPY_ARRAY[Image] img)
+#   computes the standard deviation of an image.
+#
+#   <INPUT>
+#       required NUMPY_ARRAY[Image] img | the 2d-numpy-array representation of an image.
+#   <OUTPUT>
+#       FLOAT /Anonymous/ | the standard deviation coefficient value of the image intensities.
+def getStdDevCoeff(img):
+    return np.std(img)/np.average(img)
+
+#   getCCM(INT y, INT x, TUPLE(INT,INT) estLiverC)
+#   computes the distance between the sliding window and the estimated liver center.
+#
+#   <INPUT>
+#       required INT y | y coordinate of sliding window center
+#       required INT x | x coordinate of sliding window center
+#       required TUPLE(int,int) estLiverC | estimated liver center coordinate. Format of (Y, X)
+#   <OUTPUT>
+#       FLOAT /Anonymous/ | the distance of the sliding window center to the estimated liver center
+def getCCM(cY, cX, estLiverC):
+    return ((cY-estLiverC[0])^2 + (cX-estLiverC[1])^2)^0.5
+
+#   trainLBP(NUMPY_ARRAY[Image] img, 1D-ARRAY<Tuple(Int,Int)> key_points, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions, BOOL useSDV, BOOL useCCM):
 #   trains an image using LBP feature using a tile size (X , Y) sliding window. Image(s) must already be preprocessed.
 #
 #
 #   <Input>
 #       required NUMPY_ARRAY[Image] img | A Grayscaled 2D-NUMPY_ARRAY representation of an image.
-#       required 1D-ARRAY<Tuple(Int,Int)> key_points | The annotated key points of the given image.
+#       required ANNOTATION annotation | The annotated object of the image. See [Class Annotation]
 #       required LBP descriptor | The descriptor object which generates lbp features. See [Class LocalBinaryPatterns]
 #       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+#       optional BOOL useSDV | The decision to use Std Dev Coefficient as part of feature.
+#       optional BOOL useCCM | The decision if CCM should be use as part of feature.
 #   <Output>
 #       1D-ARRAY<Int> data | the histogram representing the lbp feature of the sliding window tile. Index is aligned with labels.
 #       1D-ARRAY<String> labels | the string information of the class. | The list of classnames which is represented by each of the returned 1D-Array<Int> data. Index is aligned with data.
-def trainLBP(img, key_points, descriptor, tile_dimensions = (5,5)):
+def trainLBP(img, annotation, descriptor, tile_dimensions = (5,5), useSDV = False, useCCM = False):
     data = []
     labels = []
 
@@ -31,11 +55,23 @@ def trainLBP(img, key_points, descriptor, tile_dimensions = (5,5)):
     buffered_img = np.zeros((len(img)+2*yMin+1,len(img[0])+2*xMin+1))
     buffered_img[yMin:len(img)+yMin,xMin:len(img[0])+xMin] = img
 
+    key_points = annotation.coordinates
     for y in range(yMin, len(img) + yMin):
         for x in range(xMin, len(img) + xMin):
             texture = buffered_img[y - yMin:y + yMin + 1, x - xMin:x + xMin + 1]
-            hist = descriptor.computeHistogram(texture)
-            data.append(hist)
+            feature = descriptor.computeHistogram(texture)
+
+            if(useSDV):
+                feature = [feature, getStdDevCoeff(texture)]
+
+            if(useCCM):
+                if(annotation.center == (0,0)):
+                    annotation.center.computeCenter()
+
+                estLiverC = annotation.center
+                feature = feature + [getCCM(y, x, estLiverC)]
+
+            data.append(feature)
 
             if (key_points and (y == key_points[0][0] + yMin) and (x == key_points[0][1] + xMin)):
                 labels.append('liver')
@@ -96,7 +132,7 @@ def trainLBPWithTiles(img, key_points, descriptor ,tile_dimensions = (5,5)):
     training_log.info("COMPLETED TRAINING!")
     return data, labels
 
-#   trainLBP(STRING fol_dir, 1D-ARRAY<Annotation> annotations_list, LOCAL_BINARY_PATTERN descriptor, TUPLE(int,int) tile_dimensions, STRING bin_dir):
+#   trainLBP(STRING fol_dir, 1D-ARRAY<Annotation> annotations_list, LOCAL_BINARY_PATTERN descriptor, TUPLE(int,int) tile_dimensions, STRING bin_dir, BOOL useSDV, BOOL useCCM):
 #   trains image(s) in a given directory using LBP feature using a tile size (X , Y) sliding window. Image(s) must already be preprocessed.
 #
 #
@@ -106,6 +142,8 @@ def trainLBPWithTiles(img, key_points, descriptor ,tile_dimensions = (5,5)):
 #       required LBP descriptor | The descriptor object which generates lbp features. See [Class Local LocalBinaryPatterns Pattern]
 #       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
 #       optional STRING bin_dir | The output path of the binary directory. Output is written to binary files if specified, otherwise, function returns the entire list of data and labels
+#       optional useSDV | The decision to use Std Dev Coefficient as part of feature.
+#       optional useCCM | The decision to use Centre cost metric as part of feature.
 #   <Output>
 #       bin_dir = None
 #           1D-ARRAY<Int> all_data | the histogram representing the lbp feature of the sliding window tile. Index is aligned with labels.
@@ -113,15 +151,14 @@ def trainLBPWithTiles(img, key_points, descriptor ,tile_dimensions = (5,5)):
 #
 #       bin_dir = valid path.
 #           NONE
-def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5), bin_dir = None):
+def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5), bin_dir = None, useSDV = False, useCCM = False):
     all_data = []
     all_labels = []
 
     for annotation in annotations_list:
         img = cv2.imread(fol_dir + annotation.getName() + '.jpg',0)
-        key_points = annotation.coordinates
 
-        data, labels = trainLBP(img, key_points, descriptor, tile_dimensions)
+        data, labels = trainLBP(img, annotation, descriptor, tile_dimensions, useSDV, useCCM)
 
 
         if(not bin_dir):
@@ -134,7 +171,7 @@ def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5
 
     return all_data, all_labels
 
-#   predictImage(NUMPY_ARRAY[Image] img, LSVC model, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions):
+#   predictImage(NUMPY_ARRAY[Image] img, LSVC model, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions, BOOL useSDV, TUPLE(int,int) estLiverC):
 #   Using a sliding window of a specifiable size, predicts the class of every pixel to generate a binary image.
 #
 #
@@ -143,9 +180,11 @@ def trainLBPFolder(fol_dir, annotations_list, descriptor, tile_dimensions = (5,5
 #       required LSVC model | A LinearSVC model with training data already fit.
 #       required LBP descriptor | The descriptor object which generates lbp features. See [Class LocalBinaryPatterns]
 #       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+#       optional useSDV | The decision to use Std Dev Coefficient as part of feature.
+#       optional TUPLE(int,int) estLiverC | The tuple representing the approximate liver center. No actual center because we are predicting not training. None = not using CCM
 #   <Output>
 #       NUMPY_ARRAY[Image] img | A Binary 2D-NUMPY_ARRAY representing the predicted image.
-def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
+def predictImage(img, model, descriptor ,tile_dimensions = (5,5), useSDV = False, estLiverC = None):
     xMin = max([tile_dimensions[0], descriptor.radius])
     yMin = max([tile_dimensions[1], descriptor.radius])
 
@@ -156,8 +195,15 @@ def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
     for y in range(yMin, len(img) + yMin):
         for x in range(xMin, len(img) + xMin):
             texture = buffered_img[y - yMin:y + yMin + 1, x - xMin:x + xMin + 1]
-            hist = descriptor.computeHistogram(texture)
-            prediction = model.predict(hist.reshape(1, -1))
+            feature = descriptor.computeHistogram(texture)
+
+            if(useSDV):
+                feature = [feature, getStdDevCoeff(texture)]
+
+            if(estLiverC):
+                feature = feature + [getCCM(y, x, estLiverC)]
+
+            prediction = model.predict(feature.reshape(1, -1))
             if (prediction[0] == 'liver'):
                 img_mask[y - yMin][x - xMin] = 255
 
@@ -167,7 +213,7 @@ def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
 
     return img_mask
 
-#   predictImageFolder(STRING fol_dir, 1D-ARRAY<String> img_list, LSVC model, LBP descriptor, STRING out_dir TUPLE(int,int) tile_dimensions):
+#   predictImageFolder(STRING fol_dir, 1D-ARRAY<String> img_list, LSVC model, LBP descriptor, STRING out_dir TUPLE(int,int) tile_dimensions, BOOL useSDV, TUPLE(int,int) estLiverC):
 #   Using a sliding window of a specifiable size, predicts the class of every pixel to generate a binary image.
 #   Binary image files are generated and written to out_dir during process. But the function returns NONE.
 #
@@ -179,15 +225,19 @@ def predictImage(img, model, descriptor ,tile_dimensions = (5,5)):
 #       required LBP descriptor | The descriptor object which generates lbp features. See [Class LocalBinaryPatterns]
 #       required STRING out_dir | The output directory storing the binary image.
 #       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+#       optional BOOL useSDV | The decision to use Std Dev Coefficient as part of feature.
+#       optional TUPLE(int,int) estLiverC | The tuple representing the approximate liver center. No actual center because we are predicting not training. None = Not using CCM
 #   <Output>
 #       NONE
-def predictImageFolder(fol_dir, img_list, model, descriptor, out_dir, tile_dimensions =(5,5)):
+def predictImageFolder(fol_dir, img_list, model, descriptor, out_dir, tile_dimensions =(5,5), useSDV = False, estLiverC = None):
     if(img_list):
         for img in img_list:
             mask = predictImage(cv2.imread(fol_dir + img, 0),
                                 model,
                                 descriptor,
-                                tile_dimensions)
+                                tile_dimensions,
+                                useSDV,
+                                estLiverC)
             cv2.imwrite(out_dir + img,mask)
 
     else:

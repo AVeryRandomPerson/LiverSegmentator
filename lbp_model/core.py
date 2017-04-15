@@ -9,6 +9,7 @@ import numpy as np
 import logs
 import preprocessor
 
+
 ## Functions
 #   maskedToAnnotation(STRING path):
 #   gets annotated coordinates of an annotated mask image.
@@ -386,6 +387,11 @@ class Dataset:
         if(useCCostMeasure): final_bin_dir = self.binary_dir + '_ccm'
         final_bin_dir = final_bin_dir + '/'
 
+        if(useCCostMeasure):
+            estLiverC = (0,0)
+            for i in range(0,len(annotations)):
+                estLiverC = (estLiverC[0] + annotations[i].center[0], estLiverC[1] + annotations[i].center[1])
+            estLiverC = (estLiverC[0] / len(annotations)[0], estLiverC[1] / len(annotations)[1])
 
         if not os.path.exists(final_bin_dir):
             os.makedirs(final_bin_dir)
@@ -393,7 +399,9 @@ class Dataset:
                                  annotations,
                                  self.descriptor,
                                  tile_dimensions,
-                                 final_bin_dir)
+                                 final_bin_dir,
+                                 useSDV,
+                                 useCCostMeasure)
 
     #   hasTrainedBinaries(TUPLE(int,int) tile_dimensions, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
     #   Given the training parameters, check if there are binary files processed already or not.
@@ -459,7 +467,9 @@ class Dataset:
                                      model,
                                      self.descriptor,
                                      final_out_dir,
-                                     (73,73))
+                                     (73,73),
+                                     useSDV,
+                                     useCCostMeasure)
 
         del model
 
