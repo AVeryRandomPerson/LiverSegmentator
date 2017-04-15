@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cce53985-32aa-40f8-9038-8968dcf8f890" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/core.py" afterPath="$PROJECT_DIR$/lbp_model/core.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/recognize.py" afterPath="$PROJECT_DIR$/lbp_model/recognize.py" />
     </list>
     <ignored path="LiverSegmentator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,8 +63,8 @@
       <file leaf-file-name="core.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="260" column="14" lean-forward="false" selection-start-line="260" selection-start-column="14" selection-end-line="260" selection-end-column="14" />
+            <state relative-caret-position="282">
+              <caret line="297" column="81" lean-forward="false" selection-start-line="297" selection-start-column="81" selection-end-line="297" selection-end-column="81" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
                 <element signature="e#180#192#0" expanded="false" />
@@ -89,7 +88,6 @@
                 <element signature="e#9347#9360#0" expanded="false" />
                 <element signature="e#9876#10030#0" expanded="false" />
                 <element signature="e#10125#10136#0" expanded="false" />
-                <element signature="e#11016#19785#0" expanded="false" />
                 <element signature="e#11347#11873#0" expanded="false" />
                 <element signature="e#11879#11970#0" expanded="false" />
                 <element signature="e#12890#13306#0" expanded="false" />
@@ -97,6 +95,7 @@
                 <element signature="e#13987#14721#0" expanded="false" />
                 <element signature="e#14727#14800#0" expanded="false" />
                 <element signature="e#15401#16105#0" expanded="false" />
+                <element signature="e#15572#16099#0" expanded="false" />
                 <element signature="e#16105#16195#0" expanded="false" />
                 <element signature="e#16895#17531#0" expanded="false" />
                 <element signature="e#17537#17639#0" expanded="false" />
@@ -751,7 +750,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1325,8 +1324,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lbp_model/core.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="260" column="14" lean-forward="false" selection-start-line="260" selection-start-column="14" selection-end-line="260" selection-end-column="14" />
+        <state relative-caret-position="282">
+          <caret line="297" column="81" lean-forward="false" selection-start-line="297" selection-start-column="81" selection-end-line="297" selection-end-column="81" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
             <element signature="e#180#192#0" expanded="false" />
@@ -1350,7 +1349,6 @@
             <element signature="e#9347#9360#0" expanded="false" />
             <element signature="e#9876#10030#0" expanded="false" />
             <element signature="e#10125#10136#0" expanded="false" />
-            <element signature="e#11016#19785#0" expanded="false" />
             <element signature="e#11347#11873#0" expanded="false" />
             <element signature="e#11879#11970#0" expanded="false" />
             <element signature="e#12890#13306#0" expanded="false" />
@@ -1358,6 +1356,7 @@
             <element signature="e#13987#14721#0" expanded="false" />
             <element signature="e#14727#14800#0" expanded="false" />
             <element signature="e#15401#16105#0" expanded="false" />
+            <element signature="e#15572#16099#0" expanded="false" />
             <element signature="e#16105#16195#0" expanded="false" />
             <element signature="e#16895#17531#0" expanded="false" />
             <element signature="e#17537#17639#0" expanded="false" />

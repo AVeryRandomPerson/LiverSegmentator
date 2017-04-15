@@ -301,11 +301,11 @@ class Dataset:
         if (useHistEQ):
             dataset_name = dataset_name + '_histEQ'
 
-        if (useSobel):
-            dataset_name = dataset_name + '_sobel'
-
         if (gamma != 1.0):
             dataset_name = dataset_name + '_gamma{0}'.format(gamma)
+
+        if (useSobel):
+            dataset_name = dataset_name + '_sobel'
 
         dataset_name = dataset_name + '/'
         return dataset_name
@@ -357,11 +357,11 @@ class Dataset:
             if(useHistEQ):
                 img = cv2.equalizeHist(img)
 
-            if(useSobel):
-                img = preprocessor.applySobel(img, 1, 1, 5)
-
             if(gamma != 1.0):
                 img = preprocessor.gammaContrast(img, gamma)
+
+            if(useSobel):
+                img = preprocessor.applySobel(img, 1, 1, 5)
 
             img_name = img_path.split('/').pop()
             lbp_img = self.descriptor.describe(img, mode='I')
