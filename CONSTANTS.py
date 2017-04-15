@@ -1,0 +1,1 @@
+BASE_DIR = 'C:/Users/acer/Desktop/TestSamples/LiverSegmentator/'

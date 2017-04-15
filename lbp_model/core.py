@@ -395,6 +395,26 @@ class Dataset:
                                  tile_dimensions,
                                  final_bin_dir)
 
+    #   hasTrainedBinaries(TUPLE(int,int) tile_dimensions, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
+    #   Given the training parameters, check if there are binary files processed already or not.
+    #
+    #   <Input>
+    #       optional TUPLE(int,int) tile_dimensions | the size of the dimension of each sliding window of LBP per pixel. (X by Y)
+    #       optional BOOLEAN sdv | the decision whether to add standard deviation into the feature histogram.
+    #       optional BOOLEAN useHistEQ | the decision of whether to add central cost measures to the feature histogram.
+    #   <Output>
+    #       Boolean /Anonymous/ | TRUE if there are equal number of binary files to that of the self.train_list
+    def hasTrainedBinaries(self, tile_dimensions=(73,73), useSDV=False, useCCostMeasure=False):
+        annotations = readAnnotationFolder(self.annotation_source, self.train_list)
+
+        final_bin_dir = self.binary_dir + 'lbp'
+        if(useSDV): final_bin_dir = self.binary_dir + '_sdv'
+        if(useCCostMeasure): final_bin_dir = self.binary_dir + '_ccm'
+        final_bin_dir = final_bin_dir + '/'
+
+        binaries = os.listdir(final_bin_dir)
+        return len(self.train_list) == len(binaries)
+
     #   lsvcPredictData(TUPLE(int,int) tile_dimensions, FLOAT C, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
     #   Attempts to predict data from stored information of trained binaries. Data is fit into a linear SVC.
     #   predictions are written as binary images during the process. But the function returns NONE.
