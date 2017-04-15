@@ -8,6 +8,8 @@ import cv2
 import numpy as np
 import logs
 import preprocessor
+
+## Functions
 #   maskedToAnnotation(STRING path):
 #   gets annotated coordinates of an annotated mask image.
 #
@@ -238,8 +240,11 @@ def getFileList(path):
     print(file_list)
     return file_list
 
+# Aliasing Functions
 getTrainingList = getFileList
 getTestingList = getFileList
+
+## CLASSES
 
 #   Dataset
 #       Class contains directory and core information of a dataset.
@@ -279,20 +284,42 @@ class Dataset:
 
         print("Finished initializing")
 
-    def _getDatasetName(self, lbp_descriptor, folds, sobel, gamma, histEQ):
+    #   _getDatasetName(LBP descriptor, INT folds, BOOL useSobel, FLOAT gamma, BOOL useHistEQ):
+    #   Computes the unique name of the dataset from its characteristics given in the parameters.
+    #
+    #   <Input>
+    #       required LBP descriptor | The LBP descriptor that will be used for the dataset. See [Class LocalBinaryPatterns]
+    #       required INT folds | The k value for the k-folds used to partition the data.
+    #       required BOOL useSobel | The decision whether to use Sobel filter. | Future : may implement some parameter flexibility.
+    #       required FLOAT gamma | The gamma value for contrast correction. G = 1.0 gives no change.
+    #       required BOOL useHistEQ | The decision whether to use histogram equalization. | Future : may implement some parameter flexibility.
+    #   <Output>
+    #       STRING datasetname | The unique dataset name from tis characterstics given the parameters.
+    def _getDatasetName(self, lbp_descriptor, folds, useSobel, gamma, useHistEQ):
         dataset_name = '{0}folds_{1}n{2}r'.format(folds, lbp_descriptor.numPoints, lbp_descriptor.radius)
-        if (sobel):
+
+        if (useHistEQ):
+            dataset_name = dataset_name + '_histEQ'
+
+        if (useSobel):
             dataset_name = dataset_name + '_sobel'
 
         if (gamma != 1.0):
             dataset_name = dataset_name + '_gamma{0}'.format(gamma)
 
-        if (histEQ):
-            dataset_name = dataset_name + '_histEQ'
-
         dataset_name = dataset_name + '/'
         return dataset_name
 
+    #   _generateDirectories(STRING base_dir, LBP lbp_descriptor, STRING dataset_name):
+    #   Generates all the directories for this database.
+    #   The dataset directories are all generated during the process. But the function returns NONE.
+    #
+    #   <Input>
+    #       required STRING base_dir | the base directory which roots the database.
+    #       required LBP descriptor | The LBP descriptor that will be used for the dataset. See [Class LocalBinaryPatterns]
+    #       required STRING dataset_name | The dataset name representing the dataset
+    #   <Output>
+    #       NONE
     def _generateDirectories(self, base_dir, lbp_descriptor, dataset_name):
         self.base_dir = base_dir
         if(not self.base_dir.endswith("\\") or not self.base_dir.endswith("/")):
@@ -310,27 +337,47 @@ class Dataset:
         self.binary_dir = self.dataset_dir + 'binaries/'
         self.out_dir = self.dataset_dir + 'output/'
 
-    def _preprocessSamples(self, sobel, gamma, histEQ):
+    #   _preprocessSamples(BOOLEAN useSobel, FLOAT gamma, BOOLEAN useHistEQ):
+    #   Preprocesses the sample with appropriate techniques as specified.
+    #   Sample images are produced during the process. But the function returns NONE.
+    #
+    #   <Input>
+    #       required BOOLEAN useSobel | the decision of whether sobel filters should be used.
+    #       required FLOAT gamma | the gamma value of the contrast correction process. G = 1.0 makes no difference.
+    #       required BOOLEAN useHistEQ | the decision of whether to use histogram correction technique.
+    #   <Output>
+    #       NONE
+    def _preprocessSamples(self, useSobel, gamma, useHistEQ):
         if not os.path.exists(self.processed_ct_dir):
             os.makedirs(self.processed_ct_dir)
 
         for img_path in paths.list_images(self.clean_ct_source):
             img = cv2.imread(img_path, 0)
 
-            if(sobel):
+            if(useHistEQ):
+                img = cv2.equalizeHist(img)
+
+            if(useSobel):
                 img = preprocessor.applySobel(img, 1, 1, 5)
 
             if(gamma != 1.0):
                 img = preprocessor.gammaContrast(img, gamma)
-
-            if(histEQ):
-                img = cv2.equalizeHist(img)
 
             img_name = img_path.split('/').pop()
             lbp_img = self.descriptor.describe(img, mode='I')
             cv2.imwrite(self.processed_ct_dir + img_name, lbp_img)
             print("Exported - " + self.processed_ct_dir + img_name)
 
+    #   trainDataset(TUPLE(int,int) tile_dimensions, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
+    #   Trains the dataset using lbp features and using additional features if needed.
+    #   Binary files are written into binary directory during process. But function returns NONE.
+    #
+    #   <Input>
+    #       optional TUPLE(int,int) tile_dimensions | the size of the dimension of each sliding window of LBP per pixel. (X by Y)
+    #       optional BOOLEAN sdv | the decision whether to add standard deviation into the feature histogram.
+    #       optional BOOLEAN useHistEQ | the decision of whether to add central cost measures to the feature histogram.
+    #   <Output>
+    #       NONE
     def trainDataset(self, tile_dimensions=(73,73), useSDV=False, useCCostMeasure=False):
         annotations = readAnnotationFolder(self.annotation_source, self.train_list)
 
@@ -348,6 +395,18 @@ class Dataset:
                                  tile_dimensions,
                                  final_bin_dir)
 
+    #   lsvcPredictData(TUPLE(int,int) tile_dimensions, FLOAT C, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
+    #   Attempts to predict data from stored information of trained binaries. Data is fit into a linear SVC.
+    #   predictions are written as binary images during the process. But the function returns NONE.
+    #   Future | may implement more parameter flexibility for lsvc
+    #
+    #   <Input>
+    #       optional TUPLE(int,int) tile_dimensions | the size of the dimension of each sliding window of LBP per pixel. (X by Y)
+    #       FLOAT C | the C value of the linear support vector machine.
+    #       optional BOOLEAN sdv | the decision whether to add standard deviation into the feature histogram.
+    #       optional BOOLEAN useHistEQ | the decision of whether to add central cost measures to the feature histogram.
+    #   <Output>
+    #       NONE
     def lsvcPredictData(self, tile_dimensions=(73,73), C=100.0, useSDV=False, useCCostMeasure=False):
         model_name = 'lbp'
         if(useSDV): model_name = model_name + '_sdv'
@@ -384,8 +443,12 @@ class Dataset:
 
         del model
 
-
-
+#   Annotation
+#       1D-ARRAY<Tuple(int,int)>    list of annotation coordinated. Stored in (Y , X)
+#       Tuple(int,int)  center of the annotated data. Stored in (Y , X)
+#
+#       Center is not computed by __init__ as coordinates.
+#       Refactor this.
 class Annotation():
     coordinates = []
     center = (0,0)
@@ -393,12 +456,36 @@ class Annotation():
     def __init__(self, src):
         self.src = src
 
+    #appendCoords(Tuple(int,int) newCoord):
+    #   appends new annotated coordinate into the coordinates list of the object.
+    #
+    #
+    #   <INPUT>
+    #       required TUPLE(int,int) newCoord | The new coordinate to append. Format is (Y , X).
+    #   <OUTPUT>
+    #       NONE.
     def appendCoords(self,newCoord):
         self.coordinates = self.coordinates + [newCoord]
 
+    #getName():
+    #   appends new annotated coordinate into the coordinates list of the object.
+    #
+    #
+    #   <INPUT>
+    #       NONE.
+    #   <OUTPUT>
+    #       String /anonymous/ | The string representation of the filename corresponding to the annotated coordinates.
     def getName(self):
         return self.src.split('/').pop().split('.')[0]
 
+    #computeCenter(Tuple(int,int) newCoord):
+    #   Calculates the center of the annotated coordinates by averaging positions. Coordinate is in (Y,X).
+    #
+    #
+    #   <INPUT>
+    #       NONE.
+    #   <OUTPUT>
+    #       NONE.
     def computeCenter(self):
         Y = 0
         X = 0
