@@ -238,7 +238,6 @@ def getFileList(path):
         file_list = f.read()
         file_list = file_list.split('\n')
 
-    print(file_list)
     return file_list
 
 # Aliasing Functions
