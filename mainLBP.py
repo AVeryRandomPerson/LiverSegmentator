@@ -1,13 +1,14 @@
-from lbp_model.core import Dataset
-from lbp_model import lbp
 from CONSTANTS import *
+from core import Dataset
+from lbp_model import lbp
+
 
 #   runTrainingProgramme(1D-ARRAY<Float> cList,
 #                          STRING dsBaseDir,
 #                          INT descNPoints,
 #                          INT descRadius,
 #                          INT folds,
-#                          BOOL useSobel,
+#                          BOOL useCannyEdge,
 #                          FLOAT gamma,
 #                          BOOL useHistEQ,
 #                          BOOL useSDV,
@@ -21,7 +22,7 @@ from CONSTANTS import *
 #       required STRING dsBaseDir | the dataset base directory.
 #       required INT descNPoints | the number of points of the lbp descriptor. [See Class Local Binary Patterns]
 #       required INT folds | the k value in the kfolds cross validation used to partition the data.
-#       required BOOL useSobel | the decision to use sobel filters during preprocessing.
+#       required BOOL useCannyEdge | the decision to use CannyEdge filters during preprocessing.
 #       required FLOAT gamma | the gamma value of the contrast adjustment preprocessing. G= 1.0 makes no difference.
 #       required BOOL useHistEQ | the decision to use histogram equilization preprocessing.
 #       required BOOL use SDV | the decision to use standard deviation as feature for SVC.
@@ -29,8 +30,8 @@ from CONSTANTS import *
 #       optional TUPLE(int, int) tile_dimensions | the size of the sliding window tile for training and testing. Format (X by Y) | Default (73, 73).
 #   <Output>
 #       NONE.
-def runTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useSobel, gamma, useHistEQ, useSDV, useCCostMeasure, tile_dimensions=(73,73)):
-    dataset = Dataset(dsBaseDir, lbp.LocalBinaryPatterns(descNPoints, descRadius), folds, useSobel, gamma, useHistEQ)
+def runTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useCannyEdge, gamma, useHistEQ, useSDV, useCCostMeasure, tile_dimensions=(73,73)):
+    dataset = Dataset(dsBaseDir, lbp.LocalBinaryPatterns(descNPoints, descRadius), folds, useCannyEdge, gamma, useHistEQ)
     if(not dataset.hasTrainedBinaries()):
        dataset.trainDataset(tile_dimensions=tile_dimensions, useSDV=useSDV, useCCostMeasure=useCCostMeasure)
 
@@ -41,4 +42,17 @@ def runTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useSo
 
 # Entry point of entire lbp model program.
 if __name__ == '__main__':
-    runTrainingProgramme([1000,100,1,0.01,0.001], BASE_DIR, 16, 8, 5, True, 0.3, True, True, True, (73,73))
+
+    runTrainingProgramme(cList = [0.01],
+                         dsBaseDir=BASE_DIR,
+                         descNPoints=16,
+                         descRadius=8,
+                         folds=5,
+                         useCannyEdge=True,
+                         gamma=2.0,
+                         useHistEQ=True,
+                         useSDV=True,
+                         useCCostMeasure=False ,
+                         tile_dimensions=(33, 33))
+
+

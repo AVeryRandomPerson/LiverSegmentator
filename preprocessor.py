@@ -103,16 +103,17 @@ def binaryAND(src1_dir, src2_dir, out_dir):
 #       optional INT kSize | the size of the filter. MUST be Odd number less than 31.
 #   <Output>
 #       1D-ARRAY<int> final_hist | the histogram representing intensity population of all image(s) in a folder.
-def applySobel(img, xOrd=1, yOrd=1, kSize=3):
+def applyCanny(img, tresh1=100, tresh2=200, kSize=3):
     # process it as 64f then take abs value and fit it to 8u. This helps sobel filter around low intensity.
     if(kSize%2 == 1):
-        sobelx64f = cv2.Sobel(img,cv2.CV_64F,xOrd,yOrd,ksize=kSize)
-        abs_sobel64f = np.absolute(sobelx64f)
-        sobel_8u = np.uint8(abs_sobel64f)
+
+        cannyImg = cv2.Canny(img,tresh1,tresh2,apertureSize=kSize)
+        cannyImg = cv2.add(cannyImg,img)
+
     else:
         raise Exception('please specify k as an odd number below 31')
 
-    return sobel_8u
+    return cannyImg
 
 #   gammaContrast(NUMPY_ARRAY[Image] img, FLOAT gamma):
 #   Applies a specified sobel filter to the image.

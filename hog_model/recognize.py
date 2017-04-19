@@ -14,7 +14,8 @@ desc = hog.HistOrientGrad(9, (2,2), (3,3))
 data = []
 labels = []
 
-hist, img = desc.describe(cv2.imread("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/testing/"+'scan6.jpg',0))
-print(hist[0])
-cv2.imwrite('C:/Users/acer/Desktop/TestSamples/hogTest.jpg',img)
+farray =desc.describe(cv2.imread("C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/testing/"+'scan6.jpg',0))
+print(len(farray))
+#img = farray.reshape((396,504))
+#cv2.imshow('0',img)
 cv2.waitKey(0)

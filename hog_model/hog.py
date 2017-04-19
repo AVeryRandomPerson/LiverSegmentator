@@ -9,6 +9,6 @@ class HistOrientGrad:
 
 
     def describe(self, image):
-        hist, img = feature.hog(image, self.orients,self.ppc, self.cpb, visualise= True, feature_vector=True)
+        farray = feature.hog(image, self.orients,self.ppc, self.cpb, visualise= False, feature_vector=True)
 
-        return hist, img
+        return farray

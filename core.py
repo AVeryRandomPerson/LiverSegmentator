@@ -275,28 +275,28 @@ class Dataset:
     train_list = []
 
 
-    def __init__(self, base_dir, lbp_descriptor, folds=5, sobel=False, gamma=1.0, histEQ=False):
+    def __init__(self, base_dir, lbp_descriptor, folds=5, CannyEdge=False, gamma=1.0, histEQ=False):
         self.descriptor = lbp_descriptor
-        dataset_name = self._getDatasetName(lbp_descriptor, folds, sobel, gamma, histEQ)
+        dataset_name = self._getDatasetName(lbp_descriptor, folds, CannyEdge, gamma, histEQ)
         self._generateDirectories(base_dir, lbp_descriptor, dataset_name)
         self.train_list = getTrainingList(self.base_dir + 'sourceCT/kfolds_list/{0}folds_train_list.txt'.format(folds))
         self.test_list = getTestingList(self.base_dir + 'sourceCT/kfolds_list/{0}folds_test_list.txt'.format(folds))
-        self._preprocessSamples(sobel, gamma, histEQ)
+        self._preprocessSamples(CannyEdge, gamma, histEQ)
 
         print("Finished initializing")
 
-    #   _getDatasetName(LBP descriptor, INT folds, BOOL useSobel, FLOAT gamma, BOOL useHistEQ):
+    #   _getDatasetName(LBP descriptor, INT folds, BOOL useCannyEdge, FLOAT gamma, BOOL useHistEQ):
     #   Computes the unique name of the dataset from its characteristics given in the parameters.
     #
     #   <Input>
     #       required LBP descriptor | The LBP descriptor that will be used for the dataset. See [Class LocalBinaryPatterns]
     #       required INT folds | The k value for the k-folds used to partition the data.
-    #       required BOOL useSobel | The decision whether to use Sobel filter. | Future : may implement some parameter flexibility.
+    #       required BOOL useCannyEdge | The decision whether to use CannyEdge filter. | Future : may implement some parameter flexibility.
     #       required FLOAT gamma | The gamma value for contrast correction. G = 1.0 gives no change.
     #       required BOOL useHistEQ | The decision whether to use histogram equalization. | Future : may implement some parameter flexibility.
     #   <Output>
     #       STRING datasetname | The unique dataset name from tis characterstics given the parameters.
-    def _getDatasetName(self, lbp_descriptor, folds, useSobel, gamma, useHistEQ):
+    def _getDatasetName(self, lbp_descriptor, folds, useCannyEdge, gamma, useHistEQ):
         dataset_name = '{0}folds_{1}n{2}r'.format(folds, lbp_descriptor.numPoints, lbp_descriptor.radius)
 
         if (useHistEQ):
@@ -305,8 +305,8 @@ class Dataset:
         if (gamma != 1.0):
             dataset_name = dataset_name + '_gamma{0}'.format(gamma).replace('.','f')
 
-        if (useSobel):
-            dataset_name = dataset_name + '_sobel'
+        if (useCannyEdge):
+            dataset_name = dataset_name + '_CannyEdge'
 
         dataset_name = dataset_name + '/'
         return dataset_name
@@ -338,17 +338,17 @@ class Dataset:
         self.binary_dir = self.dataset_dir + 'binaries/'
         self.out_dir = self.dataset_dir + 'output/'
 
-    #   _preprocessSamples(BOOLEAN useSobel, FLOAT gamma, BOOLEAN useHistEQ):
+    #   _preprocessSamples(BOOLEAN useCannyEdge, FLOAT gamma, BOOLEAN useHistEQ):
     #   Preprocesses the sample with appropriate techniques as specified.
     #   Sample images are produced during the process. But the function returns NONE.
     #
     #   <Input>
-    #       required BOOLEAN useSobel | the decision of whether sobel filters should be used.
+    #       required BOOLEAN useCannyEdge | the decision of whether CannyEdge filters should be used.
     #       required FLOAT gamma | the gamma value of the contrast correction process. G = 1.0 makes no difference.
     #       required BOOLEAN useHistEQ | the decision of whether to use histogram correction technique.
     #   <Output>
     #       NONE
-    def _preprocessSamples(self, useSobel, gamma, useHistEQ):
+    def _preprocessSamples(self, useCannyEdge, gamma, useHistEQ):
         if not os.path.exists(self.processed_ct_dir):
             os.makedirs(self.processed_ct_dir)
 
@@ -361,8 +361,8 @@ class Dataset:
             if(gamma != 1.0):
                 img = preprocessor.gammaContrast(img, gamma)
 
-            if(useSobel):
-                img = preprocessor.applySobel(img, 1, 1, 5)
+            if(useCannyEdge):
+                img = preprocessor.applyCanny(img, 1, 1, 5)
 
             img_name = img_path.split('/').pop()
             lbp_img = self.descriptor.describe(img, mode='I')
@@ -385,6 +385,7 @@ class Dataset:
         final_bin_dir = self.binary_dir + 'lbp'
         if(useSDV): final_bin_dir = final_bin_dir + '_sdv'
         if(useCCostMeasure): final_bin_dir = final_bin_dir + '_ccm'
+        final_bin_dir = final_bin_dir + '{0}x{1}'.format(tile_dimensions[0],tile_dimensions[1])
         final_bin_dir = final_bin_dir + '/'
         self.estLiverC = (0, 0)
         if (useCCostMeasure):
@@ -417,9 +418,10 @@ class Dataset:
     def hasTrainedBinaries(self, tile_dimensions=(73,73), useSDV=False, useCCostMeasure=False):
         annotations = readAnnotationFolder(self.annotation_source, self.train_list)
 
-        final_bin_dir = self.binary_dir + 'lbp'
+        final_bin_dir = self.base_dir + self.binary_dir + 'lbp'
         if(useSDV): final_bin_dir = final_bin_dir + '_sdv'
         if(useCCostMeasure): final_bin_dir = final_bin_dir + '_ccm'
+        final_bin_dir = final_bin_dir + '{0}x{1}'.format(tile_dimensions[0],tile_dimensions[1])
         final_bin_dir = final_bin_dir + '/'
 
         if os.path.exists(final_bin_dir):
@@ -444,6 +446,7 @@ class Dataset:
         model_name = 'lbp'
         if(useSDV): model_name = model_name + '_sdv'
         if(useCCostMeasure): model_name = model_name + '_ccm'
+        model_name = model_name + '{0}x{1}'.format(tile_dimensions[0],tile_dimensions[1])
         model_name = model_name + '/'
 
         data = []
