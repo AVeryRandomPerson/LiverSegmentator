@@ -94,7 +94,7 @@ def getScoreFolder(gt_fol_dir, gen_img_dir, folds):
 
     sensitivity = total_TP/total_T
     specificity = total_TN/total_N
-    accuracy = total_FP/total_cases
+    accuracy = (total_TN + total_TP)/total_cases
 
     if (total_TP + total_FP == 0):
         precision = 'NaN'
