@@ -131,3 +131,23 @@ def gammaContrast(img, gamma):
                       for i in np.arange(0, 256)]).astype("uint8")
     del invGamma
     return cv2.LUT(img, table)
+
+
+if __name__ == '__main__':
+    img = cv2.imread('C:/Users/acer/Desktop/TestSamples/scan6.jpg',0)
+
+    img2 = cv2.equalizeHist(img)
+
+    for g in [0.3, 0.9, 1.0 , 1.2, 1.8]:
+        img3 = gammaContrast(img,g)
+        img4 = gammaContrast(img2,g)
+
+        img3 = applyCanny(img3)
+        img4 = applyCanny(img4)
+
+        cv2.imwrite('C:/Users/acer/Desktop/TestSamples/scan6{0}g_Canny.jpg'.format(g),img3)
+        cv2.imwrite('C:/Users/acer/Desktop/TestSamples/scan6{0}ghEQ_Canny.jpg'.format(g),img4)
+
+
+
+

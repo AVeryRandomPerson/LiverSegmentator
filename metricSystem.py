@@ -118,10 +118,10 @@ def reportCSV():
         open(BASE_DIR + 'results.csv','a').close()
 
     with open(BASE_DIR + 'results.csv', 'w+') as report_file:
-        report_file.writelines("full-dataset-name,folds,LBP-Rad,LBP-N,Gamma,useCannyEdge,useHistEQ,SlideWinSize,LSVC-C,F-centralDistance,F-stdDevCoeff,SENSITIVITY,SPECIFICITY,PRECISION,ACCURACY\n")
+        report_file.writelines("full-dataset-name,folds,LBP-Rad,LBP-N,Gamma,useCannyEdge,useHistEQ,SlideWinSize,LSVC-C,F-stdDevCoeff,F-centralDistance,SENSITIVITY,SPECIFICITY,PRECISION,ACCURACY\n")
         dataset_set = os.listdir(BASE_DIR + 'all-datasets/')
         for dataset in dataset_set:
-            model_execution_set = os.listdir(BASE_DIR + 'all-datasets/{0}/output'.format(dataset))
+            model_execution_set = os.listdir(BASE_DIR + 'all-datasets/{0}/output/'.format(dataset))
             for model_exc in model_execution_set:
                 fullname = dataset + model_exc
                 folds = dataset.split('folds_')[0]
@@ -160,14 +160,16 @@ def _getPreProcessSettings(dataset_name):
     useCanny = 'False'
     useHistEQ = 'False'
 
+
     if 'gamma' in dataset_name:
         gamma = dataset_name.split('gamma')[1].split('_')[0].replace('f','.')
+
 
     if 'histEQ' in dataset_name:
         useHistEQ = 'True'
 
     if 'CannyEdge' in dataset_name:
-        CannyEdge = 'True'
+        useCanny = 'True'
 
 
     return gamma, useCanny, useHistEQ

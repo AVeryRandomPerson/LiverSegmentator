@@ -43,16 +43,27 @@ def runTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useCa
 # Entry point of entire lbp model program.
 if __name__ == '__main__':
 
-    runTrainingProgramme(cList = [0.01],
+    runTrainingProgramme(cList = [0.01, 100],
                          dsBaseDir=BASE_DIR,
                          descNPoints=16,
                          descRadius=8,
                          folds=5,
                          useCannyEdge=True,
-                         gamma=2.0,
+                         gamma=1.8,
                          useHistEQ=True,
                          useSDV=True,
                          useCCostMeasure=False ,
-                         tile_dimensions=(33, 33))
+                         tile_dimensions=(73, 73))
 
+    runTrainingProgramme(cList = [0.01, 100],
+                         dsBaseDir=BASE_DIR,
+                         descNPoints=16,
+                         descRadius=8,
+                         folds=5,
+                         useCannyEdge=True,
+                         gamma=0.3,
+                         useHistEQ=True,
+                         useSDV=True,
+                         useCCostMeasure=False ,
+                         tile_dimensions=(73, 73))
 
