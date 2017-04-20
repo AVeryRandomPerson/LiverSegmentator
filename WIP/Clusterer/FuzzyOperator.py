@@ -5,8 +5,8 @@ import cv2
 import numpy as np
 import skfuzzy as fuzz
 
-from Img import CTImage
-from Clusterer.clusterResults import ClusterResult
+from WIP.Clusterer import ClusterResult
+from obsolete.Img import CTImage
 
 # Colour const
 SAT = 1.0

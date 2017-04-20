@@ -488,9 +488,6 @@ class Dataset:
 #   Annotation
 #       1D-ARRAY<Tuple(int,int)>    list of annotation coordinated. Stored in (Y , X)
 #       Tuple(int,int)  center of the annotated data. Stored in (Y , X)
-#
-#       Center is not computed by __init__ as coordinates.
-#       Refactor this.
 class Annotation():
     coordinates = []
     center = (0,0)

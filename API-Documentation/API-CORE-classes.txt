@@ -1,0 +1,116 @@
+[_]
+
+CLASS			#   Annotation
+Attributes		#       1D-ARRAY<Tuple(int,int)>    list of annotation coordinated. Stored in (Y , X)
+				#       Tuple(int,int)  center of the annotated data. Stored in (Y , X)
+				#
+				#	
+Methods			#
+			1.    #appendCoords(Tuple(int,int) newCoord):
+			    #   appends new annotated coordinate into the coordinates list of the object.
+			    #
+			    #
+			    #   <INPUT>
+			    #       required TUPLE(int,int) newCoord | The new coordinate to append. Format is (Y , X).
+			    #   <OUTPUT>
+			    #       NONE.
+
+			2.    #getName():
+			    #   appends new annotated coordinate into the coordinates list of the object.
+			    #
+			    #
+			    #   <INPUT>
+			    #       NONE.
+			    #   <OUTPUT>
+			    #       String /anonymous/ | The string representation of the filename corresponding to the annotated coordinates.    
+
+			3.    #computeCenter(Tuple(int,int) newCoord):
+			    #   Calculates the center of the annotated coordinates by averaging positions. Coordinate is in (Y,X).
+			    #
+			    #
+			    #   <INPUT>
+			    #       NONE.
+			    #   <OUTPUT>
+			    #       NONE.
+
+
+CLASS 			#   Dataset
+Attributes		#       Class contains directory and core information of a dataset.
+				#       STRING base_dir   [The Base Directory of the dataset]
+				#       STRING dataset_dir      [The directory to the dataset]
+				#       STRING annotation_mask_source [The directory for masked images of the dataset]
+				#       STRING annotation_source [The directory containing .txt files of annotation data]
+				#       STRING clean_ct_source [The directory for untouched ct scans]
+				#       STRING processed_ct_dir [The directory of preprocessed ct scans]
+				#       STRING binary_dir [The base directory of binary .BIN training info]
+				#       STRING out_dir [ The output directory of predicted/test images ]
+				#       1D-ARRAY<String> test_list [The list of filenames (Without format) of test samples]
+				#       1D-ARRAY<String> prediction_list [The list of filenames (Without format) of the training samples]
+Methods			#
+			1.    #   _getDatasetName(LBP descriptor, INT folds, BOOL useCannyEdge, FLOAT gamma, BOOL useHistEQ):
+			    #   Computes the unique name of the dataset from its characteristics given in the parameters.
+			    #
+			    #   <Input>
+			    #       required LBP descriptor | The LBP descriptor that will be used for the dataset. See [Class LocalBinaryPatterns]
+			    #       required INT folds | The k value for the k-folds used to partition the data.
+			    #       required BOOL useCannyEdge | The decision whether to use CannyEdge filter. | Future : may implement some parameter flexibility.
+			    #       required FLOAT gamma | The gamma value for contrast correction. G = 1.0 gives no change.
+			    #       required BOOL useHistEQ | The decision whether to use histogram equalization. | Future : may implement some parameter flexibility.
+			    #   <Output>
+			    #       STRING datasetname | The unique dataset name from tis characterstics given the parameters.
+
+			2.    #   _generateDirectories(STRING base_dir, LBP lbp_descriptor, STRING dataset_name):
+			    #   Generates all the directories for this database.
+			    #   The dataset directories are all generated during the process. But the function returns NONE.
+			    #
+			    #   <Input>
+			    #       required STRING base_dir | the base directory which roots the database.
+			    #       required LBP descriptor | The LBP descriptor that will be used for the dataset. See [Class LocalBinaryPatterns]
+			    #       required STRING dataset_name | The dataset name representing the dataset
+			    #   <Output>
+			    #       NONE
+
+			3.        #   _preprocessSamples(BOOLEAN useCannyEdge, FLOAT gamma, BOOLEAN useHistEQ):
+			    #   Preprocesses the sample with appropriate techniques as specified.
+			    #   Sample images are produced during the process. But the function returns NONE.
+			    #
+			    #   <Input>
+			    #       required BOOLEAN useCannyEdge | the decision of whether CannyEdge filters should be used.
+			    #       required FLOAT gamma | the gamma value of the contrast correction process. G = 1.0 makes no difference.
+			    #       required BOOLEAN useHistEQ | the decision of whether to use histogram correction technique.
+			    #   <Output>
+			    #       NONE
+
+			4.        #   trainDataset(TUPLE(int,int) tile_dimensions, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
+			    #   Trains the dataset using lbp features and using additional features if needed.
+			    #   Binary files are written into binary directory during process. But function returns NONE.
+			    #
+			    #   <Input>
+			    #       optional TUPLE(int,int) tile_dimensions | the size of the dimension of each sliding window of LBP per pixel. (X by Y)
+			    #       optional BOOLEAN sdv | the decision whether to add standard deviation into the feature histogram.
+			    #       optional BOOLEAN useHistEQ | the decision of whether to add central cost measures to the feature histogram.
+			    #   <Output>
+			    #       NONE
+
+			5.        #   hasTrainedBinaries(TUPLE(int,int) tile_dimensions, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
+			    #   Given the training parameters, check if there are binary files processed already or not.
+			    #
+			    #   <Input>
+			    #       optional TUPLE(int,int) tile_dimensions | the size of the dimension of each sliding window of LBP per pixel. (X by Y)
+			    #       optional BOOLEAN sdv | the decision whether to add standard deviation into the feature histogram.
+			    #       optional BOOLEAN useHistEQ | the decision of whether to add central cost measures to the feature histogram.
+			    #   <Output>
+			    #       Boolean /Anonymous/ | TRUE if there are equal number of binary files to that of the self.train_list 
+
+			6.    #   lsvcPredictData(TUPLE(int,int) tile_dimensions, FLOAT C, BOOLEAN useSDV, BOOLEAN useCCostMeasure):
+			    #   Attempts to predict data from stored information of trained binaries. Data is fit into a linear SVC.
+			    #   predictions are written as binary images during the process. But the function returns NONE.
+			    #   Future | may implement more parameter flexibility for lsvc
+			    #
+			    #   <Input>
+			    #       optional TUPLE(int,int) tile_dimensions | the size of the dimension of each sliding window of LBP per pixel. (X by Y)
+			    #       FLOAT C | the C value of the linear support vector machine.
+			    #       optional BOOLEAN sdv | the decision whether to add standard deviation into the feature histogram.
+			    #       optional BOOLEAN useHistEQ | the decision of whether to add central cost measures to the feature histogram.
+			    #   <Output>
+			    #       NONE    

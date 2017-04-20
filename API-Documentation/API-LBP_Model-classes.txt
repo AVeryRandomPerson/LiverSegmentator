@@ -1,0 +1,35 @@
+[LBP MODEL]
+
+CLASS				#   LocalBinaryPatterns
+Attributes		#       Class contains lbp parameters. Can describe an image.
+				#       INT numPoints   [Number of neighbourhood points to capture]
+				#       INT radius      [Value of lbp region radius]
+				#
+				#	
+Methods			#
+		1.		    #   describe(NUMPY_ARRAY[Image] image, STRING mode, Float eps)
+				    #       computes lbp features of a given image. Parameters are based on the object's attributes.
+				    #
+				    #
+				    #   <Input>
+				    #       required NUMPY_ARRAY[Image] image | the Numpy array representation of the image.
+				    #       required STRING mode | determines the output returned. See below for available modes.
+				    #       optional FLOAT eps | the eps value used when computing histogram.
+				    #   <Output>
+				    #       mode == "H"
+				    #          1D-ARRAY<int> /anonymous/ | the histogram representation of the lbp image.
+				    #
+				    #       mode == *
+				    #           NUMPY_ARRAY[Image] lbp | the lbp image.
+				    #
+				    #
+		2.		    #   computeHistogram(NUMPY_ARRAY[Image] lbpImage, Float eps)
+				    #       computes the lbp histogram based on the given lbp image.
+				    #
+				    #
+				    #   <Input>
+				    #       required NUMPY_ARRAY[Image] image | the Numpy array representation of the image.
+				    #       optional FLOAT eps | the eps value used when computing histogram.
+				    #   <Output>
+				    #       mode == "H"
+				    #          1D-ARRAY<int> hist | the histogram representation of the lbp image.				    

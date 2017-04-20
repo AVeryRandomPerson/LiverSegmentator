@@ -3,6 +3,21 @@ import random
 from imutils import paths
 
 
+#   kcrossvalidate(STRING folder_dir, INT k, BOOLEAN split_to_folder)
+#   performs kcrossvalidation on image files found in a given folder directory.
+#   Either the image files will be partitioned into 2 separate folders OR 2 text files listing their group members is created.
+#   This operation is done depending on the BOOLEAN split_to_folder. The function returns NONE.
+#
+#
+#   <Input>
+#       required STRING folder_dir | The directory path containing all image samples
+#       optional INT k | The k value of k cross validation. The number of test samples generated will be equal to N // k
+#       optional BOOLEAN split_to_folder | The decision of the images in the directory should be moved to separate folders of 'test' and 'train' respectively.
+#                                          TRUE = File list not generated. Image files moved to separated folders.
+#                                          FALSE = File list is generated into 2 text files. {k}folds_train_list.txt and {k}folds_test_list.txt. Image files are not moved.
+#
+#   <Output>
+#       NONE
 def kcrossvalidate(folder_dir, k = 10, split_to_folder = False):
     file_list = getFiles(folder_dir)
     try:
@@ -56,6 +71,14 @@ def kcrossvalidate(folder_dir, k = 10, split_to_folder = False):
         raise Exception("No valid image files in given directory")
 
 
+#   getFiles(STRING folder_dir)
+#   gets a list of filenames without their format (like .jpg) in a given folder directory.
+#
+#
+#   <Input>
+#       required STRING folder_dir | The directory path containing image files.
+#   <Output>
+#       1D-ARRAY<String> filelist | A list of filenames without format tags.
 def getFiles(folder_dir):
     filelist = []
     for file in paths.list_images(folder_dir):
@@ -64,6 +87,16 @@ def getFiles(folder_dir):
     return filelist
 
 
+#   generateTrainIndex(INT total_files, INT k)
+#   given the total number of files and the k value of the k-cross validation scheme, generates at random,
+#   the index of files targetted to be test files. Index are distributed between each partition.
+#
+#
+#   <Input>
+#       required INT total_files | The total number of files.
+#       required INT k | k value of the cross validation scheme.
+#   <Output>
+#       1D-ARRAY<Int> train_sample_indexes | The list of index of train files. (The values are indexed across the entire sample)
 def generateTrainIndex(total_files, k):
     train_sample_indexes = []
     partition_size = total_files//k
@@ -72,8 +105,5 @@ def generateTrainIndex(total_files, k):
         train_sample_indexes.append(index)
 
 
-    return train_sample_indexes #.reverse()
+    return train_sample_indexes
 
-
-if __name__ == '__main__':
-    kcrossvalidate('C:/Users/acer/Desktop/TestSamples/ML-Dataset/CT_SCAN/lbp_reference/controlled/', 5)

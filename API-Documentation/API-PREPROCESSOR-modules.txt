@@ -1,0 +1,79 @@
+[_]
+
+MODULE			#   preprocessor.py
+Attributes		#       
+				#
+Functions		#
+
+				1.#   cropImagesInFolder(INT h1, INT h2, INT w1, INT w2, STRING fol_dir):
+				#   OVERWRITES all image(s) inside a folder directory with its cropped image derived
+				#   with a bounding frame of specified coordinate information.
+				#   images are OVERWRITTEN during the process. But the function returns None.
+				#
+				#
+				#   <Input>
+				#       required INT h1 | the highest pixel y-coordinate of the crop window. AKA the y value of the coordinate nearest to the top source image border.
+				#       required INT h2 | the lowest pixel y-coordinate of the crop window. AKA the y value of the coordinate nearest to the bottom source image border.
+				#       required INT w1 | the most left pixel x-coordinate of the crop window. AKA the x value of the coordinate nearest to the left source image border.
+				#       required INT w2 | the most right pixel x-coordinate of the crop window. AKA the x value of the coordinate nearest to the right source image border.
+				#       required STRING fol_dir | the folder directory which contains all the image(s).
+				#   <Output>
+				#       NONE
+
+				2.#   getHistogram(STRING fol_dir):
+				#   Computes a collective histogram of image intensity information of all image(s) in a specified folder directory.
+				#
+				#
+				#   <Input>
+				#       required STRING fol_dir | the folder directory which contains all the image(s).
+				#   <Output>
+				#       1D-ARRAY<int> final_hist | the histogram representing intensity population of all image(s) in a folder.
+
+				3.#   thresholdImagesInFolder(STRING fol_dir, INT tresh_min, INT tresh_max):
+				#   Applies basic thresholding on image intensity.
+				#   Images are NOT overwritten. Instead, they are stored in a new folder 'thresheld/' on the specified directory.
+				#
+				#
+				#   <Input>
+				#       required STRING fol_dir | the folder directory which contains all the image(s).
+				#       required INT thresh_min | the minimum threshold intensity value.
+				#       required INT thresh_max | the maximum threshold intensity value.
+				#   <Output>
+				#       1D-ARRAY<int> final_hist | the histogram representing intensity population of all image(s) in a folder.
+
+
+				4.#   binaryAND(STRING src1_dir, STRING src2_dir, STRING out_path):
+				#   Combines two binary images together with a binary AND.
+				#   The process writes out binary images. But the function returns NONE.
+				#
+				#
+				#   <Input>
+				#       required STRING src1_dir | the folder directory which contains all the binary image(s).
+				#       required STRING src2_dir | the folder directory which contains all the binary image(s). Paired with src1_dir
+				#       required STRING out_path | the folder directory to output the final image(s).
+				#   <Output>
+				#       NONE
+
+
+				5.#   applyCanny(NUMPY_ARRAY<Image> img, INT tresh1=100, INT tresh2=200, INT kSize=3):
+				#   Applies a Canny Edge detection.
+				#
+				#
+				#   <Input>
+				#       required NUMPY_ARRAY<Image> img | the numpy array representation of an imgge.
+				#       optional INT thresh1 | the threshold1 value for the cannyEdge.
+				#       optional INT thresh2 | the threshold1 value for the cannyEdge.
+				#       optional INT kSize | the size of the filter. MUST be Odd number less than 31.
+				#   <Output>
+				#       NUMPY_ARRAY<Image> cannyImg | the histogram representing intensity population of all image(s) in a folder.
+
+
+				6.#   gammaContrast(NUMPY_ARRAY[Image] img, FLOAT gamma):
+				#   Applies a specified sobel filter to the image.
+				#
+				#
+				#   <Input>
+				#       required NUMPY_ARRAY[Image] img | the numpy array representation of an imgge.
+				#       required FLOAT gamma | the gamma value for contrast correction.
+				#   <Output>
+				#       NUMPY_ARRAY[Image] /Anonymous/ | the gamma contrast corrected image.

@@ -6,10 +6,8 @@ import logs
 import math
 from CONSTANTS import TESTING_LOG, TRAINING_LOG
 
-prediction_log = logs.setupLogger("prediction_log",
-                                  TESTING_LOG)
-training_log = logs.setupLogger("training_log",
-                                TRAINING_LOG)
+prediction_log = logs.setupLogger("prediction_log", TESTING_LOG)
+training_log = logs.setupLogger("training_log", TRAINING_LOG)
 
 #   getStdDevCoeff(NUMPY_ARRAY[Image] img)
 #   computes the standard deviation of an image.

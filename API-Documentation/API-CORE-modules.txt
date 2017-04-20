@@ -1,0 +1,130 @@
+[_]
+
+MODULE			#   core.py
+Attributes		#       
+				#
+Functions		#
+				1.#   maskedToAnnotation(STRING path):
+				#   gets annotated coordinates of an annotated mask image.
+				#
+				#
+				#   <Input>
+				#      required STRING path | Source location of mask image.
+				#   <Output>
+				#      required ANNOTATION annotation | Stores annotated information of a mask image |See [Class Annotation]
+
+				2.#   annotationFromMaskFolder(STRING fol_path):
+				#   gets annotated coordinates of all annotated mask images within a folder directory.
+				#
+				#
+				#   <Input>
+				#      required STRING src | Source location of mask image(s) folder.
+				#   <Output>
+				#      required 1D-ARRAY Annotation | List of Annotation objects, each storing annotation information of an image. | See [Class Annotation]
+
+				3.#   visualizeKeyCoords(1D-ARRAY<Tuple(int,int)> coordinates, TUPLE(int,int) canvas_size):
+				#   Draws a set of given coordinates onto a canvas as annotated pixels. Good for debugging purposes.
+				#   Image is displayed during process. But function will return NONE.
+				#
+				#
+				#   <Input>
+				#       required 1D-ARRAY<Tuple(int,int)> coordinates | A list of tuple of coordinates in (Y,X).
+				#       optional TUPLE(int,int) canvas_size | The dimensions of the canvas in (Y,X).
+				#   <Output>
+				#       NONE
+
+				4.#   writeAnnotation(ANNOTATION annotation, STRING out_path):
+				#   given an Annotation object, write information to a .txt file.
+				#   file is created during process. But function will return NONE
+				#
+				#
+				#   <Input>
+				#       required ANNOTATION annotation | An annotation object, with stored annotation information.
+				#       optional STRING out_path | The output location. | Default = (512,512)
+				#   <Output>
+				#       NONE
+
+				5.#   writeAnnotationToFolder(1D-ARRAY<Annotation> annotations_list, String out_path):
+				#   given a list of Annotation object, and an output folder directory, write annotation(s) into the folder directory
+				#   file(s) are created during process. But function will return NONE
+				#
+				#
+				#   <Input>
+				#       required 1D-ARRAY<Annotation> annotations_list | A list of annotation object(s), with stored annotation information.
+				#       required STRING out_path | The output directory location. (The folder)
+				#   <Output>
+				#       NONE
+
+				6.#   readAnnotation(STRING path):
+				#   reads the annotation information from a .txt file and saves it into an Annotation object
+				#   see [Class Annotation]
+				#
+				#
+				#   <Input>
+				#       required STRING path | the location of the annotation .txt file.
+				#   <Output>
+				#       ANNOTATION annotation | the annotation object containing all the information from the .txt file.
+
+				7.#   readAnnotationFolder(STRING in_dir):
+				#   reads the information of all annotation(s) from all .txt file(s) in a given folder directory
+				#   and saves them into a 1D-Array list of Annotation object(s).
+				#   see [Class Annotation]
+				#
+				#
+				#   <Input>
+				#       required STRING in_dir | the location of the folder containing annotation .txt file(s).
+				#       optional 1D-ARRAY<String> file_list | a list of targeted files to read. IF none specified, all .txt files will be taken.
+				#   <Output>
+				#       1D-ARRAY<Annotation> annotation | the 1D-Array containing all annotation(s) in the same order as the (.txt) files read.
+
+				8.#   *OBSOLETE*
+				#   * No longer used because of poor optimization.
+				#
+				#   generateTexture(ANNOTATION annotation, STRING src_dir, STRING out_dir, TUPLE(int,int) dimensions):
+				#   from an Annotation object, captures an (X by Y) sized tile of the src image and saves it as a new image.
+				#   see [Class Annotation]
+				#   image file(s) are created during process. But function will return NONE
+				#
+				#
+				#   <Input>
+				#       required ANNOTATION annotation | the annotation object that stores annotated coordinates of an image.
+				#       required STRING src_dir | the location directory of the folder containing the image.
+				#       required STRING out_dir | the location directory of the folder where the cropped image is stored.
+				#       optional TUPLE(int,int) dimensions | the X by Y dimension of the texture window. | Default = (73,73)
+				#   <Output>
+				#       NONE
+				#
+
+				9.#   *OBSOLETE*
+				#   * No longer used because of poor optimization.
+				#
+				#   generateTexture(ANNOTATION annotation, STRING src_dir, STRING out_dir, TUPLE(int,int) dimensions):
+				#   from an Annotation object, captures an (X by Y) sized tile of the src image and saves it as a new image.
+				#   see [Class Annotation]
+				#   image file(s) are created during process. But function will return NONE
+				#
+				#
+				#   <Input>
+				#       required 1D-ARRAY<Annotation> annotation | the list of annotation object(s) that stores annotated coordinates of image(s).
+				#       required STRING src_dir | the location directory of the folder containing images.
+				#       required STRING out_dir | the location directory of the folder where the cropped images are stored.
+				#       optional TUPLE(int,int) dimensions | the X by Y dimension of the texture window. | Default = (73,73)
+				#   <Output>
+				#       1D-ARRAY<Annotation> annotation | the 1D-Array containing all annotation(s) in the same order as the (.txt) files read.
+
+				10.#   *ALIASED*
+				#   * Aliased functions perform the same as this function.
+				#   * >getTrainingList
+				#   * >getTestingList
+				#
+				#   getFileList(STRING path):
+				#   Acquires a list of file specified by a .txt file. Usually used to specify which filenames belong to test or train.
+				#
+				#   <Input>
+				#       required STRING src_dir | the location directory of the .txt file specifying a list of filename(s).
+				#   <Output>
+				#       1D-ARRAY<String> file_list | the list of filename(s) as specified in the .txt file given.
+
+ALIASING 		#getTrainingList = getFileList
+				#getTestingList = getFileList
+				#

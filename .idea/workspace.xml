@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/core.py" description="    #   appends new annotated coordinate into the ..." line="498" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cce53985-32aa-40f8-9038-8968dcf8f890" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-CORE-classes.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-CORE-modules.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-CROSSVALIDATOR-modules.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-LBP_Model-classes.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-LBP_Model-modules.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-LOGS-modules.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-MAINLBP-modules-ENTRYPOINT.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/API-Documentation/API-PREPROCESSOR-modules.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hog_model/hog.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hog_model/recognize.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Clusterer/FuzzyOperator.py" afterPath="$PROJECT_DIR$/WIP/Clusterer/FuzzyOperator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Clusterer/__init__.py" afterPath="$PROJECT_DIR$/WIP/Clusterer/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Clusterer/clusterResults.py" afterPath="$PROJECT_DIR$/WIP/Clusterer/clusterResults.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Img.py" afterPath="$PROJECT_DIR$/obsolete/Img.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/hog_model/__init__.py" afterPath="$PROJECT_DIR$/WIP/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sampler/__init__.py" afterPath="$PROJECT_DIR$/WIP/testing _consoles/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sampler/crossvalidator.py" afterPath="$PROJECT_DIR$/crossvalidator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sampler/latestdirectory.txt" afterPath="$PROJECT_DIR$/obsolete/latestdirectory.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/sampler/samplerApplication.py" afterPath="$PROJECT_DIR$/obsolete/samplerApplication.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/testing _consoles/__init__.py" afterPath="$PROJECT_DIR$/obsolete/__init__.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/testing _consoles/console_intercept.py" afterPath="$PROJECT_DIR$/WIP/testing _consoles/console_intercept.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/testing _consoles/console_test.py" afterPath="$PROJECT_DIR$/WIP/testing _consoles/console_test.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core.py" afterPath="$PROJECT_DIR$/core.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/lbp.py" afterPath="$PROJECT_DIR$/lbp_model/lbp.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lbp_model/recognize.py" afterPath="$PROJECT_DIR$/lbp_model/recognize.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs.py" afterPath="$PROJECT_DIR$/logs.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainLBP.py" afterPath="$PROJECT_DIR$/mainLBP.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/metricSystem.py" afterPath="$PROJECT_DIR$/metricSystem.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/preprocessor.py" afterPath="$PROJECT_DIR$/preprocessor.py" />
@@ -28,8 +57,9 @@
     <SUITE FILE_PATH="coverage/LiverSegmentator$hog.coverage" NAME="hog Coverage Results" MODIFIED="1491148389193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/hog_model" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$samplerApplication.coverage" NAME="samplerApplication Coverage Results" MODIFIED="1492586006843" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sampler" />
     <SUITE FILE_PATH="coverage/LiverSegmentator$core.coverage" NAME="core Coverage Results" MODIFIED="1492286023319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lbp_model" />
-    <SUITE FILE_PATH="coverage/LiverSegmentator$metricSystem.coverage" NAME="metricSystem Coverage Results" MODIFIED="1492633159661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/LiverSegmentator$mainLBP.coverage" NAME="mainLBP Coverage Results" MODIFIED="1492620464621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LiverSegmentator$logs.coverage" NAME="logs Coverage Results" MODIFIED="1492689287785" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LiverSegmentator$metricSystem.coverage" NAME="metricSystem Coverage Results" MODIFIED="1492696078963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/LiverSegmentator$mainLBP.coverage" NAME="mainLBP Coverage Results" MODIFIED="1492635517752" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -40,83 +70,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="metricSystem.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/metricSystem.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="mainLBP.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mainLBP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="65" column="37" lean-forward="true" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="preprocessor.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/preprocessor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="145" column="31" lean-forward="true" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="recognize.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lbp_model/recognize.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-776">
-              <caret line="112" column="22" lean-forward="false" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="core.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1364">
-              <caret line="239" column="0" lean-forward="true" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
+            <state relative-caret-position="525">
+              <caret line="27" column="90" lean-forward="false" selection-start-line="27" selection-start-column="90" selection-end-line="27" selection-end-column="90" />
               <folding>
-                <element signature="e#181#193#0" expanded="false" />
-                <element signature="e#521#790#0" expanded="false" />
-                <element signature="e#792#838#0" expanded="false" />
-                <element signature="e#1209#1401#0" expanded="false" />
-                <element signature="e#1403#1492#0" expanded="false" />
-                <element signature="e#1950#2121#0" expanded="false" />
-                <element signature="e#2123#2183#0" expanded="false" />
-                <element signature="e#2582#3105#0" expanded="false" />
-                <element signature="e#3107#3191#0" expanded="false" />
-                <element signature="e#3685#3825#0" expanded="false" />
-                <element signature="e#3825#3857#0" expanded="false" />
-                <element signature="e#4215#4744#0" expanded="false" />
-                <element signature="e#4746#4786#0" expanded="false" />
-                <element signature="e#5412#5847#0" expanded="false" />
-                <element signature="e#5849#5863#0" expanded="false" />
-                <element signature="e#6769#8218#0" expanded="false" />
-                <element signature="e#8220#8234#0" expanded="false" />
-                <element signature="e#9286#9388#0" expanded="false" />
-                <element signature="e#9388#9401#0" expanded="false" />
-                <element signature="e#10133#10143#0" expanded="false" />
-                <element signature="e#13385#13468#0" expanded="false" />
-                <element signature="e#14060#14794#0" expanded="false" />
-                <element signature="e#16198#16288#0" expanded="false" />
-                <element signature="e#19670#19772#0" expanded="false" />
-                <element signature="e#22172#22186#0" expanded="false" />
-                <element signature="e#22547#22586#0" expanded="false" />
-                <element signature="e#22927#22938#0" expanded="false" />
-                <element signature="e#23286#23326#0" expanded="false" />
+                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#2089#2499#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="metricSystem.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/metricSystem.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="393">
+              <caret line="205" column="22" lean-forward="false" selection-start-line="205" selection-start-column="22" selection-end-line="205" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logs.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logs.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -180,20 +162,20 @@
         <option value="$PROJECT_DIR$/Preprocessor.py" />
         <option value="$PROJECT_DIR$/SETTINGS" />
         <option value="$PROJECT_DIR$/SETTINGS.txt" />
-        <option value="$PROJECT_DIR$/lbp_model/lbp.py" />
-        <option value="$PROJECT_DIR$/lbp_model/recognize.py" />
         <option value="$PROJECT_DIR$/TestingShit.py" />
         <option value="$PROJECT_DIR$/lbp_model/core.py" />
         <option value="$PROJECT_DIR$/hog_model/hog.py" />
         <option value="$PROJECT_DIR$/hog_model/recognize.py" />
-        <option value="$PROJECT_DIR$/sampler/crossvalidator.py" />
-        <option value="$PROJECT_DIR$/logs.py" />
-        <option value="$PROJECT_DIR$/Img.py" />
         <option value="$PROJECT_DIR$/CONSTANTS.py" />
+        <option value="$PROJECT_DIR$/mainLBP.py" />
+        <option value="$PROJECT_DIR$/Img.py" />
+        <option value="$PROJECT_DIR$/metricSystem.py" />
+        <option value="$PROJECT_DIR$/logs.py" />
+        <option value="$PROJECT_DIR$/sampler/crossvalidator.py" />
+        <option value="$PROJECT_DIR$/lbp_model/lbp.py" />
+        <option value="$PROJECT_DIR$/lbp_model/recognize.py" />
         <option value="$PROJECT_DIR$/core.py" />
         <option value="$PROJECT_DIR$/preprocessor.py" />
-        <option value="$PROJECT_DIR$/mainLBP.py" />
-        <option value="$PROJECT_DIR$/metricSystem.py" />
       </list>
     </option>
   </component>
@@ -223,7 +205,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -247,12 +228,55 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="WIP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LiverSegmentator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LiverSegmentator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="obsolete" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LiverSegmentator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LiverSegmentator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="lbp_model" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LiverSegmentator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LiverSegmentator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API-Documentation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -261,8 +285,13 @@
     <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/Programs/Python/Python35/python.exe" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
+    <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\acer\PycharmProjects\LiverSegmentator" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\acer\PycharmProjects\LiverSegmentator\obsolete" />
+      <recent name="C:\Users\acer\PycharmProjects\LiverSegmentator" />
+      <recent name="C:\Users\acer\PycharmProjects\LiverSegmentator\WIP" />
       <recent name="C:\Users\acer\PycharmProjects\LiverSegmentator\lbp_model" />
     </key>
   </component>
@@ -317,25 +346,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="crossvalidator" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sampler" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="LiverSegmentator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sampler/crossvalidator.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="samplerApplication" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -369,6 +379,25 @@
       <module name="LiverSegmentator" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/preprocessor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="logs" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="LiverSegmentator" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/logs.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -559,17 +588,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.mainLBP" />
       <item index="1" class="java.lang.String" itemvalue="Python.metricSystem" />
-      <item index="2" class="java.lang.String" itemvalue="Python.crossvalidator" />
-      <item index="3" class="java.lang.String" itemvalue="Python.samplerApplication" />
-      <item index="4" class="java.lang.String" itemvalue="Python.preprocessor" />
+      <item index="2" class="java.lang.String" itemvalue="Python.samplerApplication" />
+      <item index="3" class="java.lang.String" itemvalue="Python.preprocessor" />
+      <item index="4" class="java.lang.String" itemvalue="Python.logs" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.metricSystem" />
-        <item index="1" class="java.lang.String" itemvalue="Python.mainLBP" />
-        <item index="2" class="java.lang.String" itemvalue="Python.preprocessor" />
-        <item index="3" class="java.lang.String" itemvalue="Python.samplerApplication" />
-        <item index="4" class="java.lang.String" itemvalue="Python.crossvalidator" />
+        <item index="1" class="java.lang.String" itemvalue="Python.logs" />
+        <item index="2" class="java.lang.String" itemvalue="Python.mainLBP" />
+        <item index="3" class="java.lang.String" itemvalue="Python.preprocessor" />
+        <item index="4" class="java.lang.String" itemvalue="Python.samplerApplication" />
       </list>
     </recent_temporary>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -608,24 +637,24 @@
   <component name="ToolWindowManager">
     <frame x="-10" y="0" width="1932" height="1090" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26847827" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16521738" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31383577" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31383577" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24972972" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39955604" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39932507" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852387" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32845894" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -666,26 +695,19 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="17" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lbp_model/recognize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="42" column="23" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="15" column="85" lean-forward="true" selection-start-line="15" selection-start-column="85" selection-end-line="15" selection-end-column="85" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/latestdirectory.txt">
+    <entry file="file://$PROJECT_DIR$/obsolete/latestdirectory.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="3" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
@@ -699,14 +721,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="42">
           <caret line="12" column="75" lean-forward="false" selection-start-line="12" selection-start-column="75" selection-end-line="12" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/latestdirectory.txt">
+    <entry file="file://$PROJECT_DIR$/obsolete/latestdirectory.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
@@ -720,7 +742,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="777">
           <caret line="48" column="48" lean-forward="false" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
@@ -734,7 +756,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="777">
           <caret line="48" column="48" lean-forward="true" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
@@ -748,7 +770,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4620">
           <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
@@ -762,7 +784,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4620">
           <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
@@ -776,7 +798,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3675">
           <caret line="184" column="18" lean-forward="false" selection-start-line="184" selection-start-column="18" selection-end-line="184" selection-end-column="18" />
@@ -790,7 +812,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -828,7 +850,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sampler/main.py" />
     <entry file="file://$PROJECT_DIR$/lbp_model/texturePoints.dat" />
-    <entry file="file://$PROJECT_DIR$/sampler/latestdirectory.txt">
+    <entry file="file://$PROJECT_DIR$/obsolete/latestdirectory.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="1" column="1" lean-forward="false" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
@@ -880,61 +902,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hog_model/hog.py">
+    <entry file="file://$PROJECT_DIR$/WIP/hog_model/hog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="11" column="106" lean-forward="false" selection-start-line="11" selection-start-column="102" selection-end-line="11" selection-end-column="106" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sampler/crossvalidator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-63">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py" />
-    <entry file="file://$PROJECT_DIR$/sampler/samplerApplication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3234">
-          <caret line="336" column="0" lean-forward="false" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Img.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TestingShit.py" />
-    <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="47" column="34" lean-forward="false" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hog_model/recognize.py">
+    <entry file="file://$PROJECT_DIR$/WIP/hog_model/recognize.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="14" column="11" lean-forward="true" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -946,74 +926,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core.py">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1364">
-          <caret line="239" column="0" lean-forward="true" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
-          <folding>
-            <element signature="e#181#193#0" expanded="false" />
-            <element signature="e#521#790#0" expanded="false" />
-            <element signature="e#792#838#0" expanded="false" />
-            <element signature="e#1209#1401#0" expanded="false" />
-            <element signature="e#1403#1492#0" expanded="false" />
-            <element signature="e#1950#2121#0" expanded="false" />
-            <element signature="e#2123#2183#0" expanded="false" />
-            <element signature="e#2582#3105#0" expanded="false" />
-            <element signature="e#3107#3191#0" expanded="false" />
-            <element signature="e#3685#3825#0" expanded="false" />
-            <element signature="e#3825#3857#0" expanded="false" />
-            <element signature="e#4215#4744#0" expanded="false" />
-            <element signature="e#4746#4786#0" expanded="false" />
-            <element signature="e#5412#5847#0" expanded="false" />
-            <element signature="e#5849#5863#0" expanded="false" />
-            <element signature="e#6769#8218#0" expanded="false" />
-            <element signature="e#8220#8234#0" expanded="false" />
-            <element signature="e#9286#9388#0" expanded="false" />
-            <element signature="e#9388#9401#0" expanded="false" />
-            <element signature="e#10133#10143#0" expanded="false" />
-            <element signature="e#13385#13468#0" expanded="false" />
-            <element signature="e#14060#14794#0" expanded="false" />
-            <element signature="e#16198#16288#0" expanded="false" />
-            <element signature="e#19670#19772#0" expanded="false" />
-            <element signature="e#22172#22186#0" expanded="false" />
-            <element signature="e#22547#22586#0" expanded="false" />
-            <element signature="e#22927#22938#0" expanded="false" />
-            <element signature="e#23286#23326#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/preprocessor.py">
+    <entry file="file://$PROJECT_DIR$/obsolete/Img.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="145" column="31" lean-forward="true" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="105">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lbp_model/recognize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-776">
-          <caret line="112" column="22" lean-forward="false" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="25" />
+        <state relative-caret-position="378">
+          <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lbp_model/lbp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="243" column="0" lean-forward="false" selection-start-line="243" selection-start-column="0" selection-end-line="244" selection-end-column="28" />
+          <folding>
+            <element signature="e#181#193#0" expanded="false" />
+            <element signature="e#521#790#0" expanded="false" />
+            <element signature="e#1209#1401#0" expanded="false" />
+            <element signature="e#1950#2121#0" expanded="false" />
+            <element signature="e#2582#3105#0" expanded="false" />
+            <element signature="e#3685#3825#0" expanded="false" />
+            <element signature="e#4215#4744#0" expanded="false" />
+            <element signature="e#5412#5847#0" expanded="false" />
+            <element signature="e#6769#8218#0" expanded="false" />
+            <element signature="e#9286#9388#0" expanded="false" />
+            <element signature="e#10133#10143#0" expanded="false" />
+            <element signature="e#11036#22172#0" expanded="false" />
+            <element signature="e#14060#14794#0" expanded="false" />
+            <element signature="e#22172#22186#0" expanded="false" />
+            <element signature="e#22369#23646#0" expanded="false" />
+            <element signature="e#22463#22502#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/obsolete/samplerApplication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5889">
+          <caret line="336" column="0" lean-forward="false" selection-start-line="336" selection-start-column="0" selection-end-line="336" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crossvalidator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="98" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/API-Documentation/API-CORE-classes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mainLBP.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="65" column="37" lean-forward="true" selection-start-line="65" selection-start-column="37" selection-end-line="65" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="525">
+          <caret line="27" column="90" lean-forward="false" selection-start-line="27" selection-start-column="90" selection-end-line="27" selection-end-column="90" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#2089#2499#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/metricSystem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="172" column="0" lean-forward="true" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="393">
+          <caret line="205" column="22" lean-forward="false" selection-start-line="205" selection-start-column="22" selection-end-line="205" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>

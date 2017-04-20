@@ -3,6 +3,7 @@ import numpy as np
 
 # OBSOLETE MODULE. Will be removed in the future.
 
+
 # image class storing relevant image information
 class CTImage:
     def __init__(self, path, name, extention):

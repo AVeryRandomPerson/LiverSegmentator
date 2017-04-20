@@ -34,7 +34,7 @@ class LocalBinaryPatterns:
         else:
             return lbp
 
-    #   describe(NUMPY_ARRAY[Image] lbpImage, Float eps)
+    #   computeHistogram(NUMPY_ARRAY[Image] lbpImage, Float eps)
     #       computes the lbp histogram based on the given lbp image.
     #
     #
@@ -54,16 +54,3 @@ class LocalBinaryPatterns:
         hist /= (hist.sum() + eps)
 
         return hist
-'''
-if __name__ == '__main__':
-    import cv2
-    import recognize
-
-    desc = LocalBinaryPatterns(8,8)
-    img = cv2.imread("C:/Users/acer/Desktop/TestSamples/histEQscan6.jpg",0)
-    hist = desc.describe(img,'H')
-    stdDev = recognize.getStdDevCoeff(img)
-    print(hist)
-    hist = hist + [stdDev]
-    print(hist)
-'''

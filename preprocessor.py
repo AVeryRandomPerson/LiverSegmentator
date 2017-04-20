@@ -92,19 +92,18 @@ def binaryAND(src1_dir, src2_dir, out_dir):
         final_img = cv2.bitwise_and(img1,img2)
         cv2.imwrite(out_dir + fol1_img[i].split('/').pop(), final_img)
 
-#   applySobel(STRING img_path, INT xOrd, INT yOrd, INT kSize):
-#   Applies a specified sobel filter to the image.
+#   applyCanny(NUMPY_ARRAY<Image> img, INT tresh1=100, INT tresh2=200, INT kSize=3):
+#   Applies a Canny Edge detection.
 #
 #
 #   <Input>
 #       required NUMPY_ARRAY<Image> img | the numpy array representation of an imgge.
-#       optional INT xOrd | the order of x. This is the sensitivity of the filter on the horizontal plane.
-#       optional INT yOrd | the order of y. This is the sensitivity of the filter on the vertical plane.
+#       optional INT thresh1 | the threshold1 value for the cannyEdge.
+#       optional INT thresh2 | the threshold1 value for the cannyEdge.
 #       optional INT kSize | the size of the filter. MUST be Odd number less than 31.
 #   <Output>
-#       1D-ARRAY<int> final_hist | the histogram representing intensity population of all image(s) in a folder.
+#       NUMPY_ARRAY<Image> cannyImg | the histogram representing intensity population of all image(s) in a folder.
 def applyCanny(img, tresh1=100, tresh2=200, kSize=3):
-    # process it as 64f then take abs value and fit it to 8u. This helps sobel filter around low intensity.
     if(kSize%2 == 1):
 
         cannyImg = cv2.Canny(img,tresh1,tresh2,apertureSize=kSize)
@@ -132,21 +131,6 @@ def gammaContrast(img, gamma):
     del invGamma
     return cv2.LUT(img, table)
 
-
-if __name__ == '__main__':
-    img = cv2.imread('C:/Users/acer/Desktop/TestSamples/scan6.jpg',0)
-
-    img2 = cv2.equalizeHist(img)
-
-    for g in [0.3, 0.9, 1.0 , 1.2, 1.8]:
-        img3 = gammaContrast(img,g)
-        img4 = gammaContrast(img2,g)
-
-        img3 = applyCanny(img3)
-        img4 = applyCanny(img4)
-
-        cv2.imwrite('C:/Users/acer/Desktop/TestSamples/scan6{0}g_Canny.jpg'.format(g),img3)
-        cv2.imwrite('C:/Users/acer/Desktop/TestSamples/scan6{0}ghEQ_Canny.jpg'.format(g),img4)
 
 
 

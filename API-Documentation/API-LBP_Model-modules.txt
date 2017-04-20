@@ -1,0 +1,126 @@
+[LBP MODEL]
+
+MODULE			#   recognize.py
+Attributes		#       Class that handles the SVM training parameters and the LBP recognition.
+				#       LOG prediction_log   [Log obect which keeps track of prediction executions]
+				#       LOG training_log     [Log obect which keeps track of training executions]
+				#
+				#	
+Functions		#
+
+		1.			#   getStdDevCoeff(NUMPY_ARRAY[Image] img)
+					#   computes the standard deviation of an image.
+					#
+					#   <INPUT>
+					#       required NUMPY_ARRAY[Image] img | the 2d-numpy-array representation of an image.
+					#   <OUTPUT>
+					#       FLOAT /Anonymous/ | the standard deviation coefficient value of the image intensities.
+					#
+		2.			#   getCCM(INT y, INT x, TUPLE(INT,INT) estLiverC)
+					#   computes the distance between the sliding window and the estimated liver center.
+					#
+					#   <INPUT>
+					#       required INT y | y coordinate of sliding window center
+					#       required INT x | x coordinate of sliding window center
+					#       required TUPLE(int,int) estLiverC | estimated liver center coordinate. Format of (Y, X)
+					#   <OUTPUT>
+					#       FLOAT /Anonymous/ | the distance of the sliding window center to the estimated liver center
+					#
+		3.			#   trainLBP(NUMPY_ARRAY[Image] img, 1D-ARRAY<Tuple(Int,Int)> key_points, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions, BOOL useSDV, BOOL useCCM):
+					#   trains an image using LBP feature using a tile size (X , Y) sliding window. Image(s) must already be preprocessed.
+					#
+					#
+					#   <Input>
+					#       required NUMPY_ARRAY[Image] img | A Grayscaled 2D-NUMPY_ARRAY representation of an image.
+					#       required ANNOTATION annotation | The annotated object of the image. See [Class Annotation]
+					#       required LBP descriptor | The descriptor object which generates lbp features. See [Class LocalBinaryPatterns]
+					#       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+					#       optional BOOL useSDV | The decision to use Std Dev Coefficient as part of feature.
+					#       optional BOOL useCCM | The decision if CCM should be use as part of feature.
+					#   <Output>
+					#       1D-ARRAY<Int> data | the histogram representing the lbp feature of the sliding window tile. Index is aligned with labels.
+					#       1D-ARRAY<String> labels | the string information of the class. | The list of classnames which is represented by each of the returned 1D-Array<Int> data. Index is aligned with data.
+					#
+		4.			#   * OBSOLETE *
+					#   * No longer used due to optimization issues, and poor edging responses.
+					#
+					#   trainLBPWithTiles(NUMPY_ARRAY[Image] img, 1D-ARRAY<Tuple(Int,Int)> key_points, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions):
+					#   trains an texture sample image using LBP feature using a tile size (X , Y). Note implementation is not sliding window.
+					#
+					#
+					#   <Input>
+					#       required NUMPY_ARRAY[Image] img | A Grayscaled 2D-NUMPY_ARRAY representation of an image.
+					#       required 1D-ARRAY<Tuple(Int,Int)> key_points | The annotated key points of the given image.
+					#       required LBP descriptor | The descriptor object which generates lbp features. See [Class Local LocalBinaryPatterns Pattern]
+					#       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+					#   <Output>
+					#       1D-ARRAY<Int> data | the histogram representing the lbp feature of the sliding window tile. Index is aligned with labels.
+					#       1D-ARRAY<String> labels | the string information of the class. | The list of classnames which is represented by each of the returned 1D-Array<Int> data. Index is aligned with data.
+					#
+		5.			#   trainLBP(STRING fol_dir, 1D-ARRAY<Annotation> annotations_list, LOCAL_BINARY_PATTERN descriptor, TUPLE(int,int) tile_dimensions, STRING bin_dir, BOOL useSDV, BOOL useCCM):
+					#   trains image(s) in a given directory using LBP feature using a tile size (X , Y) sliding window. Image(s) must already be preprocessed.
+					#
+					#
+					#   <Input>
+					#       required STRING fol_dir | The directory path containing all pre-processed images.
+					#       required 1D-ARRAY<Annotation> annotations_list | A list of Annotation objects corresponding to the images in the folder directory. See [Class Annotation]
+					#       required LBP descriptor | The descriptor object which generates lbp features. See [Class Local LocalBinaryPatterns Pattern]
+					#       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+					#       optional STRING bin_dir | The output path of the binary directory. Output is written to binary files if specified, otherwise, function returns the entire list of data and labels
+					#       optional useSDV | The decision to use Std Dev Coefficient as part of feature.
+					#       optional useCCM | The decision to use Centre cost metric as part of feature.
+					#   <Output>
+					#       bin_dir = None
+					#           1D-ARRAY<Int> all_data | the histogram representing the lbp feature of the sliding window tile. Index is aligned with labels.
+					#           1D-ARRAY<String> all_labels | the string information of the class. | The list of classnames which is represented by each of the returned 1D-Array<Int> data. Index is aligned with data.
+					#
+					#       bin_dir = valid path.
+					#           NONE
+					#
+					#
+		6.			#   predictImage(NUMPY_ARRAY[Image] img, LSVC model, LocalBinaryPatterns descriptor, TUPLE(int,int) tile_dimensions, BOOL useSDV, TUPLE(int,int) estLiverC):
+					#   Using a sliding window of a specifiable size, predicts the class of every pixel to generate a binary image.
+					#
+					#
+					#   <Input>
+					#       required NUMPY_ARRAY[Image] img | A Grayscaled 2D-NUMPY_ARRAY representation of an image
+					#       required LSVC model | A LinearSVC model with training data already fit.
+					#       required LBP descriptor | The descriptor object which generates lbp features. See [Class LocalBinaryPatterns]
+					#       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+					#       optional useSDV | The decision to use Std Dev Coefficient as part of feature.
+					#       optional TUPLE(int,int) estLiverC | The tuple representing the approximate liver center. No actual center because we are predicting not training. None = not using CCM
+					#   <Output>
+					#       NUMPY_ARRAY[Image] img | A Binary 2D-NUMPY_ARRAY representing the predicted image.
+					#
+					#
+		7.			#   predictImageFolder(STRING fol_dir, 1D-ARRAY<String> img_list, LSVC model, LBP descriptor, STRING out_dir TUPLE(int,int) tile_dimensions, BOOL useSDV, TUPLE(int,int) estLiverC):
+					#   Using a sliding window of a specifiable size, predicts the class of every pixel to generate a binary image.
+					#   Binary image files are generated and written to out_dir during process. But the function returns NONE.
+					#
+					#
+					#   <Input>
+					#       required STRING fol_dir | The directory of pre-processed images to predict.
+					#       required 1D-ARRAY<String> img_list | The list of image filenames specifying which images to read in the given directory.
+					#       required LSVC model | A LinearSVC model with training data already fit.
+					#       required LBP descriptor | The descriptor object which generates lbp features. See [Class LocalBinaryPatterns]
+					#       required STRING out_dir | The output directory storing the binary image.
+					#       optional TUPLE(int,int) tile_dimensions | The input tile size of the sliding window. Format is (X , Y)
+					#       optional BOOL useSDV | The decision to use Std Dev Coefficient as part of feature.
+					#       optional TUPLE(int,int) estLiverC | The tuple representing the approximate liver center. No actual center because we are predicting not training. None = Not using CCM
+					#   <Output>
+					#       NONE
+					#
+					#
+		8.			#   fit_models(1D-ARRAY<LSVC> model_list, 1D-ARRAY<int> data, 1D-ARRAY labels):
+					#   Given data and labels, fit into all the models in a model list.
+					#   Each specified model will have data fit into it during the process. They can be used after this. But this function returns NONE.
+					#   Due to memory constrains it is unlikely this function will be used for big datasets.
+					#
+					#
+					#   <Input>
+					#       required 1D-ARRAY<LSVC> model_list | A list of all LSVC models.
+					#       required 1D-ARRAY<int> data | Array containing all the data values corresponding to labels
+					#       required 1D-ARRAY<int> labels | Array containing all the labels corresponding to data.
+					#
+					#   <Output>
+					#       NONE
