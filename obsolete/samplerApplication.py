@@ -245,7 +245,6 @@ class textureSampler(Frame):
     def _request_new_directory(self):
         fol_path = filedialog.askdirectory(parent=self.master, initialdir=self.directory_texts.get(1.0, END).rstrip(), title='Please Specify a FOLDER')
         if(fol_path):
-            fol_path = fol_path + '/'
             file = open('latestdirectory.txt','w')
             file.writelines(fol_path)
             file.close()
@@ -256,7 +255,6 @@ class textureSampler(Frame):
 
 
 
-        print(fol_path)
 
     def _set_new_directory(self, fol_path):
         self.image_files = []

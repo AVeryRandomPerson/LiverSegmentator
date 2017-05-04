@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+import argparse
 
 from imutils import paths
 
@@ -135,3 +136,31 @@ def gammaContrast(img, gamma):
 
 
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--canny", help="The decision to use CannyEdge preprocessing.",
+                        action='store_true')
+
+    parser.add_argument("--gamma", help="The value of gamma in gamma correction preprocessing. 1.0 = NO CHANGE.",
+                        type=float)
+
+    parser.add_argument("--histEQ", help="The decision to use histogram Equalization preprocessing.",
+                        action='store_true')
+    parser.add_argument("--imDir", help="Directory of the image")
+
+    args = parser.parse_args()
+    image = cv2.imread(args.imDir,0)
+    print(image)
+    print(args.imDir)
+
+    if(args.histEQ):
+        image = cv2.equalizeHist(image)
+
+    if(args.gamma != 0.0):
+        image = gammaContrast(image, args.gamma)
+
+    if(args.canny):
+        image = applyCanny(image)
+
+    cv2.imshow("Preprocessed Image",image)
+    cv2.waitKey(0)

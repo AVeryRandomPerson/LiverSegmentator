@@ -322,6 +322,7 @@ class Dataset:
     #       NONE
     def _generateDirectories(self, base_dir, lbp_descriptor, dataset_name):
         self.base_dir = base_dir
+        print(self.base_dir)
         if(not self.base_dir.endswith("\\") or not self.base_dir.endswith("/")):
             base_dir = base_dir + '/'
 
@@ -417,7 +418,7 @@ class Dataset:
     def hasTrainedBinaries(self, tile_dimensions=(73,73), useSDV=False, useCCostMeasure=False):
         annotations = readAnnotationFolder(self.annotation_source, self.train_list)
 
-        final_bin_dir = self.base_dir + self.binary_dir + 'lbp'
+        final_bin_dir = self.binary_dir + 'lbp'
         if(useSDV): final_bin_dir = final_bin_dir + '_sdv'
         if(useCCostMeasure): final_bin_dir = final_bin_dir + '_ccm'
         final_bin_dir = final_bin_dir + '{0}x{1}'.format(tile_dimensions[0],tile_dimensions[1])
@@ -456,8 +457,10 @@ class Dataset:
                     data = data + d
                     labels = labels + l
 
+        print("Fitting DATA:")
         model = LinearSVC(C=C, random_state=42)
         model.fit(data, labels)
+        print("Fitting COMPLETED:")
 
         model_name = 'c{0}_{1}x{2}_{3}'.format(C, tile_dimensions[0], tile_dimensions[1], model_name)
 

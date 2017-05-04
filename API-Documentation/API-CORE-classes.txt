@@ -57,7 +57,7 @@ Methods			#
 			    #       required FLOAT gamma | The gamma value for contrast correction. G = 1.0 gives no change.
 			    #       required BOOL useHistEQ | The decision whether to use histogram equalization. | Future : may implement some parameter flexibility.
 			    #   <Output>
-			    #       STRING datasetname | The unique dataset name from tis characterstics given the parameters.
+			    #       STRING datasetname | The unique dataset name from its characterstics given the parameters.
 
 			2.    #   _generateDirectories(STRING base_dir, LBP lbp_descriptor, STRING dataset_name):
 			    #   Generates all the directories for this database.

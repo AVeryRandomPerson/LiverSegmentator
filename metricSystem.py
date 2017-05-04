@@ -275,3 +275,5 @@ def _getTrainingParams(model_exc):
 
     return dims, c, useSDV, useCCM
 
+if __name__ == '__main__':
+    reportCSV()

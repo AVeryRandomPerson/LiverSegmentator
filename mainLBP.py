@@ -3,8 +3,8 @@ from core import Dataset
 from lbp_model import lbp
 
 
-#   runTrainingProgramme(1D-ARRAY<Float> cList,
-#                          STRING dsBaseDir,
+#   runTrainingProgramme(STRING dsBaseDir,
+#                          1D-ARRAY<Float> cList,
 #                          INT descNPoints,
 #                          INT descRadius,
 #                          INT folds,
@@ -18,8 +18,8 @@ from lbp_model import lbp
 #   Binaries and Predicted Images may be generated and written during the process. But the function itself returns NONE.
 #
 #   <Input>
-#       required 1D-ARRAY<Float> cList | the list of C parameters of the SVC. | Future : May implement more control parameters.
 #       required STRING dsBaseDir | the dataset base directory.
+#       required 1D-ARRAY<Float> cList | the list of C parameters of the SVC. | Future : May implement more control parameters.
 #       required INT descNPoints | the number of points of the lbp descriptor. [See Class Local Binary Patterns]
 #       required INT folds | the k value in the kfolds cross validation used to partition the data.
 #       required BOOL useCannyEdge | the decision to use CannyEdge filters during preprocessing.
@@ -30,10 +30,11 @@ from lbp_model import lbp
 #       optional TUPLE(int, int) tile_dimensions | the size of the sliding window tile for training and testing. Format (X by Y) | Default (73, 73).
 #   <Output>
 #       NONE.
-def runTrainingProgramme(cList, dsBaseDir, descNPoints, descRadius, folds, useCannyEdge, gamma, useHistEQ, useSDV, useCCostMeasure, tile_dimensions=(73,73)):
+def runTrainingProgramme(dsBaseDir, cList, descNPoints, descRadius, folds, useCannyEdge, gamma, useHistEQ, useSDV, useCCostMeasure, tile_dimensions=(73,73)):
     dataset = Dataset(dsBaseDir, lbp.LocalBinaryPatterns(descNPoints, descRadius), folds, useCannyEdge, gamma, useHistEQ)
-    if(not dataset.hasTrainedBinaries()):
-       dataset.trainDataset(tile_dimensions=tile_dimensions, useSDV=useSDV, useCCostMeasure=useCCostMeasure)
+    if(not dataset.hasTrainedBinaries(tile_dimensions = tile_dimensions, useSDV=useSDV, useCCostMeasure=useCCostMeasure)):
+        print("Training DATA.")
+        dataset.trainDataset(tile_dimensions=tile_dimensions, useSDV=useSDV, useCCostMeasure=useCCostMeasure)
 
     for c in cList:
         dataset.lsvcPredictData(C=c, tile_dimensions=tile_dimensions, useSDV=useSDV,useCCostMeasure=useCCostMeasure)
@@ -71,3 +72,4 @@ if __name__ == '__main__':
                          tile_dimensions=(73, 73))
 
 '''
+
